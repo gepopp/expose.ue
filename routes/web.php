@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('meta', 'ObjektMetaController')->middleware('auth');
+Route::resource('realestate', 'RealEstateController')->middleware('auth');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\RealEstate;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $realEstates = RealEstate::all();
+        return view('home')->with(['realEstates' => $realEstates]);
     }
 }
