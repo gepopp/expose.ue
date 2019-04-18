@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\File;
+use Illuminate\Http\File as HFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Image;
+
+
 
 class FileController extends Controller
 {
@@ -42,12 +46,20 @@ class FileController extends Controller
         if($request->file('file')){
             $image = $request->file('file');
             $name = $image->getClientOriginalName();
-            $path = $request->file('file')->store('public/titleimages' );
+            $path = $request->file('file')->store('public/titleimages'  );
+
+            $img = Image::make($image);
+            $img->fit(100);
+            $img->save( $name );
+            $thumb_path = Storage::putFile('public/titleimages', new HFile(public_path() . '/' . $name ));
+            unlink(public_path() . '/' . $name );
+
         }
 
         $image = new File();
         $image->name = $name;
         $image->path = $path;
+        $image->thumb_name = $thumb_path;
         $image->save();
         return response()->json([
             'success' => 'Upload erfolgreich',
