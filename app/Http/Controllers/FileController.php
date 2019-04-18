@@ -42,7 +42,7 @@ class FileController extends Controller
         if($request->file('file')){
             $image = $request->file('file');
             $name = $image->getClientOriginalName();
-            $path = $request->file('file')->store('titleimages' );
+            $path = $request->file('file')->store('public/titleimages' );
         }
 
         $image = new File();
