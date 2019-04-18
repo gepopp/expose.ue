@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFilesTable extends Migration
+class AdTitleimageToRealEstates extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->text('name');
-            $table->text('path');
-            $table->timestamps();
+        Schema::table('real_estates', function (Blueprint $table) {
+            $table->bigInteger('titleimage_id');
         });
-
     }
 
     /**
@@ -29,6 +25,8 @@ class CreateFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('files');
+        Schema::table('real_estates', function (Blueprint $table) {
+            //
+        });
     }
 }

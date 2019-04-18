@@ -13,11 +13,21 @@
                     </div>
 
                     <div class="card-body">
+                        <ul class="list-group-flush">
                         @forelse($realEstates as $realEstate)
+
+                            <li class="list-group-item">
+                               <img src="{{ asset( 'storage/' . $realEstate->titleimage->path) }}" class="img-thumbnail">
+                            </li>
+
+
+
                         @empty
                             <h3 class="text-center">Noch keine Objekte</h3>
                             <a href="{{ route('realestate.create') }}" class="btn btn-success">Neu</a>
                         @endforelse
+                        </ul>
+
                     </div>
                 </div>
             </div>

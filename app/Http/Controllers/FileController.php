@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -22,9 +23,12 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
+
+
+
     }
 
     /**
@@ -35,7 +39,20 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->file('file')){
+            $image = $request->file('file');
+            $name = $image->getClientOriginalName();
+            $path = $request->file('file')->store('titleimages' );
+        }
+
+        $image = new File();
+        $image->name = $name;
+        $image->path = $path;
+        $image->save();
+        return response()->json([
+            'success' => 'Upload erfolgreich',
+            'id' => $image->id
+        ]);
     }
 
     /**
@@ -80,6 +97,7 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        //
+        Storage::delete($file->path);
+        $file->delete();
     }
 }

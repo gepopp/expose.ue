@@ -35,7 +35,16 @@ class RealEstateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+           'name' => 'required|max:50',
+           'description' => 'required',
+           'titleimage_id' => 'required|exists:files,id'
+        ]);
+
+        RealEstate::create($request->all());
+
+        return redirect(route('home'));
+
     }
 
     /**

@@ -10,6 +10,13 @@
                     <div class="card-body">
                         <form method="post" action="{{ route('realestate.store') }}">
                             @csrf
+                            <file-upload></file-upload>
+                            @if ($errors->has('titleimage_id'))
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('titleimage_id') }}</strong>
+                                </span>
+                            @endif
+                            <div class="my-5"></div>
                             <div class="form-group">
                                 <label for="name">{{ __('Titel*') }}</label>
                                 <input id="name" maxlength="50" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
@@ -20,10 +27,11 @@
                                     </span>
                                 @endif
                             </div>
-                            <w-y-s-i-w-y-g name="description" content="{{ old('name') }}"></w-y-s-i-w-y-g>
+                            <label for="description">Beschreibung für Kurzexpose</label>
+                            <w-y-s-i-w-y-g name="description" content="{{ old('description') }}"></w-y-s-i-w-y-g>
                             <div class="form-group mb-0 mt-3">
                                 <button type="submit" class="btn btn-primary btn-sm btn-block">
-                                    {{ __('update') }}
+                                    {{ __('speichern') }}
                                 </button>
                             </div>
                         </form>
@@ -34,8 +42,8 @@
     </div>
 @endsection
 <script>
-    import WYSIWYG from "../../js/components/WYSIWYG";
+    import FileUpload from "../../js/components/FileUpload";
     export default {
-        components: {WYSIWYG}
+        components: {FileUpload}
     }
 </script>
