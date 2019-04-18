@@ -17,7 +17,7 @@
                         @forelse($realEstates as $realEstate)
 
                             <li class="list-group-item">
-                               <img src="{{ asset( 'storage/' . $realEstate->titleimage->path) }}" class="img-thumbnail">
+                               <img src="{{ \Illuminate\Support\Facades\Storage::url($realEstate->titleimage->name)  }}" class="img-thumbnail">
                             </li>
 
 
