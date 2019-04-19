@@ -39,9 +39,11 @@ class ObjektMetaController extends Controller
         $request->validate(['name' => 'required', 'postfix' => 'required']);
 
         $data = ['name' => $request->name, 'slug' => $this->slugify($request->name), 'postfix' => $request->postfix];
-
         ObjektMeta::create($data);
-        return back();
+
+        $metas = ObjektMeta::all();
+
+        return redirect(route('meta.index'))->with(['tooltip' => true]);
 
     }
 
@@ -82,7 +84,7 @@ class ObjektMetaController extends Controller
         $data = ['name' => $request->name, 'slug' => $this->slugify($request->name), 'postfix' => $request->postfix];
 
         $metum->update($data);
-        return redirect(route('meta.index'));
+        return redirect(route('meta.index'))->with(['tooltip' => true]);
     }
 
     /**
@@ -94,7 +96,7 @@ class ObjektMetaController extends Controller
     public function destroy(ObjektMeta $metum)
     {
         $metum->delete();
-        return back();
+        return redirect(route('meta.index'))->with(['tooltip' => true]);
     }
 
 
@@ -123,6 +125,17 @@ class ObjektMetaController extends Controller
         }
 
         return $text;
+    }
+
+    public function sort(){
+        $metas = ObjektMeta::get();
+        return view('meta.sort')->with(['metas' => $metas]);
+    }
+
+    public function resort(Request $request){
+        foreach($request->all() as $key => $meta){
+            ObjektMeta::find( $meta['id'])->update([ 'order' => $key]);
+        }
     }
 
 

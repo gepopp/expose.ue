@@ -7,6 +7,8 @@
 
 require('./bootstrap');
 
+require('./tooltips');
+
 window.Vue = require('vue');
 
 import CKEditor from '@ckeditor/ckeditor5-vue';
@@ -34,3 +36,6 @@ Vue.use( CKEditor );
 const app = new Vue({
     el: '#app',
 });
+
+
+

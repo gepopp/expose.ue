@@ -8,7 +8,13 @@
                     <div class="card-header d-flex justify-content-between"><span>Meta Daten Felder</span>
                         <span>
                             <a href="{{ route('meta.create') }}" class="btn btn-success btn-sm">Neu</a>
-
+                            <a href="{{ route('meta.sort') }}"
+                               class="btn btn-default btn-sm sorting"
+                               data-toggle="tooltip"
+                               data-trigger="manual"
+                               data-placement="top"
+                               data-show="{{ session('tooltip') }}"
+                               title="Hier kannst du jetzt die Ausgabereihenfolge der Metadaten festelgen.">sortieren</a>
                         </span>
                     </div>
 
@@ -44,3 +50,9 @@
         </div>
     </div>
 @endsection
+<script>
+    import MetaList from "../../js/components/MetaList";
+    export default {
+        components: {MetaList}
+    }
+</script>

@@ -20,4 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('meta', 'ObjektMetaController')->middleware('auth');
+Route::get('metasort', 'ObjektMetaController@sort')->middleware('auth')->name('meta.sort');
 Route::resource('realestate', 'RealEstateController')->middleware('auth');

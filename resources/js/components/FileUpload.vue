@@ -43,9 +43,8 @@
             },
             remove(file, error, xhr){
 
-                axios({
+                axios.post({
                     url: '/api/file/' + this.upload_id + '/destroy',
-                    method: 'DELETE',
                 });
                 this.upload_id = '';
 

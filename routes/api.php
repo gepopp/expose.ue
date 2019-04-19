@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('file', 'FileController@store');
 Route::delete('file/{file}/destroy', 'FileController@destroy');
+
+Route::post('metasort', 'ObjektMetaController@resort');
