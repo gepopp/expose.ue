@@ -37,7 +37,7 @@ class RealEstateController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-           'name' => 'required|max:50',
+           'name' => 'required|max:100',
            'description' => 'required',
            'titleimage_id' => 'required|exists:files,id'
         ]);
@@ -80,7 +80,7 @@ class RealEstateController extends Controller
     public function update(Request $request, RealEstate $realestate)
     {
         $request->validate([
-            'name' => 'required|max:50',
+            'name' => 'required|max:100',
             'description' => 'required',
             'titleimage_id' => 'required|exists:files,id'
         ]);

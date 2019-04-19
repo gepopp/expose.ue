@@ -19,8 +19,8 @@
                             <div class="my-5"></div>
                             <div class="form-group">
                                 <label for="name">{{ __('Titel*') }}</label>
-                                <input id="name" maxlength="50" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-                                <small>max. 50 Zeichen</small>
+                                <input id="name" maxlength="100" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                <small>max. 100 Zeichen</small>
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
