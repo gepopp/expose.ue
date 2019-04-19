@@ -41,7 +41,7 @@ class TitlepagePDF extends Fpdf
         $this->setXY(20, 140);
         $this->SetFont('helvetica', null, 18 );
 
-        $this->MultiCell(108, 8, $this->realEstate->name, 0, 'L');
+        $this->MultiCell(108, 8,  iconv('UTF-8', 'windows-1252',$this->realEstate->name), 0, 'L');
 
     }
 
