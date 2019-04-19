@@ -45,12 +45,11 @@ class FileController extends Controller
     {
         if($request->file('file')){
             $image = $request->file('file');
+            $mime = $image->getClientMimeType();
             $name = $image->getClientOriginalName();
             $path = $request->file('file')->store('public/titleimages'  );
 
-            $img = Image::make($image);
-            $img->fit(100);
-            $img->save( $name );
+            Image::make($image)->fit(100)->save( $name );
             $thumb_path = Storage::putFile('public/titleimages', new HFile(public_path() . '/' . $name ));
             unlink(public_path() . '/' . $name );
 
@@ -60,6 +59,8 @@ class FileController extends Controller
         $image->name = $name;
         $image->path = $path;
         $image->thumb_name = $thumb_path;
+        $image->size =  Storage::size($path);
+        $image->type = $mime;
         $image->save();
         return response()->json([
             'success' => 'Upload erfolgreich',

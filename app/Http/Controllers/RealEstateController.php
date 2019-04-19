@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\RealEstate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RealEstateController extends Controller
 {
@@ -64,9 +65,9 @@ class RealEstateController extends Controller
      * @param  \App\RealEstate  $realEstate
      * @return \Illuminate\Http\Response
      */
-    public function edit(RealEstate $realEstate)
+    public function edit(RealEstate $realestate)
     {
-        //
+        return view('realestate.edit')->with( ['realEstate' => $realestate ]);
     }
 
     /**
@@ -76,9 +77,16 @@ class RealEstateController extends Controller
      * @param  \App\RealEstate  $realEstate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RealEstate $realEstate)
+    public function update(Request $request, RealEstate $realestate)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:50',
+            'description' => 'required',
+            'titleimage_id' => 'required|exists:files,id'
+        ]);
+
+        $realestate->update($request->all());
+        return redirect(route('home'));
     }
 
     /**
@@ -87,8 +95,13 @@ class RealEstateController extends Controller
      * @param  \App\RealEstate  $realEstate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RealEstate $realEstate)
+    public function destroy(RealEstate $realestate)
     {
-        //
+
+        Storage::delete($realestate->titleimage->path);
+        Storage::delete($realestate->titleimage->thumb_name);
+        $realestate->titleimage->delete();
+        $realestate->delete();
+        return back();
     }
 }

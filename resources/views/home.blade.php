@@ -24,7 +24,19 @@
                                         </div>
                                         <div>
                                             <p><strong>{{ $realEstate->name }}</strong></p>
-                                            <a href="{{ route('realestate.edit', $realEstate) }}">bearbeiten</a>
+                                            <div class="d-flex">
+                                                <div>
+                                                    <a href="{{ route('realestate.edit', $realEstate ) }}" class="btn btn-default btn-sm">bearbeiten</a>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <form method="post" action="{{ route('realestate.destroy', $realEstate) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-default btn-sm d-inline">löschen</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </li>

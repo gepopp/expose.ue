@@ -2,7 +2,15 @@
 
 <template>
     <div>
-        <vue-dropzone id="drop1" :options="config" @vdropzone-complete="afterComplete" @vdropzone-success="uploaded" @vdropzone-removed-file="remove"></vue-dropzone>
+        <vue-dropzone
+                id="drop1"
+                ref="titleimage"
+                :options="config"
+                @vdropzone-complete="afterComplete"
+                @vdropzone-success="uploaded"
+                @vdropzone-removed-file="remove"
+                @vdropzone-mounted="prepopulate"
+        ></vue-dropzone>
         <input type="hidden" :value="upload_id" name="titleimage_id">
     </div>
 </template>
@@ -11,13 +19,15 @@
     import vueDropzone from "vue2-dropzone";
 
     export default {
+        props: ['mfile'],
         data: () => ({
             config: {
                 url: "/api/file",
                 dictDefaultMessage: 'Titelbild hier ablegen.',
                 addRemoveLinks: true,
-                thumbnailWidth: 650,
                 acceptedMimeTypes: 'image/*',
+                thumbnailWidth: null,
+                thumbnailHeight: null,
 
             },
             upload_id: 0
@@ -37,9 +47,21 @@
                     url: '/api/file/' + this.upload_id + '/destroy',
                     method: 'DELETE',
                 });
+                this.upload_id = '';
 
+
+            },
+            prepopulate(){
+
+
+                if(typeof this.mfile == "undefined") return true;
+                    var file = JSON.parse(this.mfile);
+                    this.$refs.titleimage.manuallyAddFile({size: file.size, name: file.name, type: file.type }, 'https://uehlein-expose.s3.eu-central-1.amazonaws.com/' + file.path);
+                    this.upload_id = file.id;
 
             }
+        },
+        mounted: function () {
 
         }
     };

@@ -1839,16 +1839,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['mfile'],
   data: function data() {
     return {
       config: {
         url: "/api/file",
         dictDefaultMessage: 'Titelbild hier ablegen.',
         addRemoveLinks: true,
-        thumbnailWidth: 650,
-        acceptedMimeTypes: 'image/*'
+        acceptedMimeTypes: 'image/*',
+        thumbnailWidth: null,
+        thumbnailHeight: null
       },
       upload_id: 0
     };
@@ -1866,8 +1876,20 @@ __webpack_require__.r(__webpack_exports__);
         url: '/api/file/' + this.upload_id + '/destroy',
         method: 'DELETE'
       });
+      this.upload_id = '';
+    },
+    prepopulate: function prepopulate() {
+      if (typeof this.mfile == "undefined") return true;
+      var file = JSON.parse(this.mfile);
+      this.$refs.titleimage.manuallyAddFile({
+        size: file.size,
+        name: file.name,
+        type: file.type
+      }, 'https://uehlein-expose.s3.eu-central-1.amazonaws.com/' + file.path);
+      this.upload_id = file.id;
     }
-  }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -37940,11 +37962,13 @@ var render = function() {
     "div",
     [
       _c("vue-dropzone", {
+        ref: "titleimage",
         attrs: { id: "drop1", options: _vm.config },
         on: {
           "vdropzone-complete": _vm.afterComplete,
           "vdropzone-success": _vm.uploaded,
-          "vdropzone-removed-file": _vm.remove
+          "vdropzone-removed-file": _vm.remove,
+          "vdropzone-mounted": _vm.prepopulate
         }
       }),
       _vm._v(" "),
@@ -50573,8 +50597,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/expose.ue/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/expose.ue/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\gerha\OneDrive\projekte\expose.ue\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\gerha\OneDrive\projekte\expose.ue\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
