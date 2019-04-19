@@ -24,18 +24,25 @@
                                         </div>
                                         <div>
                                             <p><strong>{{ $realEstate->name }}</strong></p>
-                                            <div class="d-flex">
-                                                <div>
-                                                    <a href="{{ route('realestate.edit', $realEstate ) }}" class="btn btn-default btn-sm">bearbeiten</a>
-                                                </div>
-                                                <div class="ml-3">
+                                            <ul class="nav">
+
+                                                <li class="nav-item">
+                                                    <a href="{{ route('realestate.edit', $realEstate ) }}" class="nav-link">bearbeiten</a>
+                                                </li>
+                                                <li class="nav-item">
                                                     <form method="post" action="{{ route('realestate.destroy', $realEstate) }}">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-default btn-sm d-inline">löschen</button>
+                                                        <a class="nav-link" onclick="form.submit();" style="cursor: pointer">löschen</a>
                                                     </form>
-                                                </div>
-                                            </div>
+                                                </li>
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">PDF's</a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="nav-link" href="{{ route('titlepage', $realEstate) }}" target="_blank">Titelseite</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </li>
