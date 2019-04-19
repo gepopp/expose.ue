@@ -37,6 +37,7 @@ class TitlepagePDF extends Fpdf
         $resize = Image::make($image)->fit( (int)((297/2)*3),630)->save( public_path('tmp/') . $this->realEstate->titleimage->name);
         $this->Image(public_path('tmp/' . $this->realEstate->titleimage->name), 297/2,0,297/2, 210 );
         $this->Image(public_path('img/logo-vertikal.png'), 20,50, 108 );
+        $this->Image(public_path('img/doties.png'), 0,89.5, null, 40 );
 
         $this->setXY(20, 140);
         $this->SetFont('helvetica', null, 18 );
