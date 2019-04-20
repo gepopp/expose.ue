@@ -8,7 +8,7 @@ use Fpdf\Fpdf;
 use Illuminate\Support\Facades\Storage;
 use Image;
 
-class TitlepagePDFLogoSmall extends Fpdf
+class TitlepagePDFLogoSmall extends FPDFbase
 {
 
     protected $realEstate;
