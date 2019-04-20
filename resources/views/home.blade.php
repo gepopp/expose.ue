@@ -26,8 +26,12 @@
                                             <p><strong>{{ $realEstate->name }}</strong></p>
                                             <ul class="nav">
 
-                                                <li class="nav-item">
-                                                    <a href="{{ route('realestate.edit', $realEstate ) }}" class="nav-link">bearbeiten</a>
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">bearbeiten</a>
+                                                    <div class="dropdown-menu">
+                                                        <a href="{{ route('realestate.edit', $realEstate ) }}" class="nav-link">Grunddaten</a>
+                                                        <a href="{{ route('galleries', $realEstate ) }}" class="nav-link">Gallerien</a>
+                                                    </div>
                                                 </li>
                                                 <li class="nav-item">
                                                     <form method="post" action="{{ route('realestate.destroy', $realEstate) }}">

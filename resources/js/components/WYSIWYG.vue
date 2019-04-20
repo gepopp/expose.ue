@@ -15,7 +15,7 @@
                 editor: ClassicEditor,
                 editorData: this.content,
                 editorConfig: {
-                    removePlugins: [ 'Heading', 'Image' ],
+                    removePlugins: [ 'Heading' ],
                     toolbar: [ 'bold', 'italic', 'Link', 'blockQuote', 'NumberedList',  'BulletedList' ]
                 },
             };

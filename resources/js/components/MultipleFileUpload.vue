@@ -4,34 +4,34 @@
     <div>
         <vue-dropzone
                 id="drop1"
-                ref="titleimage"
+                ref="gallery"
                 :options="config"
                 @vdropzone-complete="afterComplete"
                 @vdropzone-success="uploaded"
                 @vdropzone-removed-file="remove"
                 @vdropzone-mounted="prepopulate"
         ></vue-dropzone>
-        <input type="hidden" :value="upload_id" name="titleimage_id">
+        <input type="hidden" :value="upload_id" name="uploaded">
     </div>
 </template>
 
 <script>
     import vueDropzone from "vue2-dropzone";
-
     export default {
         props: ['mfile'],
         data: () => ({
             config: {
                 url: "/api/file",
-                dictDefaultMessage: 'Titelbild hier ablegen.',
+                dictDefaultMessage: 'Dateien hier ablegen.',
                 addRemoveLinks: true,
                 acceptedMimeTypes: 'image/*',
-                thumbnailWidth: null,
-                thumbnailHeight: null,
-                dictRemoveFile: 'Bild löschen'
+                thumbnailWidth: 150,
+                thumbnailHeight: 150,
+                dictRemoveFile: 'Bild löschen',
+                maxFiles: 10
 
             },
-            upload_id: 0
+            upload_id: []
         }),
         components: {
             vueDropzone
@@ -40,14 +40,16 @@
             afterComplete(file, response) {
             },
             uploaded(file, response){
-                this.upload_id = response.id;
+                this.upload_id.push( response.id );
             },
             remove(file, error, xhr){
 
-                axios.post({
-                    url: '/api/file/' + this.upload_id + '/destroy',
-                });
-                this.upload_id = '';
+                // axios.post({
+                //     url: '/api/file/' + this.upload_id + '/destroy',
+                // });
+                // this.upload_id.filter(function(ele){
+                //     return ele != value;
+                // });
 
 
             },
@@ -66,28 +68,3 @@
         }
     };
 </script>
-<style scoped>
-    .dropzone .dz-preview {
-        position: relative;
-        display: inline-block;
-        vertical-align: top;
-        margin: 0;
-        width: 100%;
-        min-height: 100px;
-    }
-    .dropzone .dz-preview .dz-image {
-        border-radius: 20px;
-        overflow: hidden;
-        width: 100%;
-        height: auto;
-        position: relative;
-        display: block;
-        z-index: 10;
-    }
-    .dropzone .dz-preview .dz-image img {
-        display: block;
-        width: 100%;
-        height: auto;
-
-    }
-</style>

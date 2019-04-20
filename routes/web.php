@@ -23,6 +23,10 @@ Route::resource('meta', 'ObjektMetaController')->middleware('auth');
 Route::get('metasort', 'ObjektMetaController@sort')->middleware('auth')->name('meta.sort');
 Route::resource('realestate', 'RealEstateController')->middleware('auth');
 
+Route::get('/realestate/{realEstate}/gallery/create', 'RealEstateGalleryController@create' )->middleware('auth')->name('creategallery');
+Route::get('/realestate/{realEstate}/gallery', 'RealEstateGalleryController@index' )->middleware('auth')->name('galleries');
+Route::post('/realestate/{realEstate}/gallery/store', 'RealEstateGalleryController@store' )->middleware('auth')->name('storegallery');
+
 
 Route::get('titlepage/{realestate}', function (\App\RealEstate $realestate){
 
