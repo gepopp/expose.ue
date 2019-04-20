@@ -36,6 +36,13 @@ Route::get('titlepageh/{realestate}', function (\App\RealEstate $realestate){
     $pdf->get();
 })->name('titlepageh');
 
+Route::get('titlepages/{realestate}', function (\App\RealEstate $realestate){
+
+    $pdf = new App\pdf\TitlepagePDFLogoSmall($realestate);
+    $pdf->get();
+})->name('titlepages');
+
+
 Route::get('descriptionpage/{realestate}', function (\App\RealEstate $realestate){
 
     $pdf = new App\pdf\ObjectDescription($realestate);

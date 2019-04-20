@@ -41,6 +41,7 @@
                                                     <div class="dropdown-menu">
                                                         <a class="nav-link" href="{{ route('titlepage', $realEstate) }}" target="_blank">Titelseite</a>
                                                         <a class="nav-link" href="{{ route('titlepageh', $realEstate) }}" target="_blank">Titelseite horizontal</a>
+                                                        <a class="nav-link" href="{{ route('titlepages', $realEstate) }}" target="_blank">Titelseite kleines Logo</a>
                                                         <a class="nav-link" href="{{ route('desc', $realEstate) }}" target="_blank">Beschreibung</a>
                                                     </div>
                                                 </li>
