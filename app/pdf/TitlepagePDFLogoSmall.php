@@ -4,19 +4,21 @@
 namespace App\pdf;
 
 use App\RealEstate;
-use Fpdf\Fpdf;
+use TCPDF;
 use Illuminate\Support\Facades\Storage;
 use Image;
 
-class TitlepagePDFLogoSmall extends FPDFbase
+class TitlepagePDFLogoSmall extends TCPDF
 {
 
     protected $realEstate;
 
     public function __construct( RealEstate $realEstate,  $orientation = 'L', $unit = 'mm', $size = 'A4' ) {
         $this->realEstate = $realEstate;
-
         parent::__construct( $orientation, $unit, $size );
+        $this->setPrintFooter(false);
+        $this->setPrintHeader(false);
+        $this->SetAutoPageBreak(false, 0);
     }
 
     public function firstPage(){

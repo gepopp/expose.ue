@@ -5,13 +5,14 @@ namespace App\pdf;
 
 use App\RealEstate;
 use Fpdf\Fpdf;
+use TCPDF;
 use Illuminate\Support\Facades\Storage;
 use Image;
 
-class ObjectDescription extends FPDFbase
+class ObjectDescription extends TCPDF
 {
 
-    use WriteHtml;
+
 
     protected $realEstate;
 
@@ -19,6 +20,9 @@ class ObjectDescription extends FPDFbase
     {
         $this->realEstate = $realEstate;
         parent::__construct($orientation, $unit, $size);
+        $this->setPrintFooter(false);
+        $this->setPrintHeader(false);
+        $this->SetAutoPageBreak(false, 0);
     }
 
     public function firstPage()
@@ -51,7 +55,7 @@ class ObjectDescription extends FPDFbase
         $this->SetFont('helvetica', null, 10);
         $this->SetXY(25,50);
         $this->SetMargins(25,40,25);
-        $this->MultiCell(247, 6, $this->WriteHTML($this->realEstate->description));
+        $this->MultiCell(247, 6, $this->realEstate->description, 0, 'L', 0, null, 25, 50, null, 0, true);
 
         $this->SetXY(25, 191);
         $this->Cell(247 / 4, 4, 'Mag. Doris Uehlein', null, 0, 'L');

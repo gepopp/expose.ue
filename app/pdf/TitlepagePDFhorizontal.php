@@ -4,11 +4,11 @@
 namespace App\pdf;
 
 use App\RealEstate;
-use Fpdf\Fpdf;
+use TCPDF;
 use Illuminate\Support\Facades\Storage;
 use Image;
 
-class TitlepagePDFhorizontal extends FPDFbase
+class TitlepagePDFhorizontal extends TCPDF
 {
 
     protected $realEstate;
@@ -17,6 +17,8 @@ class TitlepagePDFhorizontal extends FPDFbase
         $this->realEstate = $realEstate;
 
         parent::__construct( $orientation, $unit, $size );
+        $this->setPrintHeader(false);
+        $this->setPrintFooter(false);
     }
 
     public function firstPage(){
@@ -46,12 +48,10 @@ class TitlepagePDFhorizontal extends FPDFbase
 
         $this->SetFillColor( 204,153,51);
         $this->Rect(297/2, 145, 297/2, 40, 'F' );
-
-
         $this->setXY(297/2 + 5, 150);
         $this->SetTextColor(255,255,255);
         $this->SetFont('helvetica', null, 18 );
-        $this->MultiCell((297/2)-10, 8,  iconv('UTF-8', 'windows-1252',$this->realEstate->name), 0, 'R');
+        $this->MultiCell((297/2)-10, 8,  $this->realEstate->name, 0, 'R');
 
     }
 
