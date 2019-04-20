@@ -29,3 +29,9 @@ Route::get('titlepage/{realestate}', function (\App\RealEstate $realestate){
     $pdf = new App\pdf\TitlepagePDF($realestate);
     $pdf->get();
 })->name('titlepage');
+
+Route::get('descriptionpage/{realestate}', function (\App\RealEstate $realestate){
+
+    $pdf = new App\pdf\ObjectDescription($realestate);
+    $pdf->get();
+})->name('desc');

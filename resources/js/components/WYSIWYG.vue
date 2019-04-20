@@ -15,7 +15,8 @@
                 editor: ClassicEditor,
                 editorData: this.content,
                 editorConfig: {
-                    // The configuration of the editor.
+                    removePlugins: [ 'Heading' ],
+                    toolbar: [ 'bold', 'italic', 'Link', 'blockQuote' ]
                 },
             };
         }
