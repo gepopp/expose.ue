@@ -26,6 +26,7 @@ Route::resource('realestate', 'RealEstateController')->middleware('auth');
 Route::get('/realestate/{realEstate}/gallery/create', 'RealEstateGalleryController@create' )->middleware('auth')->name('creategallery');
 Route::get('/realestate/{realEstate}/gallery', 'RealEstateGalleryController@index' )->middleware('auth')->name('galleries');
 Route::post('/realestate/{realEstate}/gallery/store', 'RealEstateGalleryController@store' )->middleware('auth')->name('storegallery');
+Route::delete('/realestate/{realEstate}/gallery/{realEstateGallery}/delete', 'RealEstateGalleryController@destroy' )->middleware('auth')->name('deletegallery');
 
 
 Route::get('titlepage/{realestate}', function (\App\RealEstate $realestate){

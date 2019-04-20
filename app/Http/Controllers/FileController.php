@@ -110,7 +110,6 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        Storage::delete($file->path);
         $file->delete();
     }
 }

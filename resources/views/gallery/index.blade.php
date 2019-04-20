@@ -14,15 +14,25 @@
 
                     <div class="card-body">
                         <ul class="list-group-flush"></ul>
-                        @forelse($galleries as $gallery)
+                        @forelse($galleries as $realEstateGallery)
                             <li class="list-group-item d-flex justify-content-between">
                                 <div>
-                                    <p>{{ $gallery->name }}</p>
-                                    <p>{{ $gallery->files->count() }} Bilder</p>
+                                    <p>{{ $realEstateGallery->name }}</p>
+                                    <p>{{ $realEstateGallery->files->count() }} Bilder</p>
                                 </div>
                                 <div>
-                                    <a href="#">bearbeiten</a>
-                                    <a href="#">löschen</a>
+                                    <p><a href="#">bearbeiten</a> |
+                                    <form method="post" action="{{ route('deletegallery', [$realEstate, $realEstateGallery]) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a onclick="$(this).closest('form').submit();">löschen</a>
+                                    </form>
+
+
+                                    </p>
+                                    <p>
+                                        @if($realEstateGallery->is_public) öffentliche Galerie @else private Galerie @endif
+                                    </p>
                                 </div>
                             </li>
                         @empty

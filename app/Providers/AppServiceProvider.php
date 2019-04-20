@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Observers\FileObserver;
 use Illuminate\Support\ServiceProvider;
+use App\File;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        File::observe(FileObserver::class);
     }
 }

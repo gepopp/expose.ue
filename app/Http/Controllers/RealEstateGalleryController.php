@@ -6,6 +6,7 @@ use App\File;
 use App\RealEstate;
 use App\RealEstateGallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RealEstateGalleryController extends Controller
 {
@@ -103,8 +104,12 @@ class RealEstateGalleryController extends Controller
      * @param  \App\RealEstateGallery  $realEstateGallery
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RealEstateGallery $realEstateGallery)
+    public function destroy(RealEstate $realEstate, RealEstateGallery $realEstateGallery)
     {
-        //
+        foreach($realEstateGallery->files as $file){
+            $file->delete();
+        }
+        $realEstateGallery->delete();
+        return back();
     }
 }
