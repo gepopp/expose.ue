@@ -40,6 +40,7 @@
                                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">PDF's</a>
                                                     <div class="dropdown-menu">
                                                         <a class="nav-link" href="{{ route('titlepage', $realEstate) }}" target="_blank">Titelseite</a>
+                                                        <a class="nav-link" href="{{ route('titlepageh', $realEstate) }}" target="_blank">Titelseite horizontal</a>
                                                         <a class="nav-link" href="{{ route('desc', $realEstate) }}" target="_blank">Beschreibung</a>
                                                     </div>
                                                 </li>

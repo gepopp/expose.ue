@@ -30,6 +30,12 @@ Route::get('titlepage/{realestate}', function (\App\RealEstate $realestate){
     $pdf->get();
 })->name('titlepage');
 
+Route::get('titlepageh/{realestate}', function (\App\RealEstate $realestate){
+
+    $pdf = new App\pdf\TitlepagePDFhorizontal($realestate);
+    $pdf->get();
+})->name('titlepageh');
+
 Route::get('descriptionpage/{realestate}', function (\App\RealEstate $realestate){
 
     $pdf = new App\pdf\ObjectDescription($realestate);
