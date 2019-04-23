@@ -36,14 +36,15 @@
                                     <file-upload mfile="null" maxfiles="1" folder="titleimages"></file-upload>
                                     @if ($errors->has('file_id'))
                                         <div>
-                                             <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
+                                            <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
                                         </div>
                                     @endif
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-2 offset-10">
-                                    <upload-locked-submit-button></upload-locked-submit-button>
+
+                                <div class="row">
+                                    <div class="col-2 offset-10">
+                                        <upload-locked-submit-button></upload-locked-submit-button>
+                                    </div>
                                 </div>
                             </div>
                         </form>

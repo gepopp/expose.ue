@@ -52,10 +52,10 @@
                                     @endif
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2 offset-10">
-                                <upload-locked-submit-button></upload-locked-submit-button>
+                            <div class="row">
+                                <div class="col-2 offset-10">
+                                    <upload-locked-submit-button></upload-locked-submit-button>
+                                </div>
                             </div>
                         </div>
                     </form>
