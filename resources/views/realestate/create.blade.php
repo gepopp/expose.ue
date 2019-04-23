@@ -29,7 +29,7 @@
                                             <span class="text-danger"><strong>{{ $errors->first('description') }}</strong></span>
                                         </div>
                                     @endif
-                                    <upload-locked-submit-button></upload-locked-submit-button>
+
                                 </div>
                                 <div class="col-6">
                                     <label>Titelbild</label>
@@ -39,6 +39,11 @@
                                              <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
                                         </div>
                                     @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 offset-10">
+                                    <upload-locked-submit-button></upload-locked-submit-button>
                                 </div>
                             </div>
                         </form>

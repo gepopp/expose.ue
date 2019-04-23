@@ -38,7 +38,7 @@
                                             <span class="text-danger"><strong>{{ $errors->first('description') }}</strong></span>
                                         </div>
                                     @endif
-                                    <upload-locked-submit-button></upload-locked-submit-button>
+
                                 </div>
                                 <div class="col-8">
                                     <label>Bild upload
@@ -51,6 +51,11 @@
                                         </div>
                                     @endif
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2 offset-10">
+                                <upload-locked-submit-button></upload-locked-submit-button>
                             </div>
                         </div>
                     </form>
