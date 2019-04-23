@@ -93,7 +93,7 @@ class RealEstateGalleryController extends Controller
         foreach ($files as $file) {
             $realEstateGallery->images()->save(File::find($file));
         }
-        return redirect(route('galleries', $realEstate));
+        return redirect(route('gallery.sort', [$realEstate, $realEstateGallery]));
     }
 
     public function SortAndLabel(RealEstate $realEstate, RealEstateGallery $realEstateGallery)
