@@ -41,23 +41,29 @@ class RealEstateGalleryController extends Controller
     public function store(RealEstate $realEstate, Request $request)
     {
 
+        $request->validate([
+           'name' => 'required',
+           'description' => 'required',
+           'file_id' =>  'required'
+        ],[
+            'name.required' => 'Bitte geben Sie eine Bezeichnung ein!',
+            'description.required' => 'Bitte geben Sie eine Beschreibung ein!',
+            'file_id.required' =>  'Bitte laden Sie mind. eine Datei hoch!'
+        ]);
+
         $gallery = new RealEstateGallery();
         $gallery = $gallery->create([
             'name' => $request->name,
             'description' => $request->description,
             'real_estate_id' => $realEstate->id,
-            'is_public' => $request->is_public ?: 0
+            'is_public' => $request->is_public ?: 0,
         ]);
 
-        $files = explode(',', $request->uploaded);
-
-        foreach($files as $file){
-            File::where('id', $file)->update(['real_estate_gallery_id' => $gallery->id]);
+        $files = explode(',', $request->file_id);
+        foreach ($files as $file){
+            $gallery->images()->save(File::find($file));
         }
-
-        $realEstate = RealEstate::find($realEstate->id);
-        dd($realEstate);
-
+        return redirect(route('galleries', $realEstate));
 
 
 
@@ -81,9 +87,9 @@ class RealEstateGalleryController extends Controller
      * @param  \App\RealEstateGallery  $realEstateGallery
      * @return \Illuminate\Http\Response
      */
-    public function edit(RealEstateGallery $realEstateGallery)
+    public function edit(RealEstate $realEstate, RealEstateGallery $realEstateGallery)
     {
-        //
+        return view('gallery.edit')->with(['realEstate' => $realEstate, 'realEstateGallery' => $realEstateGallery]);
     }
 
     /**
@@ -93,9 +99,29 @@ class RealEstateGalleryController extends Controller
      * @param  \App\RealEstateGallery  $realEstateGallery
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RealEstateGallery $realEstateGallery)
+    public function update(Request $request, RealEstate $realEstate, RealEstateGallery $realEstateGallery)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'file_id' =>  'required'
+        ],[
+            'name.required' => 'Bitte geben Sie eine Bezeichnung ein!',
+            'description.required' => 'Bitte geben Sie eine Beschreibung ein!',
+            'file_id.required' =>  'Bitte laden Sie mind. eine Datei hoch!'
+        ]);
+
+       $realEstateGallery->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'is_public' => $request->is_public ?: 0,
+        ]);
+
+        $files = explode(',', $request->file_id);
+        foreach ($files as $file){
+            $realEstateGallery->images()->save(File::find($file));
+        }
+        return redirect(route('galleries', $realEstate));
     }
 
     /**
@@ -106,9 +132,6 @@ class RealEstateGalleryController extends Controller
      */
     public function destroy(RealEstate $realEstate, RealEstateGallery $realEstateGallery)
     {
-        foreach($realEstateGallery->files as $file){
-            $file->delete();
-        }
         $realEstateGallery->delete();
         return back();
     }

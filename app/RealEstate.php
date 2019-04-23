@@ -10,14 +10,11 @@ class RealEstate extends Model
 
     protected $with = ['titleimage', 'gallery'];
 
-
-    public function titleimage(){
-
-        return $this->hasOne(File::class, 'id', 'titleimage_id');
-
-    }
-
     public function gallery(){
         return $this->hasMany(RealEstateGallery::class, 'real_estate_id');
+    }
+
+    public function titleimage(){
+        return $this->morphOne(File::class, 'uploadable');
     }
 }

@@ -18,17 +18,15 @@
                             <li class="list-group-item d-flex justify-content-between">
                                 <div>
                                     <p>{{ $realEstateGallery->name }}</p>
-                                    <p>{{ $realEstateGallery->files->count() }} Bilder</p>
+                                    <p>{{ $realEstateGallery->images->count() }} Bilder</p>
                                 </div>
                                 <div>
-                                    <p><a href="#">bearbeiten</a> |
-                                    <form method="post" action="{{ route('deletegallery', [$realEstate, $realEstateGallery]) }}">
+                                    <p><a href="{{ route('editgallery', [ $realEstate, $realEstateGallery ]) }}">bearbeiten</a> |
+                                    <form method="post" action="{{ route('deletegallery', [$realEstate, $realEstateGallery]) }}" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <a onclick="$(this).closest('form').submit();">löschen</a>
+                                        <a onclick="$(this).closest('form').submit();" href="#">löschen</a>
                                     </form>
-
-
                                     </p>
                                     <p>
                                         @if($realEstateGallery->is_public) öffentliche Galerie @else private Galerie @endif

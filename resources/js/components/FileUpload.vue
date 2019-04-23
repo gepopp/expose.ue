@@ -1,73 +1,104 @@
 // FileUpload.vue
 
 <template>
-    <div>
+    <div :class="{ 'single-upload' : this.maxfiles == '1'}">
         <vue-dropzone
                 id="drop1"
-                ref="titleimage"
+                ref="uploader"
                 :options="config"
                 @vdropzone-complete="afterComplete"
                 @vdropzone-success="uploaded"
                 @vdropzone-removed-file="remove"
                 @vdropzone-mounted="prepopulate"
+                @vdropzone-processing="processing"
         ></vue-dropzone>
-        <input type="hidden" :value="upload_id" name="titleimage_id">
+        <input type="hidden" :value="upload_id" name="file_id">
     </div>
 </template>
 
+
 <script>
     import vueDropzone from "vue2-dropzone";
-
     export default {
-        props: ['mfile'],
+        components: { vueDropzone },
+        props: ['mfile', 'folder', 'uploadable', 'uploadableid', 'maxfiles'],
         data: () => ({
             config: {
-                url: "/api/file",
-                dictDefaultMessage: 'Titelbild hier ablegen.',
+                url: 'file',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                withCredentials: true,
+                dictDefaultMessage: 'Datei hier ablegen.',
                 addRemoveLinks: true,
                 acceptedMimeTypes: 'image/*',
+                dictRemoveFile: 'Bild löschen',
                 thumbnailWidth: null,
                 thumbnailHeight: null,
-                dictRemoveFile: 'Bild löschen'
-
             },
-            upload_id: 0
+            upload_id: []
         }),
-        components: {
-            vueDropzone
-        },
         methods: {
-            afterComplete(file, response) {
+            uploaded(file, response) {
+                this.upload_id.push(response.id);
+                file.id = response.id;
             },
-            uploaded(file, response){
-                this.upload_id = response.id;
-            },
-            remove(file, error, xhr){
-
-                axios.post({
-                    url: '/api/file/' + this.upload_id + '/destroy',
+            remove(file, error, xhr) {
+                axios({
+                    url: '/file/' + file.id,
+                    method: 'DELETE',
                 });
-                this.upload_id = '';
-
-
+                this.upload_id = this.upload_id.filter(function (ele) {
+                    return ele != file.id;
+                });
             },
-            prepopulate(){
+            processing(file) {
+                this.$eventHub.$emit('upload-started');
+            },
+            afterComplete() {
+                this.$eventHub.$emit('upload-done');
+            },
+            prepopulate() {
+
+                if (this.mfile == "null" || typeof this.mfile == "undefined") return true;
+                var files = JSON.parse(this.mfile);
+                var uploader = this.$refs.uploader;
+                var upload_id = this.upload_id;
+                var maxfiles = this.maxfiles;
+
+                files.forEach(function (file) {
 
 
-                if(typeof this.mfile == "undefined") return true;
-                    var file = JSON.parse(this.mfile);
-                    this.$refs.titleimage.manuallyAddFile({size: file.size, name: file.name, type: file.type }, 'https://uehlein-expose.s3.eu-central-1.amazonaws.com/' + file.path);
-                    this.upload_id = file.id;
+                    var thumb = maxfiles == "1" ?  file.path : file.thumb_name;
 
+                    uploader.manuallyAddFile({
+                        size: file.size,
+                        name: file.name,
+                        type: file.type,
+                        id: file.id
+                    }, 'https://uehlein-expose.s3.eu-central-1.amazonaws.com/' + thumb );
+                    upload_id.push(file.id);
+                });
             }
+
         },
         mounted: function () {
 
-        }
+            this.$refs.uploader.setOption('thumbnailWidth', 150);
+            this.$refs.uploader.setOption('thumbnailHeight', 150);
+
+            if(typeof this.uploadable != "undefined" && typeof this.uploadableid != 'undefined'){
+                this.$refs.uploader.setOption('url', '/file/'+this.folder+'/' + this.uploadable + '/' + this.uploadableid);
+            }else{
+                this.$refs.uploader.setOption('url', '/file/' + this.folder);
+            }
+            this.$refs.uploader.setOption('maxFiles', this.maxfiles);
+
+        },
     };
 </script>
-<style scoped>
-    .dropzone .dz-preview {
+<style>
+    .single-upload .dropzone .dz-preview {
         position: relative;
         display: inline-block;
         vertical-align: top;
@@ -75,8 +106,9 @@
         width: 100%;
         min-height: 100px;
     }
-    .dropzone .dz-preview .dz-image {
-        border-radius: 20px;
+
+    .single-upload .dropzone .dz-preview .dz-image {
+        border-radius: 0;
         overflow: hidden;
         width: 100%;
         height: auto;
@@ -84,10 +116,14 @@
         display: block;
         z-index: 10;
     }
-    .dropzone .dz-preview .dz-image img {
+
+    .single-upload .dropzone .dz-preview .dz-image img {
         display: block;
         width: 100%;
         height: auto;
 
+    }
+    .dropzone .dz-preview .dz-image {
+        border-radius: 0;
     }
 </style>

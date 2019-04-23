@@ -8,7 +8,8 @@ class File extends Model
 {
     protected $guarded = [];
 
-    public function gallery(){
-        return $this->belongsTo(RealEstateGallery::class );
+
+    function uploadable(){
+        return $this->morphTo();
     }
 }

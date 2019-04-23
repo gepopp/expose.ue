@@ -2,22 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\File;
 use App\RealEstate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class RealEstateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -39,10 +30,19 @@ class RealEstateController extends Controller
         $request->validate([
            'name' => 'required|max:100',
            'description' => 'required',
-           'titleimage_id' => 'required|exists:files,id'
+           'file_id' => 'required|exists:files,id'
+        ],[
+            'name.required' => 'Bitte geben Sie eine Bezeichnung ein!',
+            'description.required' => 'Bitte geben Sie eine Beschreibung ein!',
+            'file_id.required' =>  'Bitte laden Sie mind. eine Datei hoch!'
         ]);
 
-        RealEstate::create($request->all());
+        $realEstate = RealEstate::create([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+
+        $realEstate->titleimage()->save(File::find($request->file_id));
 
         return redirect(route('home'));
 
@@ -82,10 +82,19 @@ class RealEstateController extends Controller
         $request->validate([
             'name' => 'required|max:100',
             'description' => 'required',
-            'titleimage_id' => 'required|exists:files,id'
+            'file_id' => 'required|exists:files,id'
+        ],[
+            'name.required' => 'Bitte geben Sie eine Bezeichnung ein!',
+            'description.required' => 'Bitte geben Sie eine Beschreibung ein!',
+            'file_id.required' =>  'Bitte laden Sie mind. eine Datei hoch!'
         ]);
 
-        $realestate->update($request->all());
+        $realestate->update([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+        File::find($request->file_id)->uploadable($realestate);
+
         return redirect(route('home'));
     }
 
@@ -97,10 +106,6 @@ class RealEstateController extends Controller
      */
     public function destroy(RealEstate $realestate)
     {
-
-        Storage::delete($realestate->titleimage->path);
-        Storage::delete($realestate->titleimage->thumb_name);
-        $realestate->titleimage->delete();
         $realestate->delete();
         return back();
     }

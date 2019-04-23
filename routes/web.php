@@ -17,16 +17,28 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+Route::post('file/{folder}', 'FileController@store');
+Route::post('file/{folder}/{uploadable}/{uploaableid}', 'FileController@store');
+Route::delete('file/{file}', 'FileController@destroy');
+
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('meta', 'ObjektMetaController')->middleware('auth');
 Route::get('metasort', 'ObjektMetaController@sort')->middleware('auth')->name('meta.sort');
 Route::resource('realestate', 'RealEstateController')->middleware('auth');
 
-Route::get('/realestate/{realEstate}/gallery/create', 'RealEstateGalleryController@create' )->middleware('auth')->name('creategallery');
-Route::get('/realestate/{realEstate}/gallery', 'RealEstateGalleryController@index' )->middleware('auth')->name('galleries');
-Route::post('/realestate/{realEstate}/gallery/store', 'RealEstateGalleryController@store' )->middleware('auth')->name('storegallery');
-Route::delete('/realestate/{realEstate}/gallery/{realEstateGallery}/delete', 'RealEstateGalleryController@destroy' )->middleware('auth')->name('deletegallery');
+Route::get('/realestate/{realEstate}/realEstateGallery/create', 'RealEstateGalleryController@create' )->middleware('auth')->name('creategallery');
+Route::get('/realestate/{realEstate}/realEstateGallery', 'RealEstateGalleryController@index' )->middleware('auth')->name('galleries');
+Route::post('/realestate/{realEstate}/realEstateGallery/store', 'RealEstateGalleryController@store' )->middleware('auth')->name('storegallery');
+Route::get('/realestate/{realEstate}/realEstateGallery/{realEstateGallery}/edit', 'RealEstateGalleryController@edit' )->middleware('auth')->name('editgallery');
+
+Route::put('/realestate/{realEstate}/realEstateGallery/{realEstateGallery}/update', 'RealEstateGalleryController@update' )->middleware('auth')->name('updategallery');
+
+
+Route::delete('/realestate/{realEstate}/realEstateGallery/{realEstateGallery}/delete', 'RealEstateGalleryController@destroy' )->middleware('auth')->name('deletegallery');
 
 
 Route::get('titlepage/{realestate}', function (\App\RealEstate $realestate){

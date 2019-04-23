@@ -32,6 +32,7 @@ Vue.use( CKEditor );
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.prototype.$eventHub = new Vue(); // Global event bus
 
 const app = new Vue({
     el: '#app',
