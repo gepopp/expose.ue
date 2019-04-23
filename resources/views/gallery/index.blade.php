@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <span>Bildgallerien</span>
@@ -18,7 +18,11 @@
                             <li class="list-group-item d-flex justify-content-between">
                                 <div>
                                     <p>{{ $realEstateGallery->name }}</p>
-                                    <p>{{ $realEstateGallery->images->count() }} Bilder</p>
+                                    <p>{{ $realEstateGallery->images->count() }} Bilder - <a href="{{ route('gallery.sort', [$realEstate, $realEstateGallery]) }}">sortieren und beschriften</a> </p>
+                                    @foreach($realEstateGallery->images as $image)
+                                        <img src="{{ Storage::url($image->thumb_name) }}" class="img-thumbnail d-inline" width="50">
+                                    @endforeach
+
                                 </div>
                                 <div>
                                     <p><a href="{{ route('editgallery', [ $realEstate, $realEstateGallery ]) }}">bearbeiten</a> |

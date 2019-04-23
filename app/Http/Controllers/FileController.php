@@ -14,26 +14,6 @@ use Image;
 class FileController extends Controller
 {
 
-        /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-
-
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -77,6 +57,17 @@ class FileController extends Controller
             return response()->json(['success' => 'Upload erfolgreich', 'id' => $file->id]);
         }
     }
+
+    public function sort(Request $request){
+        foreach($request->all() as $key => $file){
+            File::find( $file['id'])->update([ 'order' => $key]);
+        }
+    }
+
+    public function update(Request $request, File $file){
+        $file->update($request->all());
+    }
+
 
     /**
      * Remove the specified resource from storage.

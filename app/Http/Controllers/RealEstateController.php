@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\File;
+use App\ObjektMeta;
 use App\RealEstate;
+use App\RealEstateMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +18,8 @@ class RealEstateController extends Controller
      */
     public function create()
     {
-        return view('realestate.create');
+        $metas = ObjektMeta::all();
+        return view('realestate.create')->with('metas', $metas);
     }
 
     /**

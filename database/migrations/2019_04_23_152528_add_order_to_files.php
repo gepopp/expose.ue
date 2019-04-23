@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFileMetasTable extends Migration
+class AddOrderToFiles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateFileMetasTable extends Migration
      */
     public function up()
     {
-        Schema::create('file_metas', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+        Schema::table('files', function (Blueprint $table) {
+            $table->bigInteger('order')->nullable()->default(0);
         });
     }
 
@@ -26,6 +25,8 @@ class CreateFileMetasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('file_metas');
+        Schema::table('files', function (Blueprint $table) {
+            //
+        });
     }
 }
