@@ -33,11 +33,24 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="row">
                                 <div class="col-12">
                                     <h3>Metadaten</h3>
                                 </div>
-                               <meta-list metas="{{ json_encode($metas) }}"></meta-list>
-
+                                @foreach($metas as $meta)
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="inlineFormInputGroup">{{ $meta->name }}</label>
+                                            <div class="input-group mb-2">
+                                                <input type="text" class="form-control" id="inlineFormInputGroup">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">{{ $meta->postfix }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                             <div class="row">
                                 <div class="col-2 offset-10">
                                     <upload-locked-submit-button></upload-locked-submit-button>
@@ -52,7 +65,15 @@
 @endsection
 <script>
     import MetaList from "../../../js/components/MetaList";
+
     export default {
         components: {MetaList}
+    }
+</script>
+<script>
+    import GridTest from "../../../js/components/GridTest";
+
+    export default {
+        components: {GridTest}
     }
 </script>
