@@ -52,6 +52,11 @@ Route::post('/sort/gallery', 'FileController@sort')->middleware('auth');
 Route::get('realestate/{realEstate}/realEstateMeta', 'RealEstateMetaController@index')->middleware('auth')->name('realestate.meta.index');
 Route::get('realestate/{realEstate}/realEstateMeta/create', 'RealEstateMetaController@create')->middleware('auth')->name('realestate.meta.create');
 Route::post('realestate/{realEstate}/realEstateMeta', 'RealEstateMetaController@store')->middleware('auth')->name('realestate.meta.store');
+Route::post('realestate/{realEstate}/realEstateMeta/{realEstateMeta}/sort', 'RealEstateMetaController@sort')->middleware('auth')->name('realestate.meta.sort');
+Route::get('realestate/{realEstate}/realEstateMeta/{realEstateMeta}/edit', 'RealEstateMetaController@edit')->middleware('auth')->name('realestate.meta.edit');
+Route::put('realestate/{realEstate}/realEstateMeta/{realEstateMeta}', 'RealEstateMetaController@update')->middleware('auth')->name('realestate.meta.update');
+Route::delete('realestate/{realEstate}/realEstateMeta/{realEstateMeta}', 'RealEstateMetaController@destroy')->middleware('auth')->name('realestate.meta.destroy');
+
 
 
 

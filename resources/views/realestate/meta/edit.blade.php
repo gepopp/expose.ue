@@ -10,13 +10,14 @@
                     </div>
                     <div class="card-body">
 
-                        <form method="post" action="{{ route('realestate.meta.store', $realEstate) }}">
+                        <form method="post" action="{{ route('realestate.meta.update', [$realEstate, $realEstateMeta]) }}">
                             @csrf
+                            @method('PUT')
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="name">{{ __('Titel*') }}</label>
-                                        <input id="name" maxlength="100" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                        <input id="name" maxlength="100" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?: $realEstateMeta->name }}" required autofocus>
                                         <small>max. 100 Zeichen</small>
                                         @if ($errors->has('name'))
                                             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('name') }}</strong></span>
@@ -25,7 +26,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label>Bild</label>
-                                    <file-upload mfile="null" maxfiles="1" folder="metaimges"></file-upload>
+                                    <file-upload mfile="{{ json_encode( [$realEstateMeta->image] ) }}" maxfiles="1" folder="metaimges"></file-upload>
                                     @if ($errors->has('file_id'))
                                         <div>
                                             <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
@@ -37,12 +38,12 @@
                                 <div class="col-12">
                                     <h3>Metadaten</h3>
                                 </div>
-                                @foreach($metas as $meta)
+                                @foreach(json_decode($realEstateMeta->metadata) as $meta)
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="meta-{{$meta->slug}}">{{ $meta->name }}</label>
                                             <div class="input-group mb-2">
-                                                <input type="text" class="form-control" id="meta-{{$meta->slug}}" name="meta[{{$meta->id}}][]">
+                                                <input type="text" class="form-control" id="meta-{{$meta->slug}}" name="meta[{{$meta->id}}][]" value="{{ isset($meta->value) ? $meta->value : '' }}">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">{{ $meta->postfix }}</div>
                                                 </div>

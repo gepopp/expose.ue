@@ -14,14 +14,35 @@
 
                     <div class="card-body">
                         <ul class="list-group-flush">
-                            <li class="list-group-item">
-                                @forelse($realEstate->meta as $meta)
 
+                                @forelse($realEstate->meta as $realEstateMeta)
+                                <li class="list-group-item">
+                                    <div class="d-flex">
+                                        <div class="mr-3">
+                                            <img src="{{ Storage::url($realEstateMeta->image->thumb_name) }}" class="img-thumbnail mr-3">
+                                        </div>
+                                        <div class="w-100 ">
+                                            <h3 class="d-flex justify-content-between">
+                                                {{ $realEstateMeta->name }}
+                                            <div>
+                                                <a href="{{ route('realestate.meta.edit', [$realEstate, $realEstateMeta]) }}" class="btn btn-success">bearbeiten</a>
+                                                <form method="post" action="{{ route('realestate.meta.destroy', [$realEstate, $realEstateMeta]) }}" class="d-inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-danger">löschen</button>
+
+                                                </form>
+                                            </div>
+                                            </h3>
+                                           <meta-sort metas="{{ $realEstateMeta->metadata }}" metaId="{{ $realEstateMeta->id }}" realestateid="{{ $realEstate->id }}"></meta-sort>
+                                    </div>
+
+                                </li>
                                 @empty
                                     <h3 class="text-center">Noch keine Daten</h3>
                                     <a href="{{ route('realestate.meta.create', $realEstate) }}" class="btn btn-success">Neu</a>
                                 @endforelse
-                            </li>
+
                         </ul>
                     </div>
                 </div>
