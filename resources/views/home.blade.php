@@ -41,6 +41,7 @@
                                                     <a href="{{ route('realestate.edit', $realEstate ) }}" class="nav-link">Grunddaten</a>
                                                     <a href="{{ route('galleries', $realEstate ) }}" class="nav-link">Gallerien</a>
                                                     <a href="{{ route('realestate.meta.index', $realEstate ) }}" class="nav-link">Metadaten</a>
+                                                    <a href="{{ route('realestate.text.index', $realEstate ) }}" class="nav-link">Texte</a>
                                                 </div>
                                             </li>
                                             <li class="nav-item dropdown">

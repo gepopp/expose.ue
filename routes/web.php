@@ -57,6 +57,13 @@ Route::get('realestate/{realEstate}/realEstateMeta/{realEstateMeta}/edit', 'Real
 Route::put('realestate/{realEstate}/realEstateMeta/{realEstateMeta}', 'RealEstateMetaController@update')->middleware('auth')->name('realestate.meta.update');
 Route::delete('realestate/{realEstate}/realEstateMeta/{realEstateMeta}', 'RealEstateMetaController@destroy')->middleware('auth')->name('realestate.meta.destroy');
 
+/** Real Estate Text */
+Route::get('realestate/{realEstate}/realEstateText', 'RealEstateTextController@index')->middleware('auth')->name('realestate.text.index');
+Route::get('realestate/{realEstate}/realEstateText/create', 'RealEstateTextController@create')->middleware('auth')->name('realestate.text.create');
+Route::post('realestate/{realEstate}/realEstateText', 'RealEstateTextController@store')->middleware('auth')->name('realestate.text.store');
+Route::get('realestate/{realEstate}/realEstateText/{realEstateText}/edit', 'RealEstateTextController@edit')->middleware('auth')->name('realestate.text.edit');
+Route::put('realestate/{realEstate}/realEstateText/{realEstateText}', 'RealEstateTextController@update')->middleware('auth')->name('realestate.text.update');
+Route::delete('realestate/{realEstate}/realEstateText/{realEstateText}', 'RealEstateTextController@destroy')->middleware('auth')->name('realestate.text.destroy');
 
 
 
