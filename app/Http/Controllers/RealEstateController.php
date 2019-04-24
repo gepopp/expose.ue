@@ -18,8 +18,7 @@ class RealEstateController extends Controller
      */
     public function create()
     {
-        $metas = ObjektMeta::all();
-        return view('realestate.create')->with('metas', $metas);
+        return view('realestate.create');
     }
 
     /**

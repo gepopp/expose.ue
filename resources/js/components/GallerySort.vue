@@ -1,6 +1,6 @@
 <template>
     <div class="root">
-        <SlickList lockAxis="y" v-model="items" class="list-group-flush" @input="updateList" :useDragHandle="true">
+        <SlickList lockAxis="y" v-model="items" class="list-group-flush" @input="updateList" :useDragHandle="true" style="max-height: 500px;overflow-x:scroll">
             <SlickItem v-for="(item, index) in items" :index="index" :key="index" class="list-group-item">
 
                 <div class="row">
@@ -27,7 +27,6 @@
 
 <script>
     import {SlickList, SlickItem, HandleDirective} from 'vue-slicksort';
-
     export default {
         name: "GallerySort",
         directives: {handle: HandleDirective},
@@ -40,6 +39,8 @@
             return {
                 items: JSON.parse(this.images),
                 handle: true,
+                useWindowAsScrollContainer: true
+
             };
         },
         methods: {
@@ -67,6 +68,8 @@
 
 </script>
 
-<style scoped>
-
+<style>
+   body{
+       max-height: 100vh;
+   }
 </style>

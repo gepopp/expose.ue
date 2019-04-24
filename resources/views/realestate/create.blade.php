@@ -39,11 +39,6 @@
                                             <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
                                         </div>
                                     @endif
-                                    <label>Objektdaten</label>
-                                    @foreach($metas as $meta)
-                                        <label>{{ $meta->name  }}</label>
-                                        <input name="meta[$meta->slug]" type="text" class="form-control">
-                                    @endforeach
                                 </div>
                             </div>
 
