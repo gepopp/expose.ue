@@ -2071,6 +2071,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MetaList",
@@ -38490,8 +38497,7 @@ var render = function() {
       _c(
         "SlickList",
         {
-          staticClass: "list-group-flush",
-          attrs: { lockAxis: "y" },
+          staticClass: "row",
           on: { input: _vm.updateList },
           model: {
             value: _vm.items,
@@ -38504,15 +38510,25 @@ var render = function() {
         _vm._l(_vm.items, function(item, index) {
           return _c(
             "SlickItem",
-            {
-              key: index,
-              staticClass: "list-group-item",
-              attrs: { index: index }
-            },
+            { key: index, staticClass: "col-4", attrs: { index: index } },
             [
-              _c("span", { staticClass: "mr-2" }, [_vm._v(_vm._s(index))]),
-              _c("span", { staticClass: "float-right" }, [
-                _vm._v(_vm._s(item.name) + " ( " + _vm._s(item.postfix) + " )")
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "inlineFormInputGroup" } }, [
+                  _vm._v(_vm._s(item.name))
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group mb-2" }, [
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "text", id: "inlineFormInputGroup" }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group-append" }, [
+                    _c("div", { staticClass: "input-group-text" }, [
+                      _vm._v(_vm._s(item.postfix))
+                    ])
+                  ])
+                ])
               ])
             ]
           )

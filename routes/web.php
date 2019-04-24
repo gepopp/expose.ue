@@ -15,36 +15,48 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Auth::routes();
 
 
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+/** File upload, delete, label and sort */
 Route::post('file/{folder}', 'FileController@store');
 Route::post('file/{folder}/{uploadable}/{uploaableid}', 'FileController@store');
 Route::delete('file/{file}', 'FileController@destroy');
 Route::put('file/{file}', 'FileController@update');
 
-
-
-Route::get('/home', 'HomeController@index')->name('home');
-
+/** Meta Route */
 Route::resource('meta', 'ObjektMetaController')->middleware('auth');
 Route::get('metasort', 'ObjektMetaController@sort')->middleware('auth')->name('meta.sort');
+
+
+/** Real Estate */
 Route::resource('realestate', 'RealEstateController')->middleware('auth');
 
+
+/** Image Galleries */
 Route::get('/realestate/{realEstate}/realEstateGallery/create', 'RealEstateGalleryController@create' )->middleware('auth')->name('creategallery');
 Route::get('/realestate/{realEstate}/realEstateGallery', 'RealEstateGalleryController@index' )->middleware('auth')->name('galleries');
 Route::post('/realestate/{realEstate}/realEstateGallery/store', 'RealEstateGalleryController@store' )->middleware('auth')->name('storegallery');
 Route::get('/realestate/{realEstate}/realEstateGallery/{realEstateGallery}/edit', 'RealEstateGalleryController@edit' )->middleware('auth')->name('editgallery');
-
 Route::get('/realestate/{realEstate}/realEstateGallery/{realEstateGallery}/sort', 'RealEstateGalleryController@sortAndLabel' )->middleware('auth')->name('gallery.sort');
-
 Route::put('/realestate/{realEstate}/realEstateGallery/{realEstateGallery}/update', 'RealEstateGalleryController@update' )->middleware('auth')->name('updategallery');
-
 Route::delete('/realestate/{realEstate}/realEstateGallery/{realEstateGallery}/delete', 'RealEstateGalleryController@destroy' )->middleware('auth')->name('deletegallery');
-
 Route::post('/sort/gallery', 'FileController@sort')->middleware('auth');
 
+/** Metadata */
+Route::get('realestate/{realEstate}/realEstateMeta', 'RealEstateMetaController@index')->middleware('auth')->name('realestate.meta.index');
+Route::get('realestate/{realEstate}/realEstateMeta/create', 'RealEstateMetaController@create')->middleware('auth')->name('realestate.meta.create');
+Route::post('realestate/{realEstate}/realEstateMeta', 'RealEstateMetaController@store')->middleware('auth')->name('realestate.meta.store');
 
+
+
+
+/** PDF */
 Route::get('titlepage/{realestate}', function (\App\RealEstate $realestate){
 
     $pdf = new App\pdf\TitlepagePDF($realestate);

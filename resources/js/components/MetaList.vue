@@ -1,11 +1,18 @@
 <template>
     <div class="root">
-        <SlickList lockAxis="y" v-model="items" class="list-group-flush" @input="updateList">
-            <SlickItem v-for="(item, index) in items" :index="index" :key="index" class="list-group-item">
-                <span class="mr-2">{{ index }}</span><span class="float-right">{{ item.name }} ( {{ item.postfix }} )</span>
+        <SlickList v-model="items" class="row" @input="updateList">
+            <SlickItem v-for="(item, index) in items" :index="index" :key="index" class="col-4">
+                    <div class="form-group">
+                        <label for="inlineFormInputGroup">{{ item.name }}</label>
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control" id="inlineFormInputGroup">
+                            <div class="input-group-append">
+                                <div class="input-group-text">{{ item.postfix }}</div>
+                            </div>
+                        </div>
+                    </div>
             </SlickItem>
         </SlickList>
-
     </div>
 </template>
 

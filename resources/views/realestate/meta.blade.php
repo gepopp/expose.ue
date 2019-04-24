@@ -16,9 +16,3 @@
         </div>
     </div>
 @endsection
-<script>
-    import MetaForm from "../../js/components/MetaForm";
-    export default {
-        components: {MetaForm}
-    }
-</script>
