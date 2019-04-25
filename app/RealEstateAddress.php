@@ -9,6 +9,9 @@ class RealEstateAddress extends Model
 {
     protected $guarded = [];
 
+    protected $with = ['image'];
+
+
     public function image(){
         return $this->morphOne(File::class, 'uploadable');
     }

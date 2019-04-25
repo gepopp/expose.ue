@@ -7,11 +7,14 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
                         <span>{{ $realEstate->name }} - Lagen</span>
                         <span>
                             <a href="{{ route('realestate.location.create', $realEstate) }}" class="btn btn-success btn-sm">neu</a>
                         </span>
+                        </div>
+                        @include('realestate.nav')
                     </div>
 
                     <div class="card-body">
