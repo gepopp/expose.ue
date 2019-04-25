@@ -31,7 +31,7 @@
                 withCredentials: true,
                 dictDefaultMessage: 'Datei hier ablegen.',
                 addRemoveLinks: true,
-                acceptedMimeTypes: 'image/*',
+                //acceptedMimeTypes: 'image/*',
                 dictRemoveFile: 'Bild löschen',
                 thumbnailWidth: null,
                 thumbnailHeight: null,
