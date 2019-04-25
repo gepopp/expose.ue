@@ -5,8 +5,11 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <span>Immobilie bearbeiten</span><span><a href="{{ route('home') }}" class="btn btn-default btn-sm">Zurück</a></span>
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <span>Immobilie bearbeiten</span><span><a href="{{ route('home') }}" class="btn btn-default btn-sm">Zurück</a></span>
+                        </div>
+                        @include('realestate.nav')
                     </div>
                     <div class="card-body">
                         <form method="post" action="{{ route('realestate.update', $realEstate ) }}">
