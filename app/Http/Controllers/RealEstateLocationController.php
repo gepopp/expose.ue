@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\RealEstate;
 use App\RealEstateLocation;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class RealEstateLocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(RealEstate $realEstate)
     {
-        //
+        return view('realestate.location.index')->with('realEstate', $realEstate);
     }
 
     /**
@@ -22,9 +23,9 @@ class RealEstateLocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(RealEstate $realEstate)
     {
-        //
+        return view('realestate.location.create')->with('realEstate', $realEstate);
     }
 
     /**
@@ -33,9 +34,32 @@ class RealEstateLocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, RealEstate $realEstate)
     {
-        //
+        $request->validate([
+            "name" => "required",
+            "description" => "required",
+            "zoom" => "required|integer",
+            "radius" => "integer",
+            "type" => "required",
+            "marker" => "required",
+            "lat_lng" => "required"
+        ]);
+
+        RealEstateLocation::create([
+            "real_estate_id" => $realEstate->id,
+            "is_public" => $request->is_public ?: 0,
+            "name" => $request->name,
+            "description" => $request->description,
+            "lat_lng" => $request->lat_lng,
+            "zoom" => $request->zoom,
+            "type" => $request->type,
+            "marker" => $request->marker,
+            "radius" => $request->radius ?: 0,
+        ]);
+
+        return redirect(route('realestate.location.index', $realEstate));
+
     }
 
     /**
@@ -55,9 +79,9 @@ class RealEstateLocationController extends Controller
      * @param  \App\RealEstateLocation  $realEstateLocation
      * @return \Illuminate\Http\Response
      */
-    public function edit(RealEstateLocation $realEstateLocation)
+    public function edit(RealEstate $realEstate, RealEstateLocation $realEstateLocation)
     {
-        //
+        return view('realestate.location.edit')->with(['realEstate' => $realEstate, 'realEstateLocation' => $realEstateLocation]);
     }
 
     /**
@@ -67,9 +91,32 @@ class RealEstateLocationController extends Controller
      * @param  \App\RealEstateLocation  $realEstateLocation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RealEstateLocation $realEstateLocation)
+    public function update(Request $request, RealEstate $realEstate, RealEstateLocation $realEstateLocation)
     {
-        //
+        $request->validate([
+            "name" => "required",
+            "description" => "required",
+            "zoom" => "required|integer",
+            "radius" => "integer",
+            "type" => "required",
+            "marker" => "required",
+            "lat_lng" => "required"
+        ]);
+
+        $realEstateLocation->update([
+            "real_estate_id" => $realEstate->id,
+            "is_public" => $request->is_public ?: 0,
+            "name" => $request->name,
+            "description" => $request->description,
+            "lat_lng" => $request->lat_lng,
+            "zoom" => $request->zoom,
+            "type" => $request->type,
+            "marker" => $request->marker,
+            "radius" => $request->radius ?: 0,
+        ]);
+
+        return redirect(route('realestate.location.index', $realEstate));
+
     }
 
     /**
@@ -78,8 +125,9 @@ class RealEstateLocationController extends Controller
      * @param  \App\RealEstateLocation  $realEstateLocation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RealEstateLocation $realEstateLocation)
+    public function destroy(RealEstate $realEstate, RealEstateLocation $realEstateLocation)
     {
-        //
+        $realEstateLocation->delete();
+        return back();
     }
 }

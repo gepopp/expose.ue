@@ -24,9 +24,9 @@
 
         },
         methods:{
-            disable(){
+            disable(event){
                 this.disabled = true;
-                this.buttonText = "Warte auf Upload";
+                this.buttonText = event;
             },
             enable(){
                 this.disabled = false;

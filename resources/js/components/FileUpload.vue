@@ -53,7 +53,7 @@
                 });
             },
             processing(file) {
-                this.$eventHub.$emit('upload-started');
+                this.$eventHub.$emit('upload-started', "Warte auf Upload");
             },
             afterComplete() {
                 this.$eventHub.$emit('upload-done');

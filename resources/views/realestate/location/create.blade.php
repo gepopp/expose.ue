@@ -6,11 +6,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <span>Neue Immobilie</span><span><a href="{{ route('realestate.text.index', $realEstate) }}" class="btn btn-default btn-sm">Alle Texte</a></span>
+                        <span>Neue Lage</span><span><a href="{{ route('realestate.location.index', $realEstate) }}" class="btn btn-default btn-sm">Alle Lagen</a></span>
                     </div>
                     <div class="card-body">
 
-                        <form method="post" action="{{ route('realestate.text.store', $realEstate) }}">
+                        <form method="post" action="{{ route('realestate.location.store', $realEstate) }}">
                             @csrf
                             <div class="row">
                                 <div class="col-6">
@@ -38,12 +38,10 @@
 
                                 </div>
                                 <div class="col-6">
-
-                                    <label>Titelbild</label>
-                                    <file-upload mfile="null" maxfiles="1" folder="testimages"></file-upload>
-                                    @if ($errors->has('file_id'))
+                                    <location-map></location-map>
+                                    @if ($errors->has('map'))
                                         <div>
-                                            <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
+                                            <span class="text-danger"><strong>{{ $errors->first('map') }}</strong></span>
                                         </div>
                                     @endif
                                 </div>
@@ -61,3 +59,9 @@
         </div>
     </div>
 @endsection
+<script>
+    import LocationMap from "../../../js/components/LocationMap";
+    export default {
+        components: {LocationMap}
+    }
+</script>

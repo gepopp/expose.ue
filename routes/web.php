@@ -65,6 +65,22 @@ Route::get('realestate/{realEstate}/realEstateText/{realEstateText}/edit', 'Real
 Route::put('realestate/{realEstate}/realEstateText/{realEstateText}', 'RealEstateTextController@update')->middleware('auth')->name('realestate.text.update');
 Route::delete('realestate/{realEstate}/realEstateText/{realEstateText}', 'RealEstateTextController@destroy')->middleware('auth')->name('realestate.text.destroy');
 
+/** Real Estate Location */
+Route::get('realestate/{realEstate}/realEstateLocation', 'RealEstateLocationController@index')->middleware('auth')->name('realestate.location.index');
+Route::get('realestate/{realEstate}/realEstateLocation/create', 'RealEstateLocationController@create')->middleware('auth')->name('realestate.location.create');
+Route::post('realestate/{realEstate}/realEstateLocation', 'RealEstateLocationController@store')->middleware('auth')->name('realestate.location.store');
+Route::get('realestate/{realEstate}/realEstateLocation/{realEstateLocation}/edit', 'RealEstateLocationController@edit')->middleware('auth')->name('realestate.location.edit');
+Route::put('realestate/{realEstate}/realEstateLocation/{realEstateLocation}', 'RealEstateLocationController@update')->middleware('auth')->name('realestate.location.update');
+Route::delete('realestate/{realEstate}/realEstateLocation/{realEstateLocation}', 'RealEstateLocationController@destroy')->middleware('auth')->name('realestate.location.destroy');
+
+/** Real Estate Address */
+Route::get('realestate/{realEstate}/realEstateAddress', 'RealEstateAddressController@index')->middleware('auth')->name('realestate.address.index');
+Route::get('realestate/{realEstate}/realEstateAddress/create', 'RealEstateAddressController@create')->middleware('auth')->name('realestate.address.create');
+Route::post('realestate/{realEstate}/realEstateAddress', 'RealEstateAddressController@store')->middleware('auth')->name('realestate.address.store');
+Route::get('realestate/{realEstate}/realEstateAddress/{realEstateAddress}/edit', 'RealEstateAddressController@edit')->middleware('auth')->name('realestate.address.edit');
+Route::put('realestate/{realEstate}/realEstateAddress/{realEstateAddress}', 'RealEstateAddressController@update')->middleware('auth')->name('realestate.address.update');
+Route::delete('realestate/{realEstate}/realEstateAddress/{realEstateAddress}', 'RealEstateAddressController@destroy')->middleware('auth')->name('realestate.address.destroy');
+
 
 
 

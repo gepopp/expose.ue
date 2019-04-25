@@ -39,9 +39,11 @@
                                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">bearbeiten</a>
                                                 <div class="dropdown-menu">
                                                     <a href="{{ route('realestate.edit', $realEstate ) }}" class="nav-link">Grunddaten</a>
+                                                    <a href="{{ route('realestate.address.index', $realEstate ) }}" class="nav-link">Adressen</a>
                                                     <a href="{{ route('galleries', $realEstate ) }}" class="nav-link">Gallerien</a>
                                                     <a href="{{ route('realestate.meta.index', $realEstate ) }}" class="nav-link">Metadaten</a>
                                                     <a href="{{ route('realestate.text.index', $realEstate ) }}" class="nav-link">Texte</a>
+                                                    <a href="{{ route('realestate.location.index', $realEstate ) }}" class="nav-link">Lagen</a>
                                                 </div>
                                             </li>
                                             <li class="nav-item dropdown">
