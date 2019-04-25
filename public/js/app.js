@@ -2212,8 +2212,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      items: JSON.parse(this.metas),
-      dragHandle: true
+      items: JSON.parse(this.metas)
     };
   },
   methods: {
@@ -39334,7 +39333,8 @@ var render = function() {
       _c(
         "SlickList",
         {
-          staticClass: "row",
+          staticClass: "list-group-flush",
+          on: { input: _vm.updateList },
           model: {
             value: _vm.items,
             callback: function($$v) {
@@ -39344,11 +39344,15 @@ var render = function() {
           }
         },
         _vm._l(_vm.items, function(item, index) {
-          return _c("SlickItem", {
-            key: index,
-            staticClass: "col-4",
-            attrs: { axis: _vm.xy, index: index }
-          })
+          return _c(
+            "SlickItem",
+            {
+              key: index,
+              staticClass: "list-group-item",
+              attrs: { index: index }
+            },
+            [_vm._v("\n            " + _vm._s(item.name) + "\n        ")]
+          )
         }),
         1
       )

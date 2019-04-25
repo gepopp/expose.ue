@@ -1,8 +1,8 @@
 <template>
     <div class="root">
-        <SlickList v-model="items" class="row">
-            <SlickItem :axis="xy" v-for="(item, index) in items" :index="index" :key="index" class="col-4">
-
+        <SlickList v-model="items" class="list-group-flush" @input="updateList">
+            <SlickItem  v-for="(item, index) in items" :index="index" :key="index" class="list-group-item">
+                {{ item.name }}
             </SlickItem>
         </SlickList>
     </div>
@@ -21,7 +21,6 @@
         data(){
             return {
                 items: JSON.parse(this.metas),
-                dragHandle: true
             };
         },
         methods:{
