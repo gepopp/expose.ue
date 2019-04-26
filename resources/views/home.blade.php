@@ -57,6 +57,7 @@
                                                     <a class="nav-link" href="{{ route('desc', $realEstate) }}" target="_blank">Beschreibung</a>
                                                     <a class="nav-link" href="{{ route('meta', $realEstate) }}" target="_blank">Meta Daten</a>
                                                     <a class="nav-link" href="{{ route('text', $realEstate) }}" target="_blank">Texte</a>
+                                                    <a class="nav-link" href="{{ route('location', $realEstate) }}" target="_blank">Lage</a>
                                                 </div>
                                             </li>
                                         </ul>

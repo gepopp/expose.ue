@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07e1e557e54c7b903cb749ecc982d18d",
+    "content-hash": "bfc5fc45c72057bc491f8c37abad4b9b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -819,6 +819,53 @@
                 "validator"
             ],
             "time": "2018-12-04T22:38:24+00:00"
+        },
+        {
+            "name": "emcconville/polyline-encoder",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/emcconville/polyline-encoder.git",
+                "reference": "f395c203ccf6672da5375100984ad06477068c87"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/emcconville/polyline-encoder/zipball/f395c203ccf6672da5375100984ad06477068c87",
+                "reference": "f395c203ccf6672da5375100984ad06477068c87",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "replace": {
+                "emcconville/google-map-polyline-encoding-tool": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "emcconville\\Polyline\\": "src/emcconville/Polyline"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GNU"
+            ],
+            "authors": [
+                {
+                    "name": "Eric McConville",
+                    "email": "emcconville@emcconville.com"
+                }
+            ],
+            "description": "PHP Traits algorithms for Encoded Polyline & Bing Point Compression",
+            "keywords": [
+                "bing",
+                "compression",
+                "google",
+                "maps",
+                "point",
+                "polyline"
+            ],
+            "time": "2014-08-08T15:53:24+00:00"
         },
         {
             "name": "erusev/parsedown",

@@ -123,3 +123,8 @@ Route::get('textpage/{realestate}', function (\App\RealEstate $realestate){
     $pdf = new App\pdf\TextPage($realestate);
     $pdf->get();
 })->name('text');
+Route::get('locationPage/{realestate}', function (\App\RealEstate $realestate){
+
+    $pdf = new App\pdf\LocationPage($realestate);
+    $pdf->get();
+})->name('location');

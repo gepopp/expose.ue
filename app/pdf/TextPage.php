@@ -22,6 +22,9 @@ class TextPage extends TCPDF
         parent::__construct($orientation, $unit, $size);
         $this->setPrintHeader(false);
         $this->setPrintFooter(false);
+        $this->addFont('Kartika', '', 'Kartika.php');
+        $this->SetFont('Kartika', '', 9, '', 'true');
+
     }
 
     public function firstPage()
@@ -49,7 +52,7 @@ class TextPage extends TCPDF
 
 
         $this->Image(public_path('img/doties-small.png'), 0, 5, 10, 10);
-        $this->SetFont('helvetica', null, 26);
+        $this->SetFont('Kartika', null, 32);
         $this->setXY(12, 5.5);
         $this->Cell(150, 10, $this->text->name, 0, 'L');
 
@@ -62,7 +65,6 @@ class TextPage extends TCPDF
         $this->SetXY(297 / 2, 15);
         $this->SetFont('helvetica', null, 12);
         $this->Cell(297 / 2 - 12, 4, $this->realEstate->name, null, null, 'R');
-
 
         $this->SetXY(12, 30);
         $this->SetFont('helvetica', null, 12);
