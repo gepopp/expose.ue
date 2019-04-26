@@ -38,7 +38,7 @@ class ObjektMetaController extends Controller
     {
         $request->validate(['name' => 'required']);
 
-        $data = ['name' => $request->name, 'slug' => $this->slugify($request->name), 'postfix' => $request->postfix];
+        $data = ['name' => $request->name, 'slug' => $this->slugify($request->name), 'postfix' => $request->postfix, 'format_number' => $request->format_number ?: 0];
         ObjektMeta::create($data);
 
         $metas = ObjektMeta::all();
@@ -81,7 +81,7 @@ class ObjektMetaController extends Controller
     {
         $request->validate(['name' => 'required']);
 
-        $data = ['name' => $request->name, 'slug' => $this->slugify($request->name), 'postfix' => $request->postfix];
+        $data = ['name' => $request->name, 'slug' => $this->slugify($request->name), 'postfix' => $request->postfix, 'format_number' => $request->format_number ?: 0];
 
         $metum->update($data);
         return redirect(route('meta.index'))->with(['tooltip' => true]);
