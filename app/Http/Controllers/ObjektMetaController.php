@@ -36,7 +36,7 @@ class ObjektMetaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required', 'postfix' => 'required']);
+        $request->validate(['name' => 'required']);
 
         $data = ['name' => $request->name, 'slug' => $this->slugify($request->name), 'postfix' => $request->postfix];
         ObjektMeta::create($data);
@@ -79,7 +79,7 @@ class ObjektMetaController extends Controller
      */
     public function update(Request $request, ObjektMeta $metum)
     {
-        $request->validate(['name' => 'required', 'postfix' => 'required']);
+        $request->validate(['name' => 'required']);
 
         $data = ['name' => $request->name, 'slug' => $this->slugify($request->name), 'postfix' => $request->postfix];
 
