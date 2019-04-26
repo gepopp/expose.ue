@@ -55,7 +55,8 @@
                                                     <a class="nav-link" href="{{ route('titlepages', $realEstate) }}" target="_blank">Titelseite
                                                         kleines Logo</a>
                                                     <a class="nav-link" href="{{ route('desc', $realEstate) }}" target="_blank">Beschreibung</a>
-                                                    <a class="nav-link" href="{{ route('meta', $realEstate) }}" target="_blank">MetaDaten</a>
+                                                    <a class="nav-link" href="{{ route('meta', $realEstate) }}" target="_blank">Meta Daten</a>
+                                                    <a class="nav-link" href="{{ route('text', $realEstate) }}" target="_blank">Texte</a>
                                                 </div>
                                             </li>
                                         </ul>

@@ -11,6 +11,7 @@
 |
 */
 
+use App\pdf\MetaPage;
 use App\pdf\ObjectDescription;
 
 Route::get('/', function () {
@@ -117,3 +118,8 @@ Route::get('metapage/{realestate}', function (\App\RealEstate $realestate){
     $pdf = new App\pdf\MetaPage($realestate);
     $pdf->get();
 })->name('meta');
+Route::get('textpage/{realestate}', function (\App\RealEstate $realestate){
+
+    $pdf = new App\pdf\TextPage($realestate);
+    $pdf->get();
+})->name('text');
