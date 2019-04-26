@@ -17,7 +17,7 @@ class TitlepagePDFhorizontal extends TCPDF
         $this->realEstate = $realEstate;
 
         parent::__construct( $orientation, $unit, $size );
-        $this->addFont('Kartika', '', 'Kartika.php');
+        $this->addFont('Kartika', '', public_path('font/Kartika.php'));
         $this->setPrintHeader(false);
         $this->setPrintFooter(false);
     }

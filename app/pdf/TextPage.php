@@ -22,7 +22,7 @@ class TextPage extends TCPDF
         parent::__construct($orientation, $unit, $size);
         $this->setPrintHeader(false);
         $this->setPrintFooter(false);
-        $this->addFont('Kartika', '', 'Kartika.php');
+        $this->addFont('Kartika', '', public_path('font/Kartika.php'));
         $this->SetFont('Kartika', '', 9, '', 'true');
 
     }
