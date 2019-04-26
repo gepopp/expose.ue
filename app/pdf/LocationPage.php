@@ -62,7 +62,7 @@ class LocationPage extends TCPDF
             $split = explode(',', $this->location->lat_lng);
             $mapUrl .= '&path=color:0x0000ff00|fillcolor:0xcb993280|enc:' . $this->GMapCircle($split[0], $split[1], ($this->location->radius / 1000));
         }else{
-            $mapUrl .= "&markers=color:red,label:*|" . $this->location->lat_lng;
+            $mapUrl .= "&markers=color:0xcb9932|" . $this->location->lat_lng;
         }
 
        
