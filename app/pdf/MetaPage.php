@@ -80,7 +80,12 @@ class MetaPage extends TCPDF
             if( is_numeric($value) && $datum->format_number){
                 $value = number_format($value, 2, ',', '.');
             }
-
+            if(empty($datum->postfix)){
+                $this->Cell(35, 15, $value, null, false, 'R', 1);
+            }else{
+                $this->Cell(20, 15, $value, null, false, 'R', 1);
+                $this->Cell(15, 15, $datum->postfix, null, true, null, 1);
+            }
 
             $this->Cell(20, 15, $value, null, false, 'R', 1);
             $this->Cell(15, 15, $datum->postfix, null, true, null, 1);
