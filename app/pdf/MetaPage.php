@@ -62,7 +62,7 @@ class MetaPage extends TCPDF
 
         $data = json_decode($this->meta->metadata);
         $this->SetXY(12,30);
-        $this->SetFont('helvetica', null, 15 );
+        $this->SetFont('helvetica', null, 12 );
         $this->SetDrawColor(80,80,80);
 
         $runner = 1;
@@ -74,7 +74,7 @@ class MetaPage extends TCPDF
                 $this->SetFillColor(250,250,250);
             }
 
-            $this->Cell(90, 15, $datum->name, null, false, null, 1, null, null);
+            $this->Cell(95, 15, $datum->name, null, false, null, 1, null, null, null, null );
 
             $value = $datum->value;
             if( is_numeric($value) && $datum->format_number){
@@ -83,7 +83,7 @@ class MetaPage extends TCPDF
 
 
             $this->Cell(20, 15, $value, null, false, 'R', 1);
-            $this->Cell(20, 15, $datum->postfix, null, true, null, 1);
+            $this->Cell(15, 15, $datum->postfix, null, true, null, 1);
 
             $runner++;
         }
