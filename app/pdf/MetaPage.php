@@ -87,9 +87,6 @@ class MetaPage extends TCPDF
                 $this->Cell(15, 15, $datum->postfix, null, true, null, 1);
             }
 
-            $this->Cell(20, 15, $value, null, false, 'R', 1);
-            $this->Cell(15, 15, $datum->postfix, null, true, null, 1);
-
             $runner++;
         }
 
