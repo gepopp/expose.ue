@@ -49,10 +49,13 @@
                                             <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">PDF's</a>
                                                 <div class="dropdown-menu">
-                                                    <a class="nav-link" href="{{ route('titlepageh', $realEstate) }}" target="_blank">Titelseite</a>
+                                                    <a class="nav-link" href="{{ route('pdfcreator', $realEstate) }}" target="_blank">Creator</a>
+
+                                                    <a class="nav-link" href="{{ route('titlepage', $realEstate) }}" target="_blank">Titelseite</a>
                                                     <a class="nav-link" href="{{ route('meta', $realEstate) }}" target="_blank">Meta Daten</a>
                                                     <a class="nav-link" href="{{ route('text', $realEstate) }}" target="_blank">Texte</a>
                                                     <a class="nav-link" href="{{ route('location', $realEstate) }}" target="_blank">Lage</a>
+                                                    <a class="nav-link" href="{{ route('gallery', $realEstate) }}" target="_blank">Galerien</a>
                                                 </div>
                                             </li>
                                         </ul>

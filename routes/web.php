@@ -11,6 +11,7 @@
 |
 */
 
+use App\pdf\LocationPage;
 use App\pdf\MetaPage;
 use App\pdf\ObjectDescription;
 
@@ -88,6 +89,10 @@ Route::delete('realestate/{realEstate}/realEstateAddress/{realEstateAddress}', '
 
 
 /** PDF */
+Route::get('pdfSortSelect', '\App\pdf\creator\PDFCreator@sortnselect')->name('pdfcreator');
+
+
+
 Route::get('titlepage/{realestate}', function (\App\RealEstate $realestate){
 
     $pdf = new App\pdf\TitlepagePDF($realestate);
@@ -128,3 +133,9 @@ Route::get('locationPage/{realestate}', function (\App\RealEstate $realestate){
     $pdf = new App\pdf\LocationPage($realestate);
     $pdf->get();
 })->name('location');
+
+Route::get('galleryPage/{realestate}', function (\App\RealEstate $realestate){
+
+    $pdf = new App\pdf\ImagePage($realestate);
+    $pdf->get();
+})->name('gallery');

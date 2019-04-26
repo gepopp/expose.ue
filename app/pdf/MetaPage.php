@@ -51,7 +51,7 @@ class MetaPage extends TCPDF
         $this->Image(public_path('img/doties-small.png'), 0, 5, 10, 10);
         $this->SetFont('helvetica', null, 26);
         $this->setXY(12, 5.5);
-        $this->Cell(150, 10, $this->meta->name, 0, 'L');
+        $this->Cell(150, 10, $this->meta->name, 0,  'L');
 
 
         $image = Storage::get($this->meta->image->path);

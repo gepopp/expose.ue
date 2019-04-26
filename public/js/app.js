@@ -2284,6 +2284,59 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfCreator.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PdfCreator.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "PdfCreator",
+  props: ['realEstate'],
+  directives: {
+    handle: HandleDirective
+  },
+  components: {
+    SlickItem: SlickItem,
+    SlickList: SlickList
+  },
+  data: function data() {
+    return {
+      items: {},
+      dragHandle: true
+    };
+  },
+  methods: {
+    updateList: function updateList(list) {
+      var ref = this;
+      axios({
+        url: '/realestate/' + ref.realestateid + '/realEstateMeta/' + ref.metaid + '/sort',
+        method: "POST",
+        data: list
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StaticMap.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/StaticMap.vue?vue&type=script&lang=js& ***!
@@ -39479,6 +39532,97 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfCreator.vue?vue&type=template&id=1ea6faf6&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PdfCreator.vue?vue&type=template&id=1ea6faf6&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "SlickList",
+        {
+          staticClass: "list-group-flush w-100",
+          attrs: { useDragHandle: true },
+          on: { input: _vm.updateList },
+          model: {
+            value: _vm.items,
+            callback: function($$v) {
+              _vm.items = $$v
+            },
+            expression: "items"
+          }
+        },
+        _vm._l(_vm.items, function(item, index) {
+          return _c(
+            "SlickItem",
+            {
+              key: index,
+              staticClass: "list-group-item",
+              attrs: { index: index }
+            },
+            [
+              _c(
+                "span",
+                {
+                  directives: [{ name: "handle", rawName: "v-handle" }],
+                  staticClass: "handle"
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "24",
+                        height: "24",
+                        viewBox: "0 0 24 24"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: { d: "M20 9H4v2h16V9zM4 15h16v-2H4v2z" }
+                      })
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(
+                "\n            " +
+                  _vm._s(item.name) +
+                  " - " +
+                  _vm._s(item.value) +
+                  " " +
+                  _vm._s(item.postfix) +
+                  "\n        "
+              )
+            ]
+          )
+        }),
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StaticMap.vue?vue&type=template&id=7c429333&scoped=true&":
 /*!************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/StaticMap.vue?vue&type=template&id=7c429333&scoped=true& ***!
@@ -55394,6 +55538,7 @@ var map = {
 	"./components/MetaForm.vue": "./resources/js/components/MetaForm.vue",
 	"./components/MetaList.vue": "./resources/js/components/MetaList.vue",
 	"./components/MetaSort.vue": "./resources/js/components/MetaSort.vue",
+	"./components/PdfCreator.vue": "./resources/js/components/PdfCreator.vue",
 	"./components/StaticMap.vue": "./resources/js/components/StaticMap.vue",
 	"./components/UploadLockedSubmitButton.vue": "./resources/js/components/UploadLockedSubmitButton.vue",
 	"./components/WYSIWYG.vue": "./resources/js/components/WYSIWYG.vue"
@@ -56069,6 +56214,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MetaSort_vue_vue_type_template_id_652ab12e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MetaSort_vue_vue_type_template_id_652ab12e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PdfCreator.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/PdfCreator.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PdfCreator_vue_vue_type_template_id_1ea6faf6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PdfCreator.vue?vue&type=template&id=1ea6faf6&scoped=true& */ "./resources/js/components/PdfCreator.vue?vue&type=template&id=1ea6faf6&scoped=true&");
+/* harmony import */ var _PdfCreator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PdfCreator.vue?vue&type=script&lang=js& */ "./resources/js/components/PdfCreator.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PdfCreator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PdfCreator_vue_vue_type_template_id_1ea6faf6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PdfCreator_vue_vue_type_template_id_1ea6faf6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "1ea6faf6",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PdfCreator.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PdfCreator.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/PdfCreator.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PdfCreator.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfCreator.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PdfCreator.vue?vue&type=template&id=1ea6faf6&scoped=true&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/PdfCreator.vue?vue&type=template&id=1ea6faf6&scoped=true& ***!
+  \*******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_template_id_1ea6faf6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PdfCreator.vue?vue&type=template&id=1ea6faf6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfCreator.vue?vue&type=template&id=1ea6faf6&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_template_id_1ea6faf6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_template_id_1ea6faf6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
