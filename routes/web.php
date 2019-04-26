@@ -11,6 +11,8 @@
 |
 */
 
+use App\pdf\ObjectDescription;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -109,3 +111,9 @@ Route::get('descriptionpage/{realestate}', function (\App\RealEstate $realestate
     $pdf = new App\pdf\ObjectDescription($realestate);
     $pdf->get();
 })->name('desc');
+
+Route::get('metapage/{realestate}', function (\App\RealEstate $realestate){
+
+    $pdf = new App\pdf\MetaPage($realestate);
+    $pdf->get();
+})->name('meta');

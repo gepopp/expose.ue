@@ -21,7 +21,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="postfix">{{ __('Postfix (EUR, m², usw.)') }}</label>
-                                <input id="postfix" type="text" class="form-control{{ $errors->has('postfix') ? ' is-invalid' : '' }}" name="postfix" value="{{ old('postfix') }}" required autofocus>
+                                <input id="postfix" type="text" class="form-control{{ $errors->has('postfix') ? ' is-invalid' : '' }}" name="postfix" value="{{ old('postfix') }}" >
                                 @if ($errors->has('postfix'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('postfix') }}</strong>

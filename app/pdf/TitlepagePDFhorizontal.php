@@ -51,7 +51,10 @@ class TitlepagePDFhorizontal extends TCPDF
         $this->setXY(297/2 + 5, 150);
         $this->SetTextColor(255,255,255);
         $this->SetFont('helvetica', null, 18 );
-        $this->MultiCell((297/2)-10, 8,  $this->realEstate->name, 0, 'R');
+        $this->Cell((297/2)-10, 8,  $this->realEstate->name, 0, 'R');
+        $this->SetFont('helvetica', null, 10 );
+
+        $this->MultiCell((297/2)-10, 4,  $this->realEstate->description, 0, 'R', null, null, 297/2 + 5, 160, null, null, true );
 
     }
 

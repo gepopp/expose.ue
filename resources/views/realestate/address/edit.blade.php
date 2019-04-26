@@ -43,14 +43,14 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-4">
-                                            <label for="zip">{{ __('Postleitzahl') }}</label>
+                                            <label for="zip">{{ __('Postleitzahl*') }}</label>
                                             <input id="zip" maxlength="100" type="text" class="form-control{{ $errors->has('zip') ? ' is-invalid' : '' }}" name="zip" value="{{ old('zip') ?: $realEstateAddress->zip }}" required>
                                             @if ($errors->has('zip'))
                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('zip') }}</strong></span>
                                             @endif
                                         </div>
                                         <div class="form-group col-8">
-                                            <label for="city">{{ __('Stadt') }}</label>
+                                            <label for="city">{{ __('Stadt*') }}</label>
                                             <input id="city" maxlength="100" type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ old('city') ?: $realEstateAddress->city }}" required>
                                             @if ($errors->has('city'))
                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('city') }}</strong></span>
@@ -58,8 +58,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="country">{{ __('Staat') }}</label>
-                                        <input id="country" maxlength="100" type="text" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" name="country" value="{{ old('country') ?: $realEstateAddress->country }}">
+                                        <label for="country">{{ __('Staat*') }}</label>
+                                        <input id="country" maxlength="100" type="text" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" name="country" value="{{ old('country') ?: $realEstateAddress->country }}" required>
                                         @if ($errors->has('country'))
                                             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('country') }}</strong></span>
                                         @endif
