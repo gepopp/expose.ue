@@ -6,7 +6,7 @@
                 <span class="px-3">
                     <input type="checkbox" v-model="item.print" :disabled="!item.isPublic">
                 </span>
-                <strong>{{ item.kind }}</strong> {{ item.name }}
+                <strong>{{ item.kind }}</strong> {{ item.name }} <small>( {{ !item.isPublic ? 'nicht öffetnlich' : 'öffetnlich' }} )</small>
 
             </SlickItem>
         </SlickList>

@@ -16,5 +16,8 @@
     </li><li class="nav-item">
         <a href="{{ route('realestate.location.index', $realEstate ) }}" class="nav-link">Lagen ({{ $realEstate->location->count() }})</a>
     </li>
+    </li><li class="nav-item">
+        <a href="{{ route('pdfcreator', $realEstate ) }}" class="nav-link">PDF Creator</a>
+    </li>
 </ul>
 

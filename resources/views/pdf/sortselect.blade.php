@@ -6,7 +6,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <span>PDF erzeugen</span>
+                        <span>PDF erzeugen - {{ $realEstate->name }}</span>
+                        <span><a href="{{ route('realestate.edit', $realEstate) }}" class="btn btn-success">bearbeiten</a></span>
                     </div>
 
                     <div class="card-body">

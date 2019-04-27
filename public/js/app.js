@@ -39711,7 +39711,14 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("strong", [_vm._v(_vm._s(item.kind))]),
-              _vm._v(" " + _vm._s(item.name) + "\n\n        ")
+              _vm._v(" " + _vm._s(item.name) + " "),
+              _c("small", [
+                _vm._v(
+                  "( " +
+                    _vm._s(!item.isPublic ? "nicht öffetnlich" : "öffetnlich") +
+                    " )"
+                )
+              ])
             ]
           )
         }),
