@@ -15,9 +15,8 @@ use App\pdf\LocationPage;
 use App\pdf\MetaPage;
 use App\pdf\ObjectDescription;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index' );
+
 
 
 

@@ -16,10 +16,12 @@ class TitlePage
         $pdf->SetRightMargin(0);
         $pdf->SetLeftMargin(0);
         $pdf->SetAutoPageBreak(false, 0);
+
         $pdf->setPrintHeader(false);
-        $pdf->setPrintFooter(false);
 
         $pdf->AddPage();
+        $pdf->setPrintFooter(false);
+
 
         $image = Storage::get($realEstate->titleimage->path);
         $resize = Image::make($image)->fit(297*3, 105*3)->save(public_path('tmp/') . $realEstate->titleimage->name);
@@ -34,7 +36,6 @@ class TitlePage
         $pdf->SetFont('helvetica', null, 18);
         $pdf->SetTextColor(255,255,255);
         $pdf->Cell(297/2-10, 8, $realEstate->name, null, 1, 'C', null, null, 1, null, null, null);
-
 
         return $pdf;
 

@@ -36,9 +36,6 @@ class MetaPage
 
     public function addMetaPage(BasePdf $pdf, RealEstateMeta $realEstateMeta)
     {
-
-
-
         $data = json_decode($realEstateMeta->metadata);
         $chunks = array_chunk($data, 10);
 

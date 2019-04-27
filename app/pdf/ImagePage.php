@@ -34,7 +34,7 @@ class ImagePage
     public function addGalleryPage(BasePdf $pdf, RealEstateGallery $realEstateGallery)
     {
 
-        $pdf->setPrintHeader(true);
+
 
         $pdf->SetTextColor(80,80,80);
         $pdf->SetAutoPageBreak(false, 0);
@@ -42,8 +42,11 @@ class ImagePage
 
         foreach ($chunks as $chunk) {
             $pdf->setPageTitle($realEstateGallery->name);
+            $pdf->setPrintHeader(true);
+
             $pdf->AddPage();
             $pdf->setPrintFooter(true);
+
             foreach ($chunk as $i => $imgData) {
 
                 $image = Storage::get($imgData->path);
