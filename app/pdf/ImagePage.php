@@ -35,7 +35,7 @@ class ImagePage
     {
 
         $pdf->setPrintHeader(true);
-        $pdf->setPrintFooter(true);
+
         $pdf->SetTextColor(80,80,80);
         $pdf->SetAutoPageBreak(false, 0);
         $chunks = $realEstateGallery->images->chunk(4);
@@ -43,6 +43,7 @@ class ImagePage
         foreach ($chunks as $chunk) {
             $pdf->setPageTitle($realEstateGallery->name);
             $pdf->AddPage();
+            $pdf->setPrintFooter(true);
             foreach ($chunk as $i => $imgData) {
 
                 $image = Storage::get($imgData->path);
