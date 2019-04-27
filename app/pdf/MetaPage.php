@@ -4,98 +4,81 @@
 namespace App\pdf;
 
 use App\RealEstate;
+use App\RealEstateMeta;
+use Faker\Provider\Base;
 use TCPDF;
 use Illuminate\Support\Facades\Storage;
 use Image;
 
-class MetaPage extends TCPDF
+class MetaPage
 {
 
-    protected $realEstate;
-    protected $meta;
-
-    public function __construct(RealEstate $realEstate, $orientation = 'L', $unit = 'mm', $size = 'A4')
-    {
-        $this->realEstate = $realEstate;
-        $this->meta = $realEstate->meta->first();
-
-        parent::__construct($orientation, $unit, $size);
-        $this->setPrintHeader(false);
-        $this->setPrintFooter(false);
-    }
-
-    public function firstPage()
+    public function content(BasePdf $pdf, RealEstate $realEstate,  $pageIds = [])
     {
 
-        foreach ($this->realEstate->meta as $meta) {
-            $this->meta = $meta;
-            $this->AddPage();
-            $this->titleImage();
-        }
-
-
-    }
-
-    public function get()
-    {
-        $this->firstPage();
-        $this->Output('test.pdf', 'I');
-    }
-
-    public function titleImage()
-    {
-
-        $this->SetTextColor(80, 80, 80);
-
-
-        $this->Image(public_path('img/doties-small.png'), 0, 5, 10, 10);
-        $this->SetFont('helvetica', null, 26);
-        $this->setXY(12, 5.5);
-        $this->Cell(150, 10, $this->meta->name, 0,  'L');
-
-
-        $image = Storage::get($this->meta->image->path);
-        $this->SetMargins(12, 0, 0);
-        $this->SetAutoPageBreak(false, 0);
-        $resize = Image::make($image)->fit((int)((297 / 2) * 3), 150 * 3)->save(public_path('tmp/') . $this->meta->image->name);
-        $this->Image(public_path('tmp/' . $this->meta->image->name), 149, 30, 297 / 2, null, null, null, null, false);
-        $this->SetXY(297 / 2, 15);
-        $this->SetFont('helvetica', null, 12);
-        $this->Cell(297 / 2 - 12, 4, $this->realEstate->name, null, null, 'R');
-
-
-        $data = json_decode($this->meta->metadata);
-        $this->SetXY(12, 30);
-        $this->SetFont('helvetica', null, 12);
-        $this->SetDrawColor(80, 80, 80);
-
-        $runner = 1;
-        foreach ($data as $datum) {
-
-            if ($runner % 2) {
-                $this->SetFillColor(230, 230, 230);
-            } else {
-                $this->SetFillColor(250, 250, 250);
+        if(empty($pageIds)){
+            foreach($realEstate->meta as $meta){
+                if($meta->is_public){
+                    $this->addMetaPage($pdf, $meta);
+                }
             }
-
-            $this->Cell(95, 15, $datum->name, null, false, null, 1, null, null, null, null);
-
-            $value = $datum->value;
-            if (is_numeric($value) && $datum->format_number) {
-                $value = number_format($value, 2, ',', '.');
+        }else{
+            foreach($realEstate->meta as $meta){
+                if($meta->is_public && in_array($meta->id, $pageIds)){
+                    $this->addMetaPage($pdf, $meta);
+                }
             }
-            $this->Cell(20, 15, $value, null, false, 'R', 1);
-            $this->Cell(15, 15, $datum->postfix, null, true, null, 1);
-
-            $runner++;
         }
+        return $pdf;
+    }
 
 
-        $this->Image(public_path('img/logo-h-20mm.png'), 0, 185, null, 10);
-        $this->SetDrawColor(203, 153, 50);
-        $this->Line(50, 190, 285, 190);
+
+    public function addMetaPage(BasePdf $pdf, RealEstateMeta $realEstateMeta)
+    {
 
 
+
+        $data = json_decode($realEstateMeta->metadata);
+        $chunks = array_chunk($data, 10);
+
+        $image = Storage::get($realEstateMeta->image->path);
+        Image::make($image)->fit((int)((297 / 2) * 3), 150 * 3)->save(public_path('tmp/') . $realEstateMeta->image->name);
+
+        $pdf->setPageTitle( $realEstateMeta->name );
+
+        foreach ($chunks as $chunk){
+
+            $pdf->SetMargins(12, 30);
+            $pdf->setPrintHeader(true);
+            $pdf->AddPage();
+            $pdf->setPrintFooter(true);
+            $pdf->SetTextColor(80,80,80);
+
+            $pdf->Image(public_path('tmp/' . $realEstateMeta->image->name), 149, 30, 297 / 2, null, null, null, null, false);
+
+            $pdf->SetXY(12, 30);
+            $pdf->SetFont('helvetica', null, 12);
+
+            $runner = 1;
+            foreach ($chunk as $datum) {
+
+                if ($runner % 2) {
+                    $pdf->SetFillColor(230, 230, 230);
+                } else {
+                    $pdf->SetFillColor(250, 250, 250);
+                }
+                $pdf->Cell(95, 15, $datum->name, null, 0, null, 1, null, null, null, null, null);
+
+                $value = $datum->value;
+                if (is_numeric($value) && $datum->format_number) {
+                    $value = number_format($value, 2, ',', '.');
+                }
+                $pdf->Cell(20, 15, $value, null, 0, 'R', 1);
+                $pdf->Cell(15, 15, $datum->postfix, null, 1, null, 1);
+                $runner++;
+            }
+        }
     }
 
 }

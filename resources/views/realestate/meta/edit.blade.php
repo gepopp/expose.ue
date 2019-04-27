@@ -23,6 +23,12 @@
                                             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('name') }}</strong></span>
                                         @endif
                                     </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" value="1" id="is_public" name="is_public" {{ $realEstateMeta->is_public ? 'checked' : ''  }}>
+                                        <label class="form-check-label" for="is_public">
+                                            öffentlich
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="col-6">
                                     <label>Bild</label>

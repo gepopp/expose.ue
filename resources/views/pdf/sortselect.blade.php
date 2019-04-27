@@ -11,7 +11,7 @@
 
                     <div class="card-body">
 
-                        <pdf-creator></pdf-creator>
+                        <pdf-creator realestate="{{ json_encode($realEstate) }}" csrf-token="{{ csrf_token() }}"></pdf-creator>
                     </div>
                 </div>
             </div>

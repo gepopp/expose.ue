@@ -89,13 +89,16 @@ Route::delete('realestate/{realEstate}/realEstateAddress/{realEstateAddress}', '
 
 
 /** PDF */
-Route::get('pdfSortSelect', '\App\pdf\creator\PDFCreator@sortnselect')->name('pdfcreator');
+Route::get('pdfSortSelect/realEstate/{realEstate}', '\App\pdf\creator\PDFCreator@sortnselect')->name('pdfcreator');
+Route::get('pdfSortSelect/realEstate/{realEstate}/single/{page}', '\App\pdf\creator\PDFCreator@singlePage')->name('pdfcreator.single');
+Route::post('pdfSortSelect/realEstate/{realEstate}/create', '\App\pdf\creator\PDFCreator@create')->name('pdfcreate');
+
 
 
 
 Route::get('titlepage/{realestate}', function (\App\RealEstate $realestate){
 
-    $pdf = new App\pdf\TitlepagePDF($realestate);
+    $pdf = new App\pdf\TitlePage($realestate);
     $pdf->get();
 })->name('titlepage');
 
@@ -136,6 +139,6 @@ Route::get('locationPage/{realestate}', function (\App\RealEstate $realestate){
 
 Route::get('galleryPage/{realestate}', function (\App\RealEstate $realestate){
 
-    $pdf = new App\pdf\ImagePage($realestate);
+    $pdf = new App\pdf\pdf($realestate);
     $pdf->get();
 })->name('gallery');

@@ -24,7 +24,12 @@
                                     </span>
                                         @endif
                                     </div>
-
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" value="1" id="is_public" name="is_public" {{ $realEstateText->is_public ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="is_public">
+                                            öffentlich
+                                        </label>
+                                    </div>
                                     <label for="description">Text</label>
                                     <w-y-s-i-w-y-g name="description" content="{{ old('description') ?: $realEstateText->description }}"></w-y-s-i-w-y-g>
                                     @if ($errors->has('description'))

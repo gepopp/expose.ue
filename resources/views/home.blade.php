@@ -50,12 +50,12 @@
                                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">PDF's</a>
                                                 <div class="dropdown-menu">
                                                     <a class="nav-link" href="{{ route('pdfcreator', $realEstate) }}" target="_blank">Creator</a>
-
-                                                    <a class="nav-link" href="{{ route('titlepage', $realEstate) }}" target="_blank">Titelseite</a>
-                                                    <a class="nav-link" href="{{ route('meta', $realEstate) }}" target="_blank">Meta Daten</a>
-                                                    <a class="nav-link" href="{{ route('text', $realEstate) }}" target="_blank">Texte</a>
-                                                    <a class="nav-link" href="{{ route('location', $realEstate) }}" target="_blank">Lage</a>
-                                                    <a class="nav-link" href="{{ route('gallery', $realEstate) }}" target="_blank">Galerien</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="nav-link" href="{{ route('pdfcreator.single', [$realEstate, 'TitlePage']) }}" target="_blank">Titelseite</a>
+                                                    <a class="nav-link" href="{{ route('pdfcreator.single', [$realEstate, 'TextPage']) }}" target="_blank">Textseiten</a>
+                                                    <a class="nav-link" href="{{ route('pdfcreator.single', [$realEstate, 'MetaPage']) }}" target="_blank">Metaseiten</a>
+                                                    <a class="nav-link" href="{{ route('pdfcreator.single', [$realEstate, 'LocationPage']) }}" target="_blank">Lageseiten</a>
+                                                    <a class="nav-link" href="{{ route('pdfcreator.single', [$realEstate, 'ImagePage']) }}" target="_blank">Bildseiten</a>
                                                 </div>
                                             </li>
                                         </ul>

@@ -1,5 +1,5 @@
 <?php
-namespace App\pdf;
+namespace App\pdf\helper;
 
 // Name:		PolylineEncoder
 // Version:		0.3

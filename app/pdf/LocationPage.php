@@ -4,89 +4,74 @@
 namespace App\pdf;
 
 use App\RealEstate;
+use App\RealEstateLocation;
+use Faker\Provider\Base;
 use TCPDF;
 use Illuminate\Support\Facades\Storage;
 use Image;
-use App\pdf\PolylineEncoder;
+use App\pdf\helper\PolylineEncoder;
 
-class LocationPage extends TCPDF
+class LocationPage
 {
 
-    protected $realEstate;
-    protected $location;
-
-    public function __construct(RealEstate $realEstate, $orientation = 'L', $unit = 'mm', $size = 'A4')
-    {
-        $this->realEstate = $realEstate;
-
-        parent::__construct($orientation, $unit, $size);
-        $this->setPrintHeader(false);
-        $this->setPrintFooter(false);
-        $this->SetAutoPageBreak(false, 0);
-    }
-
-    public function firstPage()
+    public function content(BasePdf $pdf, RealEstate $realEstate,  $pageIds = [])
     {
 
-        foreach ($this->realEstate->location as $location) {
-            $this->location = $location;
-            $this->AddPage();
-            $this->titleImage();
+        if(empty($pageIds)){
+            foreach($realEstate->location as $locatiom){
+                if($locatiom->is_public){
+                    $this->addLocationPage($pdf, $locatiom);
+                }
+            }
+        }else{
+            foreach($realEstate->location as $locatiom){
+                if($locatiom->is_public && in_array($locatiom->id, $pageIds)){
+                    $this->addLocationPage($pdf, $locatiom);
+                }
+            }
         }
-
-
+        return $pdf;
     }
 
-    public function get()
+
+
+    public function addLocationPage(BasePdf $pdf, RealEstateLocation $realEstateLocation)
     {
-        $this->firstPage();
-        $this->Output('test.pdf', 'I');
-    }
+        $pdf->setPrintHeader(true);
+        $pdf->setPrintFooter(true);
+        $pdf->SetTextColor(80,80,80);
 
-    public function titleImage()
-    {
+        $pdf->setPageTitle( $realEstateLocation->name );
 
-        $this->SetTextColor(80, 80, 80);
+        $pdf->SetMargins(12, 30);
+        $pdf->SetAutoPageBreak(true, 30);
 
-        $this->Image(public_path('img/doties-small.png'), 0, 5, 10, 10);
-        $this->SetFont('helvetica', null, 26);
-        $this->setXY(12, 5.5);
-        $this->Cell(150, 10, $this->location->name, 0, 'L');
+        $pdf->AddPage();
 
-        $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" . $this->location->lat_lng
-                . "&zoom=" . $this->location->zoom
-                . "&maptype=" . $this->location->type
+        $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" . $realEstateLocation->lat_lng
+                . "&zoom=" . $realEstateLocation->zoom
+                . "&maptype=" . $realEstateLocation->type
                 . "&size=445x450&key=AIzaSyADsKyn2Dw9q_cQyxs30OfklCMwOXzhSow";
 
-        if($this->location->marker == "Umkreis"){
-            $split = explode(',', $this->location->lat_lng);
-            $mapUrl .= '&path=color:0x0000ff00|fillcolor:0xcb993280|enc:' . $this->GMapCircle($split[0], $split[1], ($this->location->radius / 1000));
+        if($realEstateLocation->marker == "Umkreis"){
+            $split = explode(',', $realEstateLocation->lat_lng);
+            $mapUrl .= '&path=color:0x0000ff00|fillcolor:0xcb993280|enc:' . $this->GMapCircle($split[0], $split[1], ($realEstateLocation->radius / 1000));
         }else{
-            $mapUrl .= "&markers=color:0xcb9932|" . $this->location->lat_lng;
+            $mapUrl .= "&markers=color:0xcb9932|" . $realEstateLocation->lat_lng;
         }
 
-       
+        $image_path = public_path('tmp/') . time() . '.jpg';
 
+        Image::make($mapUrl)->fit((int)((297 / 2) * 3), 150 * 3)->save($image_path)->encode('jpg', 80);
 
+        $pdf->setPageBreakImage($image_path);
 
+        $pdf->Image( $image_path, 149, 30, 297 / 2, null, null, null, null, false);
 
-
-        $this->SetMargins(12, 0, 0);
-        $this->Image( $mapUrl, 149, 30, 297 / 2, null, null, null, null, false);
-        $this->SetXY(297 / 2, 15);
-        $this->SetFont('helvetica', null, 12);
-        $this->Cell(297 / 2 - 12, 4, $this->realEstate->name, null, null, 'R');
-
-        $this->SetXY(12, 30);
-        $this->SetFont('helvetica', null, 12);
-        $this->SetDrawColor(80, 80, 80);
-
-        $this->MultiCell(130, 4, $this->location->description, null,null,null,null,12,30,null,null, true);
-
-        $this->Image(public_path('img/logo-h-20mm.png'), 0, 185, null, 10);
-        $this->SetDrawColor(203, 153, 50);
-        $this->Line(50, 190, 285, 190);
-
+        $pdf->SetXY(12, 30);
+        $pdf->SetFont('helvetica', null, 12);
+        $pdf->SetDrawColor(80, 80, 80);
+        $pdf->MultiCell(130, 4, $realEstateLocation->description, 0, 'J', 0, 2, '', 30, true, 0, true, true, null, 'T');
 
     }
 

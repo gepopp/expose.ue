@@ -8,7 +8,7 @@ class RealEstate extends Model
 {
     protected $guarded = [];
 
-    protected $with = ['titleimage', 'gallery', 'meta', 'text', 'address'];
+    protected $with = ['titleimage', 'gallery', 'meta', 'text', 'address', 'location'];
 
     public function gallery(){
         return $this->hasMany(RealEstateGallery::class, 'real_estate_id');

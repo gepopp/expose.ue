@@ -2293,6 +2293,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_slicksort__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-slicksort */ "./node_modules/vue-slicksort/dist/vue-slicksort.umd.js");
+/* harmony import */ var vue_slicksort__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_slicksort__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2307,31 +2309,96 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PdfCreator",
-  props: ['realEstate'],
+  props: ['realestate', 'csrfToken'],
   directives: {
-    handle: HandleDirective
+    handle: vue_slicksort__WEBPACK_IMPORTED_MODULE_0__["HandleDirective"]
   },
   components: {
-    SlickItem: SlickItem,
-    SlickList: SlickList
+    SlickItem: vue_slicksort__WEBPACK_IMPORTED_MODULE_0__["SlickItem"],
+    SlickList: vue_slicksort__WEBPACK_IMPORTED_MODULE_0__["SlickList"]
   },
   data: function data() {
     return {
-      items: {},
-      dragHandle: true
+      items: [],
+      dragHandle: true,
+      formurl: ''
     };
   },
   methods: {
-    updateList: function updateList(list) {
-      var ref = this;
+    updateList: function updateList(list) {},
+    createPdf: function createPdf() {
       axios({
-        url: '/realestate/' + ref.realestateid + '/realEstateMeta/' + ref.metaid + '/sort',
-        method: "POST",
-        data: list
+        url: this.formurl,
+        method: 'POST',
+        data: this.items,
+        responseType: 'blob' //Force to receive data in a Blob Format
+
+      }).then(function (response) {
+        //Create a Blob from the PDF Stream
+        var file = new Blob([response.data], {
+          type: 'application/pdf'
+        }); //Build a URL from the file
+
+        var fileURL = URL.createObjectURL(file); //Open the URL on new Window
+
+        window.open(fileURL);
+      })["catch"](function (error) {
+        console.log(error);
       });
     }
+  },
+  mounted: function mounted() {
+    var realEstate = JSON.parse(this.realestate);
+    this.formurl = '/pdfSortSelect/realEstate/' + realEstate.id + '/create';
+    var items = this.items;
+    this.items.push({
+      'kind': 'Titelseite',
+      'name': realEstate.name,
+      object: 'TitlePage',
+      'id': realEstate.id,
+      print: true
+    });
+    realEstate.meta.forEach(function (meta) {
+      items.push({
+        'kind': 'Daten Seite',
+        'name': meta.name,
+        object: 'MetaPage',
+        'id': meta.id,
+        print: true
+      });
+    });
+    realEstate.text.forEach(function (meta) {
+      items.push({
+        'kind': 'Textseite',
+        'name': meta.name,
+        object: 'TextPage',
+        'id': meta.id,
+        print: true
+      });
+    });
+    realEstate.location.forEach(function (meta) {
+      items.push({
+        'kind': 'Lageseite',
+        'name': meta.name,
+        object: 'LocationPage',
+        'id': meta.id,
+        print: true
+      });
+    });
+    realEstate.gallery.forEach(function (meta) {
+      items.push({
+        'kind': 'Bildseite',
+        'name': meta.name,
+        object: 'ImagePage',
+        'id': meta.id,
+        print: true
+      });
+    });
   }
 });
 
@@ -39598,19 +39665,61 @@ var render = function() {
                   )
                 ]
               ),
-              _vm._v(
-                "\n            " +
-                  _vm._s(item.name) +
-                  " - " +
-                  _vm._s(item.value) +
-                  " " +
-                  _vm._s(item.postfix) +
-                  "\n        "
-              )
+              _vm._v(" "),
+              _c("span", { staticClass: "px-3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: item.print,
+                      expression: "item.print"
+                    }
+                  ],
+                  attrs: { type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(item.print)
+                      ? _vm._i(item.print, null) > -1
+                      : item.print
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = item.print,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && _vm.$set(item, "print", $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              item,
+                              "print",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(item, "print", $$c)
+                      }
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("strong", [_vm._v(_vm._s(item.kind))]),
+              _vm._v(" " + _vm._s(item.name) + "\n\n        ")
             ]
           )
         }),
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-success mt-5", on: { click: _vm.createPdf } },
+        [_vm._v("erzeugen")]
       )
     ],
     1

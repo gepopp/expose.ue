@@ -44,12 +44,13 @@ class RealEstateMetaController extends Controller
             'file_id' => 'required'
         ],[
             'name.required' => 'Bitte geben Sie einen Titel ein!',
-            'file_id.required' => "Bitte laden Sie ein Bild hoch!"
+            'file_id.required' => "Bitte laden Sie ein Bild hoch!",
         ]);
 
         $objektMeta = RealEstateMeta::create([
            'real_estate_id' => $realEstate->id,
            'name' => $request->name,
+           'is_public' => $request->is_public ?: 0,
            'metadata' =>  $this->buildMetaJson($request->meta)
         ]);
 
@@ -125,6 +126,7 @@ class RealEstateMetaController extends Controller
          $realEstateMeta->update([
             'real_estate_id' => $realEstate->id,
             'name' => $request->name,
+            'is_public' => $request->is_public ?: 0,
             'metadata' =>  $this->buildMetaJson($request->meta)
         ]);
         $realEstateMeta->image()->save(File::find($request->file_id));
