@@ -2339,13 +2339,10 @@ __webpack_require__.r(__webpack_exports__);
         responseType: 'blob' //Force to receive data in a Blob Format
 
       }).then(function (response) {
-        //Create a Blob from the PDF Stream
         var file = new Blob([response.data], {
           type: 'application/pdf'
-        }); //Build a URL from the file
-
-        var fileURL = URL.createObjectURL(file); //Open the URL on new Window
-
+        });
+        var fileURL = URL.createObjectURL(file);
         window.open(fileURL);
       })["catch"](function (error) {
         console.log(error);
@@ -2361,7 +2358,8 @@ __webpack_require__.r(__webpack_exports__);
       'name': realEstate.name,
       object: 'TitlePage',
       'id': realEstate.id,
-      print: true
+      print: true,
+      isPublic: true
     });
     realEstate.meta.forEach(function (meta) {
       items.push({
@@ -2369,7 +2367,8 @@ __webpack_require__.r(__webpack_exports__);
         'name': meta.name,
         object: 'MetaPage',
         'id': meta.id,
-        print: true
+        print: true,
+        isPublic: meta.is_public
       });
     });
     realEstate.text.forEach(function (meta) {
@@ -2378,7 +2377,8 @@ __webpack_require__.r(__webpack_exports__);
         'name': meta.name,
         object: 'TextPage',
         'id': meta.id,
-        print: true
+        print: true,
+        isPublic: meta.is_public
       });
     });
     realEstate.location.forEach(function (meta) {
@@ -2387,7 +2387,8 @@ __webpack_require__.r(__webpack_exports__);
         'name': meta.name,
         object: 'LocationPage',
         'id': meta.id,
-        print: true
+        print: true,
+        isPublic: meta.is_public
       });
     });
     realEstate.gallery.forEach(function (meta) {
@@ -2396,7 +2397,8 @@ __webpack_require__.r(__webpack_exports__);
         'name': meta.name,
         object: 'ImagePage',
         'id': meta.id,
-        print: true
+        print: true,
+        isPublic: meta.is_public
       });
     });
   }
@@ -39676,7 +39678,7 @@ var render = function() {
                       expression: "item.print"
                     }
                   ],
-                  attrs: { type: "checkbox" },
+                  attrs: { type: "checkbox", disabled: !item.isPublic },
                   domProps: {
                     checked: Array.isArray(item.print)
                       ? _vm._i(item.print, null) > -1
