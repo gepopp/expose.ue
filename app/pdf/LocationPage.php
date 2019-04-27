@@ -71,7 +71,7 @@ class   LocationPage
         $pdf->SetXY(12, 30);
         $pdf->SetFont('helvetica', null, 12);
         $pdf->SetDrawColor(80, 80, 80);
-        $pdf->MultiCell(130, 4, $realEstateLocation->description, 0, 'L', 0, 2, 12, 30, true, 0, true, true, null, 'T');
+        $pdf->MultiCell(130, 4, $realEstateLocation->description, 0, 'L', 0, 2, 12, 30);
 
     }
 
