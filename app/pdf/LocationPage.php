@@ -43,10 +43,11 @@ class   LocationPage
 
         $pdf->setPageTitle( $realEstateLocation->name );
 
-        $pdf->SetMargins(12, 30);
+
         $pdf->SetAutoPageBreak(true, 30);
 
         $pdf->AddPage();
+        $pdf->SetMargins(12, 30);
 
         $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" . $realEstateLocation->lat_lng
                 . "&zoom=" . $realEstateLocation->zoom
