@@ -71,11 +71,11 @@
             });
 
             realEstate.meta.forEach(function (meta) {
-                items.push({'kind': 'Daten Seite', 'name': meta.name, object: 'MetaPage', 'id': meta.id, print: true, isPublic: meta.is_public});
+                items.push({'kind': 'Daten Seite', 'name': meta.name, object: 'MetaPage', 'id': meta.id, print: meta.is_public, isPublic: meta.is_public});
             })
 
             realEstate.text.forEach(function (meta) {
-                items.push({'kind': 'Textseite', 'name': meta.name, object: 'TextPage', 'id': meta.id, print: true, isPublic: meta.is_public});
+                items.push({'kind': 'Textseite', 'name': meta.name, object: 'TextPage', 'id': meta.id, print: meta.is_public, isPublic: meta.is_public});
             })
 
             realEstate.location.forEach(function (meta) {
@@ -84,13 +84,13 @@
                     'name': meta.name,
                     object: 'LocationPage',
                     'id': meta.id,
-                    print: true,
+                    print: meta.is_public,
                     isPublic: meta.is_public
                 });
             })
 
             realEstate.gallery.forEach(function (meta) {
-                items.push({'kind': 'Bildseite', 'name': meta.name, object: 'ImagePage', 'id': meta.id, print: true, isPublic: meta.is_public});
+                items.push({'kind': 'Bildseite', 'name': meta.name, object: 'ImagePage', 'id': meta.id, print: meta.is_public, isPublic: meta.is_public});
             })
         }
     }

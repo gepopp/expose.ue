@@ -2367,7 +2367,7 @@ __webpack_require__.r(__webpack_exports__);
         'name': meta.name,
         object: 'MetaPage',
         'id': meta.id,
-        print: true,
+        print: meta.is_public,
         isPublic: meta.is_public
       });
     });
@@ -2377,7 +2377,7 @@ __webpack_require__.r(__webpack_exports__);
         'name': meta.name,
         object: 'TextPage',
         'id': meta.id,
-        print: true,
+        print: meta.is_public,
         isPublic: meta.is_public
       });
     });
@@ -2387,7 +2387,7 @@ __webpack_require__.r(__webpack_exports__);
         'name': meta.name,
         object: 'LocationPage',
         'id': meta.id,
-        print: true,
+        print: meta.is_public,
         isPublic: meta.is_public
       });
     });
@@ -2397,7 +2397,7 @@ __webpack_require__.r(__webpack_exports__);
         'name': meta.name,
         object: 'ImagePage',
         'id': meta.id,
-        print: true,
+        print: meta.is_public,
         isPublic: meta.is_public
       });
     });
