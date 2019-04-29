@@ -2319,6 +2319,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PdfCreator",
@@ -39796,14 +39798,16 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "d-flex" }, [
         _c("div", [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-success mt-3",
-              on: { click: _vm.createPdf }
-            },
-            [_vm._v("erzeugen")]
-          )
+          !_vm.loading
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mt-3",
+                  on: { click: _vm.createPdf }
+                },
+                [_vm._v("erzeugen")]
+              )
+            : _vm._e()
         ]),
         _vm._v(" "),
         _vm.loading
@@ -39814,9 +39818,18 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.download != ""
-          ? _c("a", { attrs: { href: _vm.download } }, [_vm._v("download")])
-          : _vm._e()
+        _c("div", { staticClass: "my-3" }, [
+          _vm.download != ""
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-success mx-5",
+                  attrs: { href: _vm.download }
+                },
+                [_vm._v("download")]
+              )
+            : _vm._e()
+        ])
       ])
     ],
     1

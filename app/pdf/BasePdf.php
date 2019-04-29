@@ -52,11 +52,15 @@ class BasePdf extends TCPDF
         /* Page Title */
         $this->Image(public_path('img/doties-small.png'), 0, 5, 10, 10);
         $this->SetFont('Kartika', null, 32);
-        $this->setXY(12, 5.5);
-        $this->Cell(150, 10, $this->pageTitle, 0, 'L');
+        $this->setXY(0, 3);
+        $this->SetTextColor(255, 255, 255);
+        $this->SetFillColor(203, 153, 50);
+        $this->Cell(12, 10, '', 0, 0, 'L', 1);
+        $this->Cell(297/2-12, 10, $this->pageTitle, 0, 'L', 'L', 1);
 
 
         /* Real Estate Title on the right */
+        $this->SetTextColor(80, 80, 80);
         $this->SetXY(297 / 2, 11);
         $this->SetFont('helvetica', null, 12);
         $this->Cell(297 / 2 - 12, 4, $this->realEstate->name, null, null, 'R');

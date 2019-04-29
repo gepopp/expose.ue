@@ -15,10 +15,12 @@
         </SlickList>
         <div class="d-flex">
             <div>
-                <button class="btn btn-success mt-3" @click="createPdf">erzeugen</button>
+                <button v-if="!loading" class="btn btn-primary mt-3" @click="createPdf">erzeugen</button>
             </div>
             <div class="lds-facebook" v-if="loading"><div></div><div></div><div></div></div>
-            <a :href="download" v-if="download != ''">download</a>
+            <div class="my-3">
+                <a :href="download" class="btn btn-success mx-5" v-if="download != ''">download</a>
+            </div>
         </div>
     </div>
 </template>

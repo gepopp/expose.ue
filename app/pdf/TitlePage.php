@@ -28,7 +28,8 @@ class TitlePage
         $pdf->Image(public_path('tmp/' . $realEstate->titleimage->name ), 0,20, 297, 210/2, null, null, null, true  );
 
         $pdf->Image(public_path('img/doties.png'), 0,210/2 + 40, null, 30 );
-        $pdf->Image(public_path('img/logo-vertikal.png'), 20,210/2+40, null, 30 );
+        $pdf->Image(public_path('img/doties.png'), 12,210/2 + 40, null, 30 );
+        $pdf->Image(public_path('img/logo-vertikal.png'), 30,210/2+40, null, 30 );
 
         $pdf->Rect(297/2, 210/2+40, 297/2, 30, 'F', 0, [203, 153, 50]);
 
