@@ -61,11 +61,12 @@ class BasePdf extends TCPDF
 
         /* Real Estate Title on the right */
         $this->SetTextColor(80, 80, 80);
-        $this->SetXY(297 / 2, 3);
+        $this->SetXY(297 / 2, 10);
         $this->SetFont('helvetica', null, 12);
         $this->Cell(297 / 2 - 12, 4, $this->realEstate->name, null, null, 'R');
-        $this->SetXY(297 / 2, 8);
-       // $this->MultiCell(297/2, 6,  )
+        //$this->SetXY(297 / 2 +10, 8);
+        //$this->SetFont('helvetica', null, 8);
+        //$this->MultiCell(297/2-12, 8, $this->realEstate->description, null, 'R', false, null, 297/2, null, true, null, true  );
     }
 
     public function Footer()
