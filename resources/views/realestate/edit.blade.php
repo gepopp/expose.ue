@@ -29,6 +29,7 @@
                                     </div>
 
                                     <label for="description">Beschreibung für Kurzexpose</label>
+                                    <small>Nur ENTER = Absatz mit mehr Abstand / SHIFT + ENTER = Zeilenumbruch ohne Abstand</small>
                                     <w-y-s-i-w-y-g name="description" content="{{ old('description') ?: $realEstate->description }}"></w-y-s-i-w-y-g>
                                     @if ($errors->has('description'))
                                         <span class="text-danger" role="alert">
