@@ -55,6 +55,7 @@ class RealEstateLocationController extends Controller
             "zoom" => $request->zoom,
             "type" => $request->type,
             "marker" => $request->marker,
+            "marker_location" => $request->marker_location,
             "radius" => $request->radius ?: 0,
         ]);
 
@@ -93,6 +94,7 @@ class RealEstateLocationController extends Controller
      */
     public function update(Request $request, RealEstate $realEstate, RealEstateLocation $realEstateLocation)
     {
+
         $request->validate([
             "name" => "required",
             "description" => "required",
@@ -112,6 +114,7 @@ class RealEstateLocationController extends Controller
             "zoom" => $request->zoom,
             "type" => $request->type,
             "marker" => $request->marker,
+            "marker_location" => $request->marker_location,
             "radius" => $request->radius ?: 0,
         ]);
 

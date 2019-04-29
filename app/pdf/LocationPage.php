@@ -51,11 +51,12 @@ class   LocationPage
                 . "&maptype=" . $realEstateLocation->type
                 . "&size=445x450&key=AIzaSyADsKyn2Dw9q_cQyxs30OfklCMwOXzhSow";
 
-        if($realEstateLocation->marker == "Umkreis"){
+        if($realEstateLocation->marker == 2){
             $split = explode(',', $realEstateLocation->lat_lng);
-            $mapUrl .= '&path=color:0x0000ff00|fillcolor:0xcb993280|enc:' . $this->GMapCircle($split[0], $split[1], ($realEstateLocation->radius / 1000));
-        }else{
-            $mapUrl .= "&markers=color:0xcb9932|" . $realEstateLocation->lat_lng;
+            $circle_split = explode(',', $realEstateLocation->marker_location);
+            $mapUrl .= '&path=color:0x0000ff00|fillcolor:0xcb993280|enc:' . $this->GMapCircle( $circle_split[0], $circle_split[1], ($realEstateLocation->radius / 1000));
+        }elseif( $realEstateLocation->marker == 1 ){
+            $mapUrl .= "&markers=color:0xcb9932|" . $realEstateLocation->marker_location;
         }
         $image_path = public_path('tmp/') . time() . '.jpg';
         Image::make($mapUrl)->fit((int)((297 / 2) * 3), 150 * 3)->save($image_path)->encode('jpg', 80);

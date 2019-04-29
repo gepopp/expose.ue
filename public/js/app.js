@@ -2070,12 +2070,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "LocationMap",
-  props: ['old_zoom', 'location', 'radius', 'marker_type', 'maptype'],
+  props: ['old_zoom', 'location', 'radius', 'marker', 'maptype', 'marker_pos'],
   data: function data() {
     return {
       markers: [],
       place: null,
-      circle: false,
+      marker_type: 1,
+      marker_location: '',
       zoom: 1,
       umkreis: 100,
       type: 'roadmap',
@@ -2087,11 +2088,21 @@ __webpack_require__.r(__webpack_exports__);
     setPlace: function setPlace(place) {
       this.place = place;
       this.latlng = this.place.geometry.location.lat() + ',' + this.place.geometry.location.lng();
+      this.marker_location = {
+        lat: this.place.geometry.location.lat(),
+        lng: this.place.geometry.location.lng()
+      };
       this.$refs.mapRef.panTo(place.geometry.location);
       this.$eventHub.$emit('upload-done');
     },
     typeChanged: function typeChanged(type) {
       this.type = type;
+    },
+    centerChanged: function centerChanged(center) {
+      this.latlng = center.lat() + ',' + center.lng();
+    },
+    zoomChanged: function zoomChanged(zoom) {
+      this.zoom = zoom;
     }
   },
   mounted: function mounted() {
@@ -2102,35 +2113,51 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     if (this.radius) {
-      this.umkreis = parseInt(this.radius);
+      this.umkreis = parseInt(this.radius) < 50 ? 50 : parseInt(this.radius);
     }
 
     if (this.old_zoom) {
       this.zoom = this.old_zoom;
     }
 
-    console.log(this.maptype);
-
     if (this.maptype) {
-      console.log(this.maptype);
       this.type = this.maptype;
     }
 
-    var ref = this;
+    if (this.marker) {
+      this.marker_type = this.marker;
+    }
+
+    var instance = this;
 
     if (this.location) {
+      this.latlng = this.location;
       var split = this.location.split(',');
+      var ref = this;
       this.$refs.mapRef.$mapPromise.then(function (map) {
-        var gc = new google.maps.Geocoder();
-        gc.geocode({
-          location: {
+        instance.$eventHub.$emit('upload-done');
+        map.setCenter({
+          lat: parseFloat(split[0]),
+          lng: parseFloat(split[1])
+        });
+
+        if (instance.marker_pos) {
+          split = instance.marker_pos.split(',');
+          instance.marker_location = {
             lat: parseFloat(split[0]),
             lng: parseFloat(split[1])
-          }
-        }, function (results) {
-          ref.setPlace(results[0]);
-        });
+          };
+        }
       });
+    }
+  },
+  computed: {
+    markerPosString: function markerPosString() {
+      if (this.marker_location.lat && this.marker_location.lng) {
+        return this.marker_location.lat + ',' + this.marker_location.lng;
+      }
+
+      return false;
     }
   }
 });
@@ -2451,15 +2478,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "StaticMap",
-  props: ['latlng', 'marker', 'radius', 'zoom', 'type'],
+  props: ['latlng', 'marker', 'radius', 'zoom', 'type', 'marker_location'],
   data: function data() {
     return {
       url: ''
     };
   },
   methods: {
-    GMapCircle: function GMapCircle(lat, lng, rad) {
-      var detail = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 8;
+    GMapCircle: function GMapCircle(lat, lng, clat, clng, rad) {
+      var detail = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 8;
       var uri = 'https://maps.googleapis.com/maps/api/staticmap?';
       var staticMapSrc = 'center=' + lat + ',' + lng;
       staticMapSrc += '&size=500x500';
@@ -2469,9 +2496,9 @@ __webpack_require__.r(__webpack_exports__);
       var r = 6371;
       var pi = Math.PI;
 
-      var _lat = lat * pi / 180;
+      var _lat = clat * pi / 180;
 
-      var _lng = lng * pi / 180;
+      var _lng = clng * pi / 180;
 
       var d = rad / 1000 / r;
       var i = 0;
@@ -2489,11 +2516,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    if (this.marker == "Umkreis") {
+    if (this.marker == 2) {
       var split = this.latlng.split(',');
-      this.url = this.GMapCircle(split[0], split[1], this.radius);
+      var csplit = this.marker_location.split(',');
+      this.url = this.GMapCircle(split[0], split[1], csplit[0], csplit[1], this.radius);
+    } else if (this.marker == 1) {
+      this.url = "https://maps.googleapis.com/maps/api/staticmap?center=" + this.latlng + "&zoom=" + this.zoom + "&maptype=" + this.type + "&markers=color:red,label:*|" + this.marker_location + "&size=500x500&key=AIzaSyADsKyn2Dw9q_cQyxs30OfklCMwOXzhSow";
     } else {
-      this.url = "https://maps.googleapis.com/maps/api/staticmap?center=" + this.latlng + "&zoom=" + this.zoom + "&maptype=" + this.type + "&markers=color:red,label:*|" + this.latlng + "&size=500x500&key=AIzaSyADsKyn2Dw9q_cQyxs30OfklCMwOXzhSow";
+      this.url = "https://maps.googleapis.com/maps/api/staticmap?center=" + this.latlng + "&zoom=" + this.zoom + "&maptype=" + this.type + "&size=500x500&key=AIzaSyADsKyn2Dw9q_cQyxs30OfklCMwOXzhSow";
     }
   }
 });
@@ -39252,28 +39282,23 @@ var render = function() {
               disableDefaultUi: false
             }
           },
-          on: { maptypeid_changed: _vm.typeChanged }
+          on: {
+            maptypeid_changed: _vm.typeChanged,
+            center_changed: _vm.centerChanged,
+            zoom_changed: _vm.zoomChanged
+          }
         },
         [
-          this.place && !this.circle
+          this.marker_type == 1
             ? _c("GmapMarker", {
-                attrs: {
-                  label: "★",
-                  position: {
-                    lat: this.place.geometry.location.lat(),
-                    lng: this.place.geometry.location.lng()
-                  }
-                }
+                attrs: { label: "★", position: this.marker_location }
               })
             : _vm._e(),
           _vm._v(" "),
-          this.place && this.circle
+          this.marker_type == 2
             ? _c("GmapCircle", {
                 attrs: {
-                  center: {
-                    lat: this.place.geometry.location.lat(),
-                    lng: this.place.geometry.location.lng()
-                  },
+                  center: this.marker_location,
                   radius: this.umkreis,
                   visible: true,
                   options: {
@@ -39327,20 +39352,20 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.circle,
-            expression: "circle"
+            value: _vm.marker_type,
+            expression: "marker_type"
           }
         ],
         attrs: { type: "radio", id: "two" },
-        domProps: { value: false, checked: _vm._q(_vm.circle, false) },
+        domProps: { value: 0, checked: _vm._q(_vm.marker_type, 0) },
         on: {
           change: function($event) {
-            _vm.circle = false
+            _vm.marker_type = 0
           }
         }
       }),
       _vm._v(" "),
-      _c("label", { attrs: { for: "two" } }, [_vm._v("Stecknadel")]),
+      _c("label", { attrs: { for: "two" } }, [_vm._v("Keine Markierung")]),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
@@ -39349,24 +39374,46 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.circle,
-            expression: "circle"
+            value: _vm.marker_type,
+            expression: "marker_type"
           }
         ],
         attrs: { type: "radio", id: "one" },
-        domProps: { value: true, checked: _vm._q(_vm.circle, true) },
+        domProps: { value: 1, checked: _vm._q(_vm.marker_type, 1) },
         on: {
           change: function($event) {
-            _vm.circle = true
+            _vm.marker_type = 1
           }
         }
       }),
       _vm._v(" "),
-      _c("label", { attrs: { for: "one" } }, [_vm._v("Umkreis")]),
+      _c("label", { attrs: { for: "one" } }, [_vm._v("Nadel")]),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _vm.circle
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.marker_type,
+            expression: "marker_type"
+          }
+        ],
+        attrs: { type: "radio", id: "three" },
+        domProps: { value: 2, checked: _vm._q(_vm.marker_type, 2) },
+        on: {
+          change: function($event) {
+            _vm.marker_type = 2
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "three" } }, [_vm._v("Umkreis")]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      this.marker_type == 2
         ? _c("div", [
             _c("label", [_vm._v("Umkreis")]),
             _vm._v(" "),
@@ -39381,7 +39428,7 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "number", name: "radius" },
+              attrs: { type: "number", name: "radius", min: "50" },
               domProps: { value: _vm.umkreis },
               on: {
                 input: function($event) {
@@ -39421,7 +39468,7 @@ var render = function() {
       _vm._v(" "),
       _c("input", {
         attrs: { type: "hidden", name: "marker" },
-        domProps: { value: _vm.circle ? "Umkreis" : "Stecknadel" }
+        domProps: { value: this.marker_type }
       }),
       _vm._v(" "),
       _c("input", {
@@ -39441,6 +39488,27 @@ var render = function() {
               return
             }
             _vm.latlng = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.markerPosString,
+            expression: "markerPosString"
+          }
+        ],
+        attrs: { type: "hidden", name: "marker_location" },
+        domProps: { value: _vm.markerPosString },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.markerPosString = $event.target.value
           }
         }
       })

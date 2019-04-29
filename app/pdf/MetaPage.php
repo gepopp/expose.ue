@@ -71,8 +71,7 @@ class MetaPage
                 if (is_numeric($value) && $datum->format_number) {
                     $value = number_format($value, 0, ',', '.');
                 }
-                $pdf->Cell(20, 15, $value, null, 0, 'R', 1);
-                $pdf->Cell(15, 15, $datum->postfix, null, 1, null, 1);
+                $pdf->Cell(35, 15, $value . ' ' . $datum->postfix, null, 1, 'R', 1);
                 $runner++;
             }
         }

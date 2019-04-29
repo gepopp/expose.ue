@@ -45,7 +45,8 @@
                                             :old_zoom="{{ $realEstateLocation->zoom }}"
                                             location="{{ $realEstateLocation->lat_lng }}"
                                             radius="{{ $realEstateLocation->radius }}"
-                                            marker_type="{{ $realEstateLocation->marker }}"
+                                            marker="{{ $realEstateLocation->marker }}"
+                                            marker_pos="{{ $realEstateLocation->marker_location }}"
                                     ></location-map>
 
 

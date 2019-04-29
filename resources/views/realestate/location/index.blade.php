@@ -23,7 +23,13 @@
                                 <li class="list-group-item">
                                     <div class="d-flex">
                                         <div class="mr-3">
-                                            <static-map latlng="{{$realEstateLocation->lat_lng}}" type="{{ $realEstateLocation->type }}" zoom="{{ $realEstateLocation->zoom }}" marker="{{ $realEstateLocation->marker }}" radius="{{ $realEstateLocation->radius }}"></static-map>
+                                            <static-map
+                                                    latlng="{{$realEstateLocation->lat_lng}}"
+                                                    type="{{ $realEstateLocation->type }}"
+                                                    zoom="{{ $realEstateLocation->zoom }}"
+                                                    :marker="{{ $realEstateLocation->marker }}"
+                                                    marker_location="{{ $realEstateLocation->marker_location }}"
+                                                    radius="{{ $realEstateLocation->radius }}"></static-map>
                                         </div>
                                         <div class="w-100 ">
                                             <h3 class="d-flex justify-content-between">
