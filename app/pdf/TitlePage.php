@@ -24,8 +24,8 @@ class TitlePage
 
 
         $image = Storage::get($realEstate->titleimage->path);
-        $resize = Image::make($image)->fit(297*3, 105*3)->save(public_path('tmp/') . $realEstate->titleimage->name);
-        $pdf->Image(public_path('tmp/' . $realEstate->titleimage->name ), 0,20, 297, 210/2, null, null, null, true  );
+        $resize = Image::make($image)->fit(297*3, 135*3)->save(public_path('tmp/') . $realEstate->titleimage->name);
+        $pdf->Image(public_path('tmp/' . $realEstate->titleimage->name ), 0,0, 297, 210/2 + 30, null, null, null, true  );
 
         $pdf->Image(public_path('img/doties.png'), 0,210/2 + 40, null, 30 );
         $pdf->Image(public_path('img/doties.png'), 12,210/2 + 40, null, 30 );
