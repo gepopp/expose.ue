@@ -2350,8 +2350,8 @@ __webpack_require__.r(__webpack_exports__);
         data: this.items //responseType: 'blob' //Force to receive data in a Blob Format
 
       }).then(function (response) {
-        ref.download = response.data; // ref.loading = false;
-        //
+        ref.download = response.data;
+        ref.loading = false; //
         // const file = new Blob(
         //         [response.data],
         //         {type: 'application/pdf'});

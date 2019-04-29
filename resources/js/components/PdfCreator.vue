@@ -58,7 +58,7 @@
                 }).then(response => {
 
                     ref.download = response.data;
-                    // ref.loading = false;
+                    ref.loading = false;
                     //
                     // const file = new Blob(
                     //         [response.data],
