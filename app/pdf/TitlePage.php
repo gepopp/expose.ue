@@ -35,7 +35,10 @@ class TitlePage
         $pdf->SetXY(297/2+5, 210/2+45 );
         $pdf->SetFont('helvetica', null, 18);
         $pdf->SetTextColor(255,255,255);
-        $pdf->Cell(297/2-10, 8, $realEstate->name, null, 1, 'C', null, null, 1, null, null, null);
+        $pdf->Cell(297/2-10, 8, $realEstate->name, null, 1, 'L', null, null, 1, null, null, null);
+        $pdf->SetFontSize(12);
+        $pdf->SetDrawColor(255,255,255);
+        $pdf->MultiCell(297/2-10, 10, $realEstate->description, 1, 'L', 1, 1, 297/2+5, 210/2+55, true, 0, true, true, 60, 'M', true);
 
         return $pdf;
 
