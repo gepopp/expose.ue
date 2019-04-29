@@ -2088,7 +2088,6 @@ __webpack_require__.r(__webpack_exports__);
       this.place = place;
       this.latlng = this.place.geometry.location.lat() + ',' + this.place.geometry.location.lng();
       this.$refs.mapRef.panTo(place.geometry.location);
-      this.zoom = 14;
       this.$eventHub.$emit('upload-done');
     },
     typeChanged: function typeChanged(type) {
@@ -2311,6 +2310,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PdfCreator",
@@ -2326,24 +2334,29 @@ __webpack_require__.r(__webpack_exports__);
     return {
       items: [],
       dragHandle: true,
-      formurl: ''
+      formurl: '',
+      loading: false,
+      download: ''
     };
   },
   methods: {
     updateList: function updateList(list) {},
     createPdf: function createPdf() {
+      this.loading = true;
+      var ref = this;
       axios({
         url: this.formurl,
         method: 'POST',
-        data: this.items,
-        responseType: 'blob' //Force to receive data in a Blob Format
+        data: this.items //responseType: 'blob' //Force to receive data in a Blob Format
 
       }).then(function (response) {
-        var file = new Blob([response.data], {
-          type: 'application/pdf'
-        });
-        var fileURL = URL.createObjectURL(file);
-        window.open(fileURL);
+        ref.download = response.data; // ref.loading = false;
+        //
+        // const file = new Blob(
+        //         [response.data],
+        //         {type: 'application/pdf'});
+        //         const fileURL = URL.createObjectURL(file);
+        //     window.open(fileURL);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -7071,6 +7084,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, "\nbody{\n    max-height: 100vh;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.lds-facebook[data-v-1ea6faf6] {\n    display: inline-block;\n    position: relative;\n    width: 64px;\n    height: 64px;\n}\n.lds-facebook div[data-v-1ea6faf6] {\n    display: inline-block;\n    position: absolute;\n    left: 6px;\n    width: 13px;\n    background: grey;\n    -webkit-animation: lds-facebook-data-v-1ea6faf6 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;\n            animation: lds-facebook-data-v-1ea6faf6 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;\n}\n.lds-facebook div[data-v-1ea6faf6]:nth-child(1) {\n    left: 6px;\n    -webkit-animation-delay: -0.24s;\n            animation-delay: -0.24s;\n}\n.lds-facebook div[data-v-1ea6faf6]:nth-child(2) {\n    left: 26px;\n    -webkit-animation-delay: -0.12s;\n            animation-delay: -0.12s;\n}\n.lds-facebook div[data-v-1ea6faf6]:nth-child(3) {\n    left: 45px;\n    -webkit-animation-delay: 0;\n            animation-delay: 0;\n}\n@-webkit-keyframes lds-facebook-data-v-1ea6faf6 {\n0% {\n        top: 6px;\n        height: 51px;\n}\n50%, 100% {\n        top: 19px;\n        height: 26px;\n}\n}\n@keyframes lds-facebook-data-v-1ea6faf6 {\n0% {\n        top: 6px;\n        height: 51px;\n}\n50%, 100% {\n        top: 19px;\n        height: 26px;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -38057,6 +38089,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/WYSIWYG.vue?vue&type=style&index=0&lang=css&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/WYSIWYG.vue?vue&type=style&index=0&lang=css& ***!
@@ -39669,49 +39731,56 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("span", { staticClass: "px-3" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: item.print,
-                      expression: "item.print"
-                    }
-                  ],
-                  attrs: { type: "checkbox", disabled: !item.isPublic },
-                  domProps: {
-                    checked: Array.isArray(item.print)
-                      ? _vm._i(item.print, null) > -1
-                      : item.print
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = item.print,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 && _vm.$set(item, "print", $$a.concat([$$v]))
+                _c("label", { attrs: { for: index } }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: item.print,
+                        expression: "item.print"
+                      }
+                    ],
+                    attrs: {
+                      type: "checkbox",
+                      disabled: !item.isPublic,
+                      id: index
+                    },
+                    domProps: {
+                      checked: Array.isArray(item.print)
+                        ? _vm._i(item.print, null) > -1
+                        : item.print
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = item.print,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(item, "print", $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                item,
+                                "print",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
                         } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              item,
-                              "print",
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
+                          _vm.$set(item, "print", $$c)
                         }
-                      } else {
-                        _vm.$set(item, "print", $$c)
                       }
                     }
-                  }
-                })
+                  }),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(item.kind))])
+                ])
               ]),
-              _vm._v(" "),
-              _c("strong", [_vm._v(_vm._s(item.kind))]),
-              _vm._v(" " + _vm._s(item.name) + " "),
+              _vm._v("\n            " + _vm._s(item.name) + " "),
               _c("small", [
                 _vm._v(
                   "( " +
@@ -39725,11 +39794,30 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-success mt-5", on: { click: _vm.createPdf } },
-        [_vm._v("erzeugen")]
-      )
+      _c("div", { staticClass: "d-flex" }, [
+        _c("div", [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success mt-3",
+              on: { click: _vm.createPdf }
+            },
+            [_vm._v("erzeugen")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm.loading
+          ? _c("div", { staticClass: "lds-facebook" }, [
+              _c("div"),
+              _c("div"),
+              _c("div")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.download != ""
+          ? _c("a", { attrs: { href: _vm.download } }, [_vm._v("download")])
+          : _vm._e()
+      ])
     ],
     1
   )
@@ -56348,7 +56436,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PdfCreator_vue_vue_type_template_id_1ea6faf6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PdfCreator.vue?vue&type=template&id=1ea6faf6&scoped=true& */ "./resources/js/components/PdfCreator.vue?vue&type=template&id=1ea6faf6&scoped=true&");
 /* harmony import */ var _PdfCreator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PdfCreator.vue?vue&type=script&lang=js& */ "./resources/js/components/PdfCreator.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _PdfCreator_vue_vue_type_style_index_0_id_1ea6faf6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css& */ "./resources/js/components/PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -56356,7 +56446,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _PdfCreator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _PdfCreator_vue_vue_type_template_id_1ea6faf6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _PdfCreator_vue_vue_type_template_id_1ea6faf6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -56385,6 +56475,22 @@ component.options.__file = "resources/js/components/PdfCreator.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PdfCreator.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfCreator.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css& ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_style_index_0_id_1ea6faf6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PdfCreator.vue?vue&type=style&index=0&id=1ea6faf6&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_style_index_0_id_1ea6faf6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_style_index_0_id_1ea6faf6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_style_index_0_id_1ea6faf6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_style_index_0_id_1ea6faf6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PdfCreator_vue_vue_type_style_index_0_id_1ea6faf6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

@@ -36,7 +36,8 @@ class PDFCreator
                 $this->cleanTmp();
             }
         }
-        $pdf->Output($realEstate->name . '.pdf', 'I');
+        $pdf->Output(public_path('tmp/' . $realEstate->name . '.pdf'), 'F');
+        return '/tmp/' . $realEstate->name . '.pdf';
 
     }
 

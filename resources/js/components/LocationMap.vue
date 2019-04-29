@@ -72,7 +72,6 @@
                 this.place = place;
                 this.latlng = this.place.geometry.location.lat() + ',' + this.place.geometry.location.lng();
                 this.$refs.mapRef.panTo(place.geometry.location);
-                this.zoom = 14;
                 this.$eventHub.$emit('upload-done');
             },
             typeChanged(type) {

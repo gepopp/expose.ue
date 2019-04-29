@@ -42,12 +42,9 @@ class   LocationPage
         $pdf->SetTextColor(80,80,80);
 
         $pdf->setPageTitle( $realEstateLocation->name );
-
-
-        $pdf->SetAutoPageBreak(true, 30);
-
         $pdf->AddPage();
         $pdf->SetMargins(12, 30);
+        $pdf->SetAutoPageBreak(true, 30);
 
         $mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" . $realEstateLocation->lat_lng
                 . "&zoom=" . $realEstateLocation->zoom
@@ -60,19 +57,13 @@ class   LocationPage
         }else{
             $mapUrl .= "&markers=color:0xcb9932|" . $realEstateLocation->lat_lng;
         }
-
         $image_path = public_path('tmp/') . time() . '.jpg';
-
         Image::make($mapUrl)->fit((int)((297 / 2) * 3), 150 * 3)->save($image_path)->encode('jpg', 80);
-
         $pdf->setPageBreakImage($image_path);
-
         $pdf->Image( $image_path, 149, 30, 297 / 2, null, null, null, null, false);
-
         $pdf->SetXY(12, 30);
         $pdf->SetFont('helvetica', null, 12);
-        $pdf->SetDrawColor(80, 80, 80);
-        $pdf->MultiCell(130, 4, $realEstateLocation->description, 0, 'L', 0, 1, 12, 30, true, 0, true, true, null, 'T');
+        $pdf->MultiCell(130, 4, $realEstateLocation->description, 1, null, 0, 1, 12, 30, true, false, true, true, null, 'T');
 
     }
 
