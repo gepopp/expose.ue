@@ -63,7 +63,7 @@ class   LocationPage
         $pdf->Image( $image_path, 149, 30, 297 / 2, null, null, null, null, false);
         $pdf->SetXY(12, 30);
         $pdf->SetFont('helvetica', null, 12);
-        $pdf->MultiCell(130, 4, $realEstateLocation->description, 1, null, 0, 1, 12, 30, true, false, true, true, null, 'T');
+        $pdf->MultiCell(130, 4, $realEstateLocation->description, 0, null, 0, 1, 12, 30, true, false, true, true, null, 'T');
 
     }
 
