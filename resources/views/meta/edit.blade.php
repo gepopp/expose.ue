@@ -31,7 +31,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="1" id="format_number" name="format_number" {{ $meta->format_number ? 'checked' : '' }}>
                                 <label class="form-check-label" for="format_number">
-                                    Zahlen formattieren ( 2 Kommastellen und 1.000er Punkt )
+                                    Zahlen formattieren ( 0 Kommastellen und 1.000er Punkt )
                                 </label>
                             </div>
                             <div class="form-group mb-0">
