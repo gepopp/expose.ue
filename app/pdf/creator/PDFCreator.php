@@ -52,6 +52,7 @@ class PDFCreator
         $pdf = $page->content($pdf, $realEstate);
 
         $pdf->Output($realEstate->name . '.pdf', 'I');
+        $this->cleanTmp();
 
 
     }
