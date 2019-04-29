@@ -27,7 +27,6 @@
 
 <script>
     import {SlickList, SlickItem, HandleDirective} from 'vue-slicksort';
-
     export default {
         name: "PdfCreator",
         props: ['realestate', 'csrfToken'],
