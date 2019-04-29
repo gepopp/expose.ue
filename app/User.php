@@ -6,10 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $with = ['textSnippets', 'settings'];
 
     /**
      * The attributes that are mass assignable.
@@ -37,4 +39,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    function textSnippets(){
+        return $this->hasMany( TextSnippet::class);
+    }
+
+    function settings(){
+        return $this->hasMany(UserSetting::class);
+
+    }
+
 }

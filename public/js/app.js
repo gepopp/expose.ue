@@ -2324,7 +2324,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PdfCreator",
-  props: ['realestate', 'csrfToken'],
+  props: ['realestate', 'csrfToken', 'snippets'],
   directives: {
     handle: vue_slicksort__WEBPACK_IMPORTED_MODULE_0__["HandleDirective"]
   },
@@ -2366,6 +2366,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var realEstate = JSON.parse(this.realestate);
+    var snippets = JSON.parse(this.snippets);
     this.formurl = '/pdfSortSelect/realEstate/' + realEstate.id + '/create';
     var items = this.items;
     this.items.push({
@@ -2414,6 +2415,16 @@ __webpack_require__.r(__webpack_exports__);
         'id': meta.id,
         print: meta.is_public,
         isPublic: meta.is_public
+      });
+    });
+    snippets.forEach(function (snippet) {
+      items.push({
+        'kind': 'Textsnippet',
+        'name': snippet.title,
+        object: 'SnippetPage',
+        'id': snippet.id,
+        print: snippet.use_as_page,
+        isPublic: snippet.use_as_page
       });
     });
   }

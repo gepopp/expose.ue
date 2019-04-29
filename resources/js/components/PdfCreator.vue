@@ -29,7 +29,7 @@
     import {SlickList, SlickItem, HandleDirective} from 'vue-slicksort';
     export default {
         name: "PdfCreator",
-        props: ['realestate', 'csrfToken'],
+        props: ['realestate', 'csrfToken', 'snippets'],
         directives: {handle: HandleDirective},
         components: {
             SlickItem,
@@ -76,6 +76,7 @@
         mounted() {
 
             var realEstate = JSON.parse(this.realestate);
+            var snippets = JSON.parse(this.snippets);
 
             this.formurl = '/pdfSortSelect/realEstate/' + realEstate.id + '/create';
 
@@ -111,7 +112,10 @@
 
             realEstate.gallery.forEach(function (meta) {
                 items.push({'kind': 'Bildseite', 'name': meta.name, object: 'ImagePage', 'id': meta.id, print: meta.is_public, isPublic: meta.is_public});
-            })
+            });
+            snippets.forEach(function(snippet){
+                items.push({'kind': 'Textsnippet', 'name': snippet.title, object: 'SnippetPage', 'id': snippet.id, print: snippet.use_as_page, isPublic: snippet.use_as_page});
+            });
         }
     }
 </script>

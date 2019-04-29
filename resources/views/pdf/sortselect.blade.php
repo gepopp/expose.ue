@@ -9,10 +9,8 @@
                         <span>PDF erzeugen - {{ $realEstate->name }}</span>
                         <span><a href="{{ route('realestate.edit', $realEstate) }}" class="btn btn-success">bearbeiten</a></span>
                     </div>
-
                     <div class="card-body">
-
-                        <pdf-creator realestate="{{ json_encode($realEstate) }}" csrf-token="{{ csrf_token() }}"></pdf-creator>
+                        <pdf-creator realestate="{{ json_encode($realEstate) }}" snippets="{{ json_encode(Auth::user()->textSnippets->toArray()) }}" csrf-token="{{ csrf_token() }}"></pdf-creator>
                     </div>
                 </div>
             </div>

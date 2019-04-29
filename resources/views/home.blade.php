@@ -56,6 +56,7 @@
                                                     <a class="nav-link" href="{{ route('pdfcreator.single', [$realEstate, 'MetaPage']) }}" target="_blank">Metaseiten</a>
                                                     <a class="nav-link" href="{{ route('pdfcreator.single', [$realEstate, 'LocationPage']) }}" target="_blank">Lageseiten</a>
                                                     <a class="nav-link" href="{{ route('pdfcreator.single', [$realEstate, 'ImagePage']) }}" target="_blank">Bildseiten</a>
+                                                    <a class="nav-link" href="{{ route('pdfcreator.single', [$realEstate, 'SnippetPage']) }}" target="_blank">Snippetseiten</a>
                                                 </div>
                                             </li>
                                         </ul>

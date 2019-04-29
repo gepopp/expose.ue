@@ -24,7 +24,8 @@ Auth::routes();
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::resource('textSnippet', 'TextSnippetController')->middleware('auth');
+Route::resource('userSetting', 'UserSettingController')->middleware('auth');
 
 /** File upload, delete, label and sort */
 Route::post('file/{folder}', 'FileController@store');

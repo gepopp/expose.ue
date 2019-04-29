@@ -16,7 +16,7 @@
                 editorData: this.content,
                 editorConfig: {
                     removePlugins: [ 'Heading' ],
-                    toolbar: [ 'bold', 'italic', 'Link', 'blockQuote', 'NumberedList',  'BulletedList' ]
+                    toolbar: [ 'bold', 'italic', 'Link', 'blockQuote', 'NumberedList',  'BulletedList' ],
                 },
             };
         }

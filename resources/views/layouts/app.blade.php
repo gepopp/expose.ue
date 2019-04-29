@@ -49,8 +49,15 @@
 {{--                                </li>--}}
 {{--                            @endif--}}
                         @else
-                            <li class="nav-item">
-                                <a href="{{ route('meta.index') }}" class="nav-link">Metafelder</a>
+                            <li class="nav-item dropdown">
+                                <a id="settingsDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Einstellungen <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="settingsDropdown">
+                                    <a href="{{ route('meta.index') }}" class="nav-link">Metafelder</a>
+                                    <a href="{{ route('textSnippet.index') }}" class="nav-link">Textsnippets</a>
+                                    <a href="{{ route('userSetting.index') }}" class="nav-link">Einstellungen</a>
+                                </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
