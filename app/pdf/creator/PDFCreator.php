@@ -46,7 +46,6 @@ class PDFCreator
     {
 
         $pdf = new BasePdf($realEstate);
-
         $class = 'App\pdf\\' . $page;
         $page = new $class;
         $pdf = $page->content($pdf, $realEstate);

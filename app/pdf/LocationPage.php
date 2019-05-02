@@ -58,7 +58,9 @@ class   LocationPage
         }elseif( $realEstateLocation->marker == 1 ){
             $mapUrl .= "&markers=color:0xcb9932|" . $realEstateLocation->marker_location;
         }
-        $image_path = public_path('tmp/') . time() . '.jpg';
+        $image_path = public_path('tmp/') . time() . '-' . $realEstateLocation->id . '.jpg';
+
+
         Image::make($mapUrl)->fit((int)((297 / 2) * 3), 150 * 3)->save($image_path)->encode('jpg', 80);
         $pdf->setPageBreakImage($image_path);
         $pdf->Image( $image_path, 149, 30, 297 / 2, null, null, null, null, false);
