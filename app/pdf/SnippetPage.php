@@ -42,7 +42,7 @@ class SnippetPage
 
         $pdf->setPageTitle($textSnippet->title);
 
-        $pdf->SetMargins(12, 30);
+        $pdf->SetMargins(12, 20);
         $pdf->SetAutoPageBreak(true, 30);
         $pdf->AddPage();
         $pdf->setPrintFooter(true);
