@@ -38,9 +38,11 @@ class MetaPage
     {
         $data = json_decode($realEstateMeta->metadata);
         $chunks = array_chunk($data, 10);
+        if($realEstateMeta->image){
+            $image = Storage::get($realEstateMeta->image->path);
+            Image::make($image)->fit((int)((297 / 2) * 3), 150 * 3)->save(public_path('tmp/') . $realEstateMeta->image->name);
+        }
 
-        $image = Storage::get($realEstateMeta->image->path);
-        Image::make($image)->fit((int)((297 / 2) * 3), 150 * 3)->save(public_path('tmp/') . $realEstateMeta->image->name);
 
         $pdf->setPageTitle( $realEstateMeta->name );
 
