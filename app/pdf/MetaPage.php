@@ -52,6 +52,7 @@ class MetaPage
             $pdf->setPrintFooter(true);
             $pdf->SetTextColor(80,80,80);
 
+            if($realEstateMeta->image)
             $pdf->Image(public_path('tmp/' . $realEstateMeta->image->name), 149, 30, 297 / 2, null, null, null, null, false);
 
             $pdf->SetXY(12, 30);
