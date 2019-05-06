@@ -72,10 +72,10 @@ class BasePdf extends TCPDF
         if( $this->realEstate->show == 1 ){
             $address = $this->realEstate->country . '-' . $this->realEstate->zip . ' ' . $this->realEstate->city;
         }
-        if($realEstate->show == 2){
+        if($this->realEstate->show == 2){
             $address = $this->realEstate->street . '<br>' . $this->realEstate->country . '-' . $this->realEstate->zip . ' ' . $this->realEstate->city;
         }
-        if($realEstate->show == 3){
+        if($this->realEstate->show == 3){
             $address = $this->realEstate->street . ' ' . $this->realEstate->number .  '<br>' . $this->realEstate->country . '-' . $this->realEstate->zip . ' ' . $this->realEstate->city;
         }
         $this->MultiCell(297/2-12, 8, $address, null, 'R', false, null, 297/2, null, true, null, true  );
