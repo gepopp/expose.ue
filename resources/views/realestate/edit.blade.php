@@ -6,7 +6,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <span>Neue Immobilie</span><span><a href="{{ route('home') }}" class="btn btn-default btn-sm">Alle Immobilien</a></span>
+                        <span>Immobilie bearbeiten</span><span><a href="{{ route('home') }}" class="btn btn-default btn-sm">Alle Immobilien</a></span>
+                        @include('realestate.nav')
                     </div>
                     <div class="card-body">
 
