@@ -8,6 +8,7 @@ use App\File;
 class RealEstateText extends Model
 {
     protected $guarded = [];
+    protected $with = ['image'];
 
 
     public function image(){

@@ -13,7 +13,17 @@
                             @csrf
                             @method('PUT')
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12">
+                                    <label>Titelbild</label>
+                                    <upload-crop :ratio="1" existingimage="{{ $realEstateText->image->blob() }}"></upload-crop>
+                                    @if ($errors->has('file_id'))
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $errors->first('file_id') }}</strong>
+                                        </span>
+                                    @endif
+                                    <hr>
+                                </div>
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label for="name">{{ __('Titel*') }}</label>
                                         <input id="name" maxlength="100" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?: $realEstateText->name }}" required autofocus>
@@ -38,20 +48,6 @@
                                         </span>
                                     @endif
 
-                                </div>
-                                <div class="col-6">
-                                    <label>Titelbild</label>
-                                    <file-upload
-                                            mfile="{{ json_encode( [$realEstateText->image] ) }}"
-                                            uploadable="RealEstate" uploadableid="{{ $realEstateText->id }}"
-                                            maxfiles="1"
-                                            folder="textimages"
-                                    ></file-upload>
-                                    @if ($errors->has('file_id'))
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $errors->first('file_id') }}</strong>
-                                        </span>
-                                    @endif
                                 </div>
                             </div>
                             <div class="row">
@@ -79,5 +75,12 @@
 
     export default {
         components: {UploadLockedSubmitButton}
+    }
+</script>
+<script>
+    import UploadCrop from "../../../js/components/UploadCrop";
+
+    export default {
+        components: {UploadCrop}
     }
 </script>

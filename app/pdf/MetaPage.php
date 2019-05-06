@@ -49,7 +49,7 @@ class MetaPage
             $pdf->setPrintFooter(true);
             $pdf->SetTextColor(80,80,80);
 
-
+            $pdf->setPageBreakImage(Storage::url($realEstateMeta->image->path));
             $pdf->Image(Storage::url($realEstateMeta->image->path), 149, 30, 297 / 2, null, null, null, null, false);
 
             $pdf->SetXY(12, 30);

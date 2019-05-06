@@ -45,11 +45,8 @@ class TextPage
         $pdf->AddPage();
         $pdf->setPrintFooter(true);
 
-
-        $image = Storage::get($realEstateText->image->path);
-        $resize = Image::make($image)->fit((int)((297 / 2) * 3), 150 * 3)->save(public_path('tmp/') . $realEstateText->image->name);
-        $pdf->setPageBreakImage(public_path('tmp/' . $realEstateText->image->name));
-        $pdf->Image(public_path('tmp/' . $realEstateText->image->name), 149, 30, 297 / 2, null, null, null, null, false);
+        $pdf->setPageBreakImage(Storage::url( $realEstateText->image->path ));
+        $pdf->Image(Storage::url( $realEstateText->image->path ), 149, 30, 297 / 2, null, null, null, null, false);
 
 
         $pdf->SetFont('helvetica', null, 12);

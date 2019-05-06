@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\HasFile;
 use App\RealEstate;
 use App\RealEstateText;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use App\File;
 
 class RealEstateTextController extends Controller
 {
+    use HasFile;
     /**
      * Display a listing of the resource.
      *
@@ -40,11 +42,10 @@ class RealEstateTextController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'file_id' => 'required'
+            'file_data' => 'required'
         ],[
                 'name.required' => 'Bitte geben Sie eine Bezeichnung ein!',
                 'description.required' => 'Bitte geben Sie eine Beschreibung ein!',
-                'file_id.required' =>  'Bitte laden Sie mind. eine Datei hoch!'
             ]);
 
         $text = RealEstateText::create(array_merge([
@@ -54,10 +55,8 @@ class RealEstateTextController extends Controller
             'is_public' => $request->is_public ?: 0
             ]));
 
-
-        $text->image()->save(File::find($request->file_id));
+        $this->FileSaveTo($request, $text, 'textimage');
         return redirect(route('realestate.text.index', $realEstate));
-
     }
 
     /**
@@ -94,11 +93,11 @@ class RealEstateTextController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'file_id' => 'required'
+            'file_data' => 'required'
         ],[
             'name.required' => 'Bitte geben Sie eine Bezeichnung ein!',
             'description.required' => 'Bitte geben Sie eine Beschreibung ein!',
-            'file_id.required' =>  'Bitte laden Sie mind. eine Datei hoch!'
+            'file_data.required' =>  'Bitte laden Sie mind. eine Datei hoch!'
         ]);
 
        $realEstateText->update([
@@ -107,9 +106,10 @@ class RealEstateTextController extends Controller
             'description' => $request->description,
             'is_public' => $request->is_public ?: 0
         ]);
-
-
-        $realEstateText->image()->save(File::find($request->file_id));
+        if( $request->file_changed == "true"){
+            $realEstateText->image->delete();
+            $this->FileSaveTo($request, $realEstateText, 'textimages');
+        }
         return redirect(route('realestate.text.index', $realEstate));
     }
 

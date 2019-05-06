@@ -40,7 +40,7 @@ class TextSnippetController extends Controller
     {
         $request->validate([
            'title' => 'required',
-           'text' => 'required'
+           'text' => 'required',
         ]);
 
         TextSnippet::create([

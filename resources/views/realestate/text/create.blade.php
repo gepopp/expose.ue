@@ -13,7 +13,17 @@
                         <form method="post" action="{{ route('realestate.text.store', $realEstate) }}">
                             @csrf
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12">
+                                    <label>Titelbild</label>
+                                    <upload-crop></upload-crop>
+                                    @if ($errors->has('file_id'))
+                                        <div>
+                                            <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
+                                        </div>
+                                    @endif
+                                    <hr>
+                                </div>
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label for="name">{{ __('Titel*') }}</label>
                                         <input id="name" maxlength="100" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
@@ -35,18 +45,8 @@
                                             <span class="text-danger"><strong>{{ $errors->first('description') }}</strong></span>
                                         </div>
                                     @endif
-
                                 </div>
-                                <div class="col-6">
 
-                                    <label>Titelbild</label>
-                                    <file-upload mfile="null" maxfiles="1" folder="testimages"></file-upload>
-                                    @if ($errors->has('file_id'))
-                                        <div>
-                                            <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
-                                        </div>
-                                    @endif
-                                </div>
                             </div>
 
                             <div class="row">
