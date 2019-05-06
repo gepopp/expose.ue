@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\File;
+use App\HasFile;
 use App\ObjektMeta;
 use App\RealEstate;
 use App\RealEstateMeta;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Jobs\SaveImageWithThumbnail;
 
 class RealEstateController extends Controller
 {
+
+    use HasFile;
+
     /**
      * Show the form for creating a new resource.
      *
@@ -29,37 +35,31 @@ class RealEstateController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
            'name' => 'required|max:100',
-           'description' => 'required',
-           'file_id' => 'required|exists:files,id'
+           'file_data' => 'required'
         ],[
             'name.required' => 'Bitte geben Sie eine Bezeichnung ein!',
-            'description.required' => 'Bitte geben Sie eine Beschreibung ein!',
-            'file_id.required' =>  'Bitte laden Sie mind. eine Datei hoch!'
+            'file_data.required' =>  'Bitte laden Sie mind. eine Datei hoch!'
         ]);
 
         $realEstate = RealEstate::create([
             'name' => $request->name,
-            'description' => $request->description
+            'description' => $request->description,
+            'street' => $request->street,
+            'number' => $request->number,
+            'zip' => $request->zip,
+            'city' => $request->city,
+            'country' => $request->country,
+            'show' => $request->show_address
         ]);
 
-        $realEstate->titleimage()->save(File::find($request->file_id));
-
+        $this->FileSaveTo($request, $realEstate, 'titleimages');
         return redirect(route('home'));
-
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\RealEstate  $realEstate
-     * @return \Illuminate\Http\Response
-     */
-    public function show(RealEstate $realEstate)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -83,19 +83,27 @@ class RealEstateController extends Controller
     {
         $request->validate([
             'name' => 'required|max:100',
-            'description' => 'required',
-            'file_id' => 'required|exists:files,id'
+            'file_data' => 'required'
         ],[
             'name.required' => 'Bitte geben Sie eine Bezeichnung ein!',
-            'description.required' => 'Bitte geben Sie eine Beschreibung ein!',
-            'file_id.required' =>  'Bitte laden Sie mind. eine Datei hoch!'
+            'file_data.required' =>  'Bitte laden Sie mind. eine Datei hoch!'
         ]);
 
         $realestate->update([
             'name' => $request->name,
-            'description' => $request->description
+            'description' => $request->description,
+            'street' => $request->street,
+            'number' => $request->number,
+            'zip' => $request->zip,
+            'city' => $request->city,
+            'country' => $request->country,
+            'show' => $request->show_address
         ]);
-        File::find($request->file_id)->uploadable($realestate);
+
+        if( $request->file_changed == "true"){
+            $realestate->titleimage->delete();
+            $this->FileSaveTo($request, $realestate, 'titleimages');
+        }
 
         return redirect(route('home'));
     }
@@ -108,6 +116,7 @@ class RealEstateController extends Controller
      */
     public function destroy(RealEstate $realestate)
     {
+        if($realestate->titleimage) $realestate->titleimage->delete();
         $realestate->delete();
         return back();
     }

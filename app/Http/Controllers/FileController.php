@@ -31,16 +31,10 @@ class FileController extends Controller
 
             $path = $request->file('file')->store($folder);
 
-            Image::make($file)->fit(100)->save($name);
-            $thumb_path = Storage::putFile($folder, new HFile(public_path() . '/' . $name));
-
-            unlink(public_path() . '/' . $name);
-
             $file = new File();
 
             $file->name = $name;
             $file->path = $path;
-            $file->thumb_name = $thumb_path;
             $file->size = Storage::size($path);
             $file->type = $mime;
             $file->user_id = Auth::user()->id;

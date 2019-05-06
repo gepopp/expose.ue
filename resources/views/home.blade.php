@@ -35,16 +35,23 @@
                                     </div>
                                     <div>
                                         <ul class="nav">
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">bearbeiten</a>
-                                                <div class="dropdown-menu">
+                                            <li class="nav-item">
                                                     <a href="{{ route('realestate.edit', $realEstate ) }}" class="nav-link">Grunddaten</a>
+                                            </li>
+                                            <li class="nav-item">
                                                     <a href="{{ route('realestate.address.index', $realEstate ) }}" class="nav-link">Adressen ({{ $realEstate->address->count() }})</a>
+                                            </li>
+                                            <li class="nav-item">
                                                     <a href="{{ route('galleries', $realEstate ) }}" class="nav-link">Gallerien ({{ $realEstate->gallery->count() }})</a>
+                                            </li>
+                                            <li class="nav-item">
                                                     <a href="{{ route('realestate.meta.index', $realEstate ) }}" class="nav-link">Metadaten ({{ $realEstate->meta->count() }})</a>
+                                            </li>
+                                            <li class="nav-item">
                                                     <a href="{{ route('realestate.text.index', $realEstate ) }}" class="nav-link">Texte ({{ $realEstate->text->count() }})</a>
+                                            </li>
+                                            <li class="nav-item">
                                                     <a href="{{ route('realestate.location.index', $realEstate ) }}" class="nav-link">Lagen ({{ $realEstate->location->count() }})</a>
-                                                </div>
                                             </li>
                                             <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">PDF's</a>

@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\HasFile;
 use App\ObjektMeta;
 use App\RealEstate;
 use App\RealEstateMeta;
 use Illuminate\Http\Request;
 use App\File;
+use Illuminate\Http\File as HFile;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class RealEstateMetaController extends Controller
 {
+
+    use HasFile;
     /**
      * Display a listing of the resource.
      *
@@ -39,13 +47,17 @@ class RealEstateMetaController extends Controller
      */
     public function store(Request $request, RealEstate $realEstate)
     {
+
         $request->validate([
             'name' => 'required',
-            'file_id' => 'required'
+            'file_data' => 'required'
         ],[
             'name.required' => 'Bitte geben Sie einen Titel ein!',
             'file_id.required' => "Bitte laden Sie ein Bild hoch!",
         ]);
+
+
+
 
         $objektMeta = RealEstateMeta::create([
            'real_estate_id' => $realEstate->id,
@@ -54,7 +66,7 @@ class RealEstateMetaController extends Controller
            'metadata' =>  $this->buildMetaJson($request->meta)
         ]);
 
-        $objektMeta->image()->save(File::find($request->file_id));
+        $this->FileSaveTo($request, $objektMeta);
 
         return redirect(route('realestate.meta.index', $realEstate));
 
@@ -103,7 +115,11 @@ class RealEstateMetaController extends Controller
         $metas = array_merge($ordered, $metaArr);
         $realEstateMeta->metadata = collect($metas);
 
-        return view('realestate.meta.edit')->with(['realEstate' => $realEstate, 'realEstateMeta' => $realEstateMeta]);
+        $img = Storage::get($realEstateMeta->image->path);
+        $base64 = Image::make($img)->encode('data-url');
+
+
+        return view('realestate.meta.edit')->with(['realEstate' => $realEstate, 'realEstateMeta' => $realEstateMeta, 'img' => $base64->encoded]);
     }
 
     /**
@@ -115,13 +131,20 @@ class RealEstateMetaController extends Controller
      */
     public function update(Request $request, RealEstate $realEstate, RealEstateMeta $realEstateMeta)
     {
+
         $request->validate([
             'name' => 'required',
-            'file_id' => 'required'
+            'file_data' => 'required'
         ],[
             'name.required' => 'Bitte geben Sie einen Titel ein!',
             'file_id.required' => "Bitte laden Sie ein Bild hoch!"
         ]);
+
+
+        if($request->file_changed){
+
+        }
+
 
          $realEstateMeta->update([
             'real_estate_id' => $realEstate->id,

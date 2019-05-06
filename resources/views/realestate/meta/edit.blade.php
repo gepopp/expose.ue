@@ -14,7 +14,7 @@
                             @csrf
                             @method('PUT')
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label for="name">{{ __('Titel*') }}</label>
                                         <input id="name" maxlength="100" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?: $realEstateMeta->name }}" required autofocus>
@@ -30,9 +30,9 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12">
                                     <label>Bild</label>
-                                    <file-upload mfile="{{ json_encode( [$realEstateMeta->image] ) }}" maxfiles="1" folder="metaimges"></file-upload>
+                                    <upload-crop existingImage="{{ $realEstateMeta->image->blob() }}" :ratio="1"></upload-crop>
                                     @if ($errors->has('file_id'))
                                         <div>
                                             <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
@@ -82,5 +82,11 @@
 
     export default {
         components: {GridTest}
+    }
+</script>
+<script>
+    import UploadCrop from "../../../js/components/UploadCrop";
+    export default {
+        components: {UploadCrop}
     }
 </script>

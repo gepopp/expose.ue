@@ -3,7 +3,9 @@
 namespace App\Observers;
 
 use App\File;
+use Illuminate\Http\File as HFile;
 use Illuminate\Support\Facades\Storage;
+use Image;
 
 class FileObserver
 {
@@ -15,7 +17,20 @@ class FileObserver
      */
     public function created(File $file)
     {
-        //
+       if($file->type == 'image/jpg' && !$file->thumb_name){
+
+           $image = Storage::get($file->path);
+
+           Image::make($image)->fit(100)->save(public_path('tmp/thnumb_' . $file->name));
+
+            $thumb_name =  Storage::putFile('thumbs', new HFile(public_path('tmp/thnumb_' . $file->name)));
+
+            $file->update(['thumb_name' => $thumb_name]);
+
+            unlink(public_path('tmp/thnumb_' . $file->name));
+
+       }
+
     }
 
     /**

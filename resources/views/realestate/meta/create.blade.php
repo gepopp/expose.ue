@@ -13,7 +13,7 @@
                         <form method="post" action="{{ route('realestate.meta.store', $realEstate) }}">
                             @csrf
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label for="name">{{ __('Titel*') }}</label>
                                         <input id="name" maxlength="100" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
@@ -29,14 +29,15 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12">
                                     <label>Bild</label>
-                                    <file-upload mfile="null" maxfiles="1" folder="metaimges"></file-upload>
-                                    @if ($errors->has('file_id'))
-                                        <div>
-                                            <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
-                                        </div>
-                                    @endif
+                                    <upload-crop></upload-crop>
+{{--                                    <file-upload mfile="null" maxfiles="1" folder="metaimges"></file-upload>--}}
+{{--                                    @if ($errors->has('file_id'))--}}
+{{--                                        <div>--}}
+{{--                                            <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>--}}
+{{--                                        </div>--}}
+{{--                                    @endif--}}
                                 </div>
                             </div>
                             <div class="row">
@@ -81,5 +82,11 @@
 
     export default {
         components: {GridTest}
+    }
+</script>
+<script>
+    import UploadCrop from "../../../js/components/UploadCrop";
+    export default {
+        components: {UploadCrop}
     }
 </script>

@@ -13,6 +13,17 @@
                         <form method="post" action="{{ route('realestate.store') }}">
                             @csrf
                             <div class="row">
+                                <div class="col-12">
+                                    <label>Titelbild</label>
+                                    <upload-crop :ratio="2.2"></upload-crop>
+                                    @if ($errors->has('file_id'))
+                                        <div>
+                                            <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
+                                        </div>
+                                    @endif
+                                    <hr>
+                                </div>
+
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="name">{{ __('Titel*') }}</label>
@@ -22,6 +33,68 @@
                                             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('name') }}</strong></span>
                                         @endif
                                     </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-8">
+                                            <label for="street">{{ __('Straße') }}</label>
+                                            <input id="street" maxlength="100" type="text" class="form-control{{ $errors->has('street') ? ' is-invalid' : '' }}" name="street" value="{{ old('street') }}">
+                                            @if ($errors->has('street'))
+                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('street') }}</strong></span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label for="number">{{ __('Hausnummer') }}</label>
+                                            <input id="number" maxlength="100" type="text" class="form-control{{ $errors->has('number') ? ' is-invalid' : '' }}" name="number" value="{{ old('number') }}">
+                                            @if ($errors->has('number'))
+                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('number') }}</strong></span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-2">
+                                            <label for="country">Land</label>
+                                            <select class="form-control" id="country" name="country">
+                                                <option value="DE">DE</option>
+                                                <option value="AT">AT</option>
+                                            </select>
+                                            @if ($errors->has('country'))
+                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('country') }}</strong></span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label for="zip">{{ __('Postleitzahl') }}</label>
+                                            <input id="zip" maxlength="100" type="text" class="form-control{{ $errors->has('zip') ? ' is-invalid' : '' }}" name="zip" value="{{ old('zip') }}">
+                                            @if ($errors->has('zip'))
+                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('zip') }}</strong></span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="city">{{ __('Stadt') }}</label>
+                                            <input id="city" maxlength="100" type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ old('city') }}">
+                                            @if ($errors->has('city'))
+                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('city') }}</strong></span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <p>Anzeige:</p>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="show_address" id="inlineRadio1" value="0" checked>
+                                        <label class="form-check-label" for="inlineRadio1">nicht Anzeigen</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="show_address" id="inlineRadio2" value="1">
+                                        <label class="form-check-label" for="inlineRadio2">Nur Land und Stadt</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="show_address" id="inlineRadio3" value="2">
+                                        <label class="form-check-label" for="inlineRadio3">Mit Straße</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="show_address" id="inlineRadio4" value="3">
+                                        <label class="form-check-label" for="inlineRadio4">Ganze Adresse</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
                                     <label for="description">Kurzbeschreibung</label>
                                     <w-y-s-i-w-y-g name="description" content="{{ old('description') }}"></w-y-s-i-w-y-g>
                                     @if ($errors->has('description'))
@@ -29,19 +102,8 @@
                                             <span class="text-danger"><strong>{{ $errors->first('description') }}</strong></span>
                                         </div>
                                     @endif
-
-                                </div>
-                                <div class="col-6">
-                                    <label>Titelbild</label>
-                                    <file-upload mfile="null" maxfiles="1" folder="titleimages"></file-upload>
-                                    @if ($errors->has('file_id'))
-                                        <div>
-                                            <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
-                                        </div>
-                                    @endif
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-2 offset-10">
                                     <upload-locked-submit-button></upload-locked-submit-button>
@@ -54,3 +116,10 @@
         </div>
     </div>
 @endsection
+<script>
+    import UploadCrop from "../../js/components/UploadCrop";
+
+    export default {
+        components: {UploadCrop}
+    }
+</script>

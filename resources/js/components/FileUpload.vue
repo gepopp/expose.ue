@@ -19,6 +19,7 @@
 
 <script>
     import vueDropzone from "vue2-dropzone";
+
     export default {
         components: { vueDropzone },
         props: ['mfile', 'folder', 'uploadable', 'uploadableid', 'maxfiles'],
