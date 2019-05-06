@@ -41,7 +41,10 @@ class RealEstateGalleryController extends Controller
     public function store(RealEstate $realEstate, Request $request)
     {
 
-        $request->validate(['name' => 'required', 'description' => 'required', 'file_id' => 'required'], ['name.required' => 'Bitte geben Sie eine Bezeichnung ein!', 'description.required' => 'Bitte geben Sie eine Beschreibung ein!', 'file_id.required' => 'Bitte laden Sie mind. eine Datei hoch!']);
+        $request->validate([
+            'name' => 'required',
+            'file_id' => 'required'
+        ], ['name.required' => 'Bitte geben Sie eine Bezeichnung ein!', 'description.required' => 'Bitte geben Sie eine Beschreibung ein!', 'file_id.required' => 'Bitte laden Sie mind. eine Datei hoch!']);
 
         $gallery = new RealEstateGallery();
         $gallery = $gallery->create(['name' => $request->name, 'description' => $request->description, 'real_estate_id' => $realEstate->id, 'is_public' => $request->is_public ?: 0,]);
@@ -54,16 +57,6 @@ class RealEstateGalleryController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\RealEstateGallery $realEstateGallery
-     * @return \Illuminate\Http\Response
-     */
-    public function show(RealEstateGallery $realEstateGallery)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

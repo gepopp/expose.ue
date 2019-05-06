@@ -46,7 +46,7 @@
                                         <small>( max. 10 pro Galerie)</small>
                                     </label>
                                     <file-upload
-                                            mfile="{{ json_encode($realEstateGallery->images ) }}"
+                                            mfile="{{  json_encode($realEstateGallery->images ) }}"
                                             uploadable="RealEstateGallery"
                                             uploadableid="{{ $realEstateGallery->id }}"
                                             maxfiles="10" folder="galleryimages"

@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Image;
+use App\File;
 use App\HasFile;
 use App\ObjektMeta;
 use App\RealEstate;
 use App\RealEstateMeta;
 use Illuminate\Http\Request;
-use App\File;
 use Illuminate\Http\File as HFile;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Image;
 
 class RealEstateMetaController extends Controller
 {
@@ -56,9 +55,6 @@ class RealEstateMetaController extends Controller
             'file_id.required' => "Bitte laden Sie ein Bild hoch!",
         ]);
 
-
-
-
         $objektMeta = RealEstateMeta::create([
            'real_estate_id' => $realEstate->id,
            'name' => $request->name,
@@ -66,11 +62,9 @@ class RealEstateMetaController extends Controller
            'metadata' =>  $this->buildMetaJson($request->meta)
         ]);
 
-        $this->FileSaveTo($request, $objektMeta);
+        $this->FileSaveTo($request, $objektMeta, 'metaimages');
 
         return redirect(route('realestate.meta.index', $realEstate));
-
-
     }
 
     /**
@@ -115,11 +109,7 @@ class RealEstateMetaController extends Controller
         $metas = array_merge($ordered, $metaArr);
         $realEstateMeta->metadata = collect($metas);
 
-        $img = Storage::get($realEstateMeta->image->path);
-        $base64 = Image::make($img)->encode('data-url');
-
-
-        return view('realestate.meta.edit')->with(['realEstate' => $realEstate, 'realEstateMeta' => $realEstateMeta, 'img' => $base64->encoded]);
+        return view('realestate.meta.edit')->with(['realEstate' => $realEstate, 'realEstateMeta' => $realEstateMeta]);
     }
 
     /**
@@ -141,18 +131,16 @@ class RealEstateMetaController extends Controller
         ]);
 
 
-        if($request->file_changed){
-
-        }
-
-
-         $realEstateMeta->update([
+       $realEstateMeta->update([
             'real_estate_id' => $realEstate->id,
             'name' => $request->name,
             'is_public' => $request->is_public ?: 0,
             'metadata' =>  $this->buildMetaJson($request->meta)
         ]);
-        $realEstateMeta->image()->save(File::find($request->file_id));
+        if( $request->file_changed == "true"){
+            $realEstateMeta->image->delete();
+            $this->FileSaveTo($request, $realEstateMeta, 'titleimages');
+        }
 
         return redirect(route('realestate.meta.index', $realEstate));
     }

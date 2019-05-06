@@ -23,6 +23,8 @@
                                         <div class="mr-3">
                                             @if($realEstateMeta->image)
                                                 <img src="{{ Storage::url($realEstateMeta->image->thumb_name) }}" class="img-thumbnail mr-3">
+                                            @else
+                                                <img src="{{ asset('img/thumb.jpg') }}"  class="img-fluid img-thumbnail float-left mr-3" width="80">
                                             @endif
                                         </div>
                                         <div class="w-100 ">

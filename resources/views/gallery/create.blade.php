@@ -44,7 +44,8 @@
                                     <label>Bild upload
                                         <small>( max. 10 pro Galerie)</small>
                                     </label>
-                                    <file-upload mfile="null" maxFiles="10" folder="galleryimages"></file-upload>
+                                    {{ dump(old('galleryimages')) }}
+                                    <file-upload mfile="null" maxFiles="10" folder="galleryimages"  mfile="{{  json_encode( old('galleryimages') ) }}"></file-upload>
                                     @if ($errors->has('file_id'))
                                         <div>
                                             <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
