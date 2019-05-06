@@ -67,16 +67,16 @@ class BasePdf extends TCPDF
         $this->SetXY(297 / 2 +10, 10);
         $this->SetFont('helvetica', null, 8);
 
-        $address = $realEstate->description;
+        $address = $this->realEstate->description;
 
-        if( $realEstate->show == 1 ){
-            $address = $realEstate->country . '-' . $realEstate->zip . ' ' . $realEstate->city;
+        if( $this->realEstate->show == 1 ){
+            $address = $this->realEstate->country . '-' . $this->realEstate->zip . ' ' . $this->realEstate->city;
         }
         if($realEstate->show == 2){
-            $address = $realEstate->street . '<br>' . $realEstate->country . '-' . $realEstate->zip . ' ' . $realEstate->city;
+            $address = $this->realEstate->street . '<br>' . $this->realEstate->country . '-' . $this->realEstate->zip . ' ' . $this->realEstate->city;
         }
         if($realEstate->show == 3){
-            $address = $realEstate->street . ' ' . $realEstate->number .  '<br>' . $realEstate->country . '-' . $realEstate->zip . ' ' . $realEstate->city;
+            $address = $this->realEstate->street . ' ' . $this->realEstate->number .  '<br>' . $this->realEstate->country . '-' . $this->realEstate->zip . ' ' . $this->realEstate->city;
         }
         $this->MultiCell(297/2-12, 8, $address, null, 'R', false, null, 297/2, null, true, null, true  );
     }
