@@ -138,7 +138,9 @@ class RealEstateMetaController extends Controller
             'metadata' =>  $this->buildMetaJson($request->meta)
         ]);
         if( $request->file_changed == "true"){
-            $realEstateMeta->image->delete();
+            if($realEstateMeta->image()){
+                $realEstateMeta->image->delete();
+            }
             $this->FileSaveTo($request, $realEstateMeta, 'titleimages');
         }
 
