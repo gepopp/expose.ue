@@ -48,7 +48,6 @@ class TextPage
         $pdf->setPageBreakImage(Storage::url( $realEstateText->image->path ));
         $pdf->Image(Storage::url( $realEstateText->image->path ), 149, 30, 297 / 2, null, null, null, null, false);
 
-
         $pdf->SetFont('helvetica', null, 12);
         $pdf->MultiCell(130, 4, $realEstateText->description, 0, 'J', 0, 2, '', 30, true, 0, true, true, null, 'T');
 

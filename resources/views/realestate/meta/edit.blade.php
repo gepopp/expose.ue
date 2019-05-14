@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="col-12">
                                     <label>Bild</label>
-                                    <upload-crop existingImage="{{ $realEstateMeta->image->blob() }}" :ratio="1"></upload-crop>
+                                    <upload-crop existingImage="{{ $realEstateMeta->image ? $realEstateMeta->image->blob() : '' }}" :ratio="1"></upload-crop>
                                     @if ($errors->has('file_id'))
                                         <div>
                                             <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
