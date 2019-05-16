@@ -44,40 +44,56 @@ class MetaPage
         $pdf->SetTextColor(80, 80, 80);
 
         $data = json_decode($realEstateMeta->metadata);
-        $chunks = array_chunk($data, 10);
-
+        $chunks = array_chunk($data, 20);
 
         $pdf->SetFont('helvetica', null, 12);
+        $pdf->SetFillColor(230, 230, 230);
 
-        for ($i = 1; $i <= count($chunks); $i++) {
+        foreach ($chunks as $chunk) {
 
-            if ($i % 2 == 1) {
-                $pdf->AddPage();
-                $pdf->SetXY(12, 30);
-            } else {
-                $pdf->SetXY(149, 30);
-            }
+            $pdf->AddPage();
+            $pdf->SetXY(12, 30);
 
-            $runner = 1;
-            foreach ($chunks[$i-1] as $datum) {
+            if (count($chunk) > 10) {
 
-                if ($runner % 2) {
-                    $pdf->SetFillColor(230, 230, 230);
-                } else {
-                    $pdf->SetFillColor(250, 250, 250);
+                $runner = 1;
+
+                foreach ($chunk as $datum) {
+
+                    $pdf->Cell(95, 15, $datum->name, null, 0, null, 1, null, null, null, null, null);
+                    $value = $datum->value;
+                    $pdf->Cell(35, 15, $value . ' ' . $datum->postfix, null, 0, 'R', 1);
+
+
+                    if ($runner % 2 == 0) {
+                        $pdf->Ln(15);
+                        if ($runner % 4 == 0) {
+                            $pdf->SetFillColor(230, 230, 230);
+                        } else {
+                            $pdf->SetFillColor(250, 250, 250);
+                        }
+                    } else {
+                        $pdf->Cell(12, 15, '', 0, 0, null, 0);
+                    }
+                    $runner++;
                 }
-                $pdf->Cell(95, 15, $datum->name, null, 0, null, 1, null, null, null, null, null);
-                $value = $datum->value;
-                $pdf->Cell(35, 15, $value . ' ' . $datum->postfix, null, 1, 'R', 1);
-                $runner++;
+            } else {
+                $runner = 1;
+                foreach ($chunk as $datum) {
+
+                    if ($runner % 2) {
+                        $pdf->SetFillColor(230, 230, 230);
+                    } else {
+                        $pdf->SetFillColor(250, 250, 250);
+                    }
+                    $pdf->Cell(95, 15, $datum->name, null, 0, null, 1, null, null, null, null, null);
+                    $value = $datum->value;
+                    $pdf->Cell(35, 15, $value . ' ' . $datum->postfix, null, 1, 'R', 1);
+                    $runner++;
+                }
+                $pdf->Image(Storage::url($realEstateMeta->image->path), 149, 30, 297 / 2, null, null, null, null, false);
             }
         }
-
-        if(count($chunks) % 2 == 1){
-           $pdf->Image(Storage::url($realEstateMeta->image->path), 149, 30, 297 / 2, null, null, null, null, false);
-        }
-
-
     }
 
 }

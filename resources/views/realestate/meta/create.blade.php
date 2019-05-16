@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <label>Bild</label>
-                                    <upload-crop></upload-crop>
+                                    <upload-crop :ratio="1"></upload-crop>
                                     <hr>
                                 </div>
                                 <div class="col-12">
