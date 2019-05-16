@@ -1,14 +1,14 @@
 <template>
     <div class="row">
         <div class="col-6">
-            <clipper-fixed
+            <clipper-basic
                     :ratio="ratio"
                     bg-color="black"
                     class="my-clipper"
                     ref="clipper"
                     :src="imgURL"
                     @load="imageLoaded"
-            ></clipper-fixed>
+            ></clipper-basic>
 
         </div>
         <div class="col-6 d-flex" v-if="!resultURL">
@@ -31,11 +31,12 @@
 <script>
     import VuejsClipper from 'vuejs-clipper';
     import ClipperFixed from "vuejs-clipper/src/components/clipper-fixed";
+    import ClipperBasic from "vuejs-clipper/src/components/clipper-basic";
 
     export default {
         name: "UploadCrop",
         props: ['ratio', 'existingimage'],
-        components: {ClipperFixed, VuejsClipper},
+        components: {ClipperBasic, ClipperFixed, VuejsClipper},
         data: () => {
             return {
                 src: [],

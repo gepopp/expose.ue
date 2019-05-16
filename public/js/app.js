@@ -2541,6 +2541,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_clipper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-clipper */ "./node_modules/vuejs-clipper/src/clipper.js");
 /* harmony import */ var vuejs_clipper_src_components_clipper_fixed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-clipper/src/components/clipper-fixed */ "./node_modules/vuejs-clipper/src/components/clipper-fixed.vue");
+/* harmony import */ var vuejs_clipper_src_components_clipper_basic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuejs-clipper/src/components/clipper-basic */ "./node_modules/vuejs-clipper/src/components/clipper-basic.vue");
 //
 //
 //
@@ -2571,12 +2572,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "UploadCrop",
   props: ['ratio', 'existingimage'],
   components: {
+    ClipperBasic: vuejs_clipper_src_components_clipper_basic__WEBPACK_IMPORTED_MODULE_2__["default"],
     ClipperFixed: vuejs_clipper_src_components_clipper_fixed__WEBPACK_IMPORTED_MODULE_1__["default"],
     VuejsClipper: vuejs_clipper__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -55480,7 +55483,7 @@ var render = function() {
       "div",
       { staticClass: "col-6" },
       [
-        _c("clipper-fixed", {
+        _c("clipper-basic", {
           ref: "clipper",
           staticClass: "my-clipper",
           attrs: { ratio: _vm.ratio, "bg-color": "black", src: _vm.imgURL },
