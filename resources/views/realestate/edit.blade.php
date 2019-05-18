@@ -21,7 +21,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <label>Titelbild</label>
-                                    <upload-crop :ratio="2.2" existingimage="{{ $realEstate->titleimage->blob() }}"></upload-crop>
+                                    <upload-crop :ratio="2.2" existingimage="{{ $realEstate->titleimage != null ? $realEstate->titleimage->blob() : '' }}"></upload-crop>
                                     @if ($errors->has('file_id'))
                                         <div>
                                             <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
