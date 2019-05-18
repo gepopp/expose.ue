@@ -49,24 +49,24 @@ class ImagePage
                 $image = Storage::get($imgData->path);
                 Image::make($image)->fit((int)400 *3, 300 * 3)->save(public_path('tmp/') . $imgData->name);
 
-                $w = count($chunk) > 1 ? 100 : (297 - (46*2));
+               // $w = count($chunk) > 1 ? 100 : (297 - (46*2));
                 $leftCorner = [[46, 25], [151, 25], [46, 105], [151, 105]];
-                $pdf->Image(public_path('tmp/' .$imgData->name), $leftCorner[$i][0], $leftCorner[$i][1], $w, null, null, null, null, false);
+                $pdf->Image(public_path('tmp/' .$imgData->name), $leftCorner[$i][0], $leftCorner[$i][1], 100, null, null, null, null, false);
 
                 if($imgData->alt != ''){
 
-                    $i = count($chunk) > 1 ? $i : 2;
+                    //$i = count($chunk) > 1 ? $i : 2;
 
                     $pdf->SetFillColor(0,0,0 );
                     $pdf->SetAlpha(0.5);
                     $pdf->SetFontSize(12);
                     $pdf->SetTextColor(255,255,255);
                     $pdf->SetXY($leftCorner[$i][0] , $leftCorner[$i][1]+ 68);
-                    $pdf->Cell($w,7, $imgData->alt, null, null, 'C', true, null, 1);
+                    $pdf->Cell(100,7, $imgData->alt, null, null, 'C', true, null, 1);
                     $pdf->SetAlpha(1);
                     $pdf->SetXY($leftCorner[$i][0] , $leftCorner[$i][1]+ 68);
                     $pdf->SetTextColor(255,255,255);
-                    $pdf->Cell($w,7, $imgData->alt, null, null, 'C', false, null, 1);
+                    $pdf->Cell(100,7, $imgData->alt, null, null, 'C', false, null, 1);
 
                 }
 
