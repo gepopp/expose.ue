@@ -101,7 +101,10 @@ class RealEstateController extends Controller
         ]);
 
         if( $request->file_changed == "true"){
+
+            if($realestate->titleimage)
             $realestate->titleimage->delete();
+
             $this->FileSaveTo($request, $realestate, 'titleimages');
         }
 
