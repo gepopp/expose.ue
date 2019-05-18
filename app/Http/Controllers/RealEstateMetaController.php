@@ -93,7 +93,7 @@ class RealEstateMetaController extends Controller
             foreach($exists as $exist){
                 if($meta->id == $exist->id){
                     $meta->value = $exist->value;
-                    $meta->column = $exist->column;
+                    $meta->column = $exist->column ?: 'left';
                 }
             }
         }
