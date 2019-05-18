@@ -64,3 +64,14 @@ const app = new Vue({
     el: '#app',
 });
 
+jQuery(document).ready(function ($) {
+
+    $('.catch-enter').keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            $(this).parents('.col-4').next().find('.catch-enter').focus();
+        }
+    });
+
+
+})

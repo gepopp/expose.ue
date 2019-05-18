@@ -93,6 +93,7 @@ class RealEstateMetaController extends Controller
             foreach($exists as $exist){
                 if($meta->id == $exist->id){
                     $meta->value = $exist->value;
+                    $meta->column = $exist->column;
                 }
             }
         }
@@ -163,9 +164,10 @@ class RealEstateMetaController extends Controller
 
         $to_json = [];
         foreach ($metas as $key => $meta){
-            if($meta[0]){
+            if($meta['value']){
                 $metadata = ObjektMeta::find($key);
-                $metadata->value = $meta[0];
+                $metadata->value = $meta['value'];
+                $metadata->column = !empty($meta['column']) ? $meta['column'] : 'left';
                 $to_json[] = $metadata;
             }
         }

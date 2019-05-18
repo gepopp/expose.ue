@@ -2279,6 +2279,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MetaSort",
@@ -2304,6 +2320,26 @@ __webpack_require__.r(__webpack_exports__);
         method: "POST",
         data: list
       });
+    }
+  },
+  computed: {
+    leftCol: function leftCol() {
+      var items = [];
+      this.items.forEach(function (item) {
+        if (item.column == "left" || !item.column) {
+          items.push(item);
+        }
+      });
+      return items;
+    },
+    rightCol: function rightCol() {
+      var items = [];
+      this.items.forEach(function (item) {
+        if (item.column == "right") {
+          items.push(item);
+        }
+      });
+      return items;
     }
   }
 });
@@ -55181,74 +55217,155 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
       _c(
-        "SlickList",
-        {
-          staticClass: "list-group-flush w-100",
-          attrs: { useDragHandle: true },
-          on: { input: _vm.updateList },
-          model: {
-            value: _vm.items,
-            callback: function($$v) {
-              _vm.items = $$v
-            },
-            expression: "items"
-          }
-        },
-        _vm._l(_vm.items, function(item, index) {
-          return _c(
-            "SlickItem",
+        "div",
+        { staticClass: "col-6" },
+        [
+          _c(
+            "SlickList",
             {
-              key: index,
-              staticClass: "list-group-item",
-              attrs: { index: index }
+              staticClass: "list-group-flush w-100",
+              attrs: { useDragHandle: true },
+              on: { input: _vm.updateList },
+              model: {
+                value: _vm.items,
+                callback: function($$v) {
+                  _vm.items = $$v
+                },
+                expression: "items"
+              }
             },
-            [
-              _c(
-                "span",
+            _vm._l(_vm.leftCol, function(item, index) {
+              return _c(
+                "SlickItem",
                 {
-                  directives: [{ name: "handle", rawName: "v-handle" }],
-                  staticClass: "handle"
+                  key: index,
+                  staticClass: "list-group-item",
+                  attrs: { index: index }
                 },
                 [
                   _c(
-                    "svg",
+                    "span",
                     {
-                      attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        width: "24",
-                        height: "24",
-                        viewBox: "0 0 24 24"
-                      }
+                      directives: [{ name: "handle", rawName: "v-handle" }],
+                      staticClass: "handle"
                     },
                     [
-                      _c("path", {
-                        attrs: { d: "M20 9H4v2h16V9zM4 15h16v-2H4v2z" }
-                      })
+                      _c(
+                        "svg",
+                        {
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "24",
+                            height: "24",
+                            viewBox: "0 0 24 24"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            attrs: { d: "M20 9H4v2h16V9zM4 15h16v-2H4v2z" }
+                          })
+                        ]
+                      )
                     ]
-                  )
+                  ),
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(item.name) +
+                      " " +
+                      _vm._s(item.value) +
+                      " " +
+                      _vm._s(item.postfix) +
+                      " -\n                    "
+                  ),
+                  _c("small", {
+                    domProps: { textContent: _vm._s(item.column) }
+                  })
                 ]
-              ),
-              _vm._v(
-                "\n            " +
-                  _vm._s(item.name) +
-                  "  " +
-                  _vm._s(item.value) +
-                  " " +
-                  _vm._s(item.postfix) +
-                  "\n        "
               )
-            ]
+            }),
+            1
           )
-        }),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-6" },
+        [
+          _c(
+            "SlickList",
+            {
+              staticClass: "list-group-flush w-100",
+              attrs: { useDragHandle: true },
+              on: { input: _vm.updateList },
+              model: {
+                value: _vm.items,
+                callback: function($$v) {
+                  _vm.items = $$v
+                },
+                expression: "items"
+              }
+            },
+            _vm._l(_vm.rightCol, function(item, index) {
+              return _c(
+                "SlickItem",
+                {
+                  key: index,
+                  staticClass: "list-group-item",
+                  attrs: { index: index }
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      directives: [{ name: "handle", rawName: "v-handle" }],
+                      staticClass: "handle"
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "24",
+                            height: "24",
+                            viewBox: "0 0 24 24"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            attrs: { d: "M20 9H4v2h16V9zM4 15h16v-2H4v2z" }
+                          })
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(item.name) +
+                      " " +
+                      _vm._s(item.value) +
+                      " " +
+                      _vm._s(item.postfix) +
+                      " -\n                    "
+                  ),
+                  _c("small", {
+                    domProps: { textContent: _vm._s(item.column) }
+                  })
+                ]
+              )
+            }),
+            1
+          )
+        ],
         1
       )
-    ],
-    1
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -73043,6 +73160,15 @@ Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_1__, {
 });
 var app = new Vue({
   el: '#app'
+});
+jQuery(document).ready(function ($) {
+  $('.catch-enter').keypress(function (event) {
+    var keycode = event.keyCode ? event.keyCode : event.which;
+
+    if (keycode == '13') {
+      $(this).parents('.col-4').next().find('.catch-enter').focus();
+    }
+  });
 });
 
 /***/ }),

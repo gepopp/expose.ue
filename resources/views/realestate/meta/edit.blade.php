@@ -15,6 +15,17 @@
                             @method('PUT')
                             <div class="row">
                                 <div class="col-12">
+                                    <label>Bild</label>
+                                    <upload-crop existingImage="{{ $realEstateMeta->image ? $realEstateMeta->image->blob() : '' }}" :ratio="1"></upload-crop>
+                                    @if ($errors->has('file_id'))
+                                        <div>
+                                            <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label for="name">{{ __('Titel*') }}</label>
                                         <input id="name" maxlength="100" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?: $realEstateMeta->name }}" required autofocus>
@@ -31,17 +42,6 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <label>Bild</label>
-                                    <upload-crop existingImage="{{ $realEstateMeta->image ? $realEstateMeta->image->blob() : '' }}" :ratio="1"></upload-crop>
-                                    @if ($errors->has('file_id'))
-                                        <div>
-                                            <span class="text-danger"><strong>{{ $errors->first('file_id') }}</strong></span>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
                                     <h3>Metadaten</h3>
                                 </div>
                                 @foreach(json_decode($realEstateMeta->metadata) as $meta)
@@ -49,10 +49,18 @@
                                         <div class="form-group">
                                             <label for="meta-{{$meta->slug}}">{{ $meta->name }}</label>
                                             <div class="input-group mb-2">
-                                                <input type="text" class="form-control" id="meta-{{$meta->slug}}" name="meta[{{$meta->id}}][]" value="{{ isset($meta->value) ? $meta->value : '' }}">
+                                                <input type="text" class="form-control" id="meta-{{$meta->slug}}" name="meta[{{$meta->id}}][value]" value="{{ isset($meta->value) ? $meta->value : '' }}">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">{{ $meta->postfix }}</div>
                                                 </div>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="meta[{{$meta->id}}][column]" id="column-left" value="left" {{!isset($meta->column) || $meta->column == "left" ? 'checked' : ""  }}>
+                                                <label class="form-check-label" for="column-left">links</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="meta[{{$meta->id}}][column]" id="column-right" value="right" {{ isset($meta->column) && $meta->column == "right" ? 'checked' : "" }}>
+                                                <label class="form-check-label" for="column-right">rechts</label>
                                             </div>
                                         </div>
                                     </div>

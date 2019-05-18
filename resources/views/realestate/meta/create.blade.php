@@ -28,7 +28,7 @@
                                         @endif
                                     </div>
                                     <div class="form-check mb-3">
-                                        <input class="form-check-input" type="checkbox" value="1" id="is_public" name="is_public">
+                                        <input class="form-check-input" type="checkbox" value="1" id="is_public" name="is_public" checked>
                                         <label class="form-check-label" for="is_public">
                                             öffentlich
                                         </label>
@@ -45,11 +45,19 @@
                                         <div class="form-group">
                                             <label for="meta-{{$meta->slug}}">{{ $meta->name }}</label>
                                             <div class="input-group mb-2">
-                                                <input type="text" class="form-control" id="meta-{{$meta->slug}}" name="meta[{{$meta->id}}][]">
+                                                <input type="text" class="form-control catch-enter" id="meta-{{$meta->slug}}" name="meta[{{$meta->id}}][]">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">{{ $meta->postfix }}</div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="meta[{{$meta->id}}][column]" id="column-left" value="left" checked>
+                                            <label class="form-check-label" for="column-left">links</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="meta[{{$meta->id}}][column]" id="column-right" value="right">
+                                            <label class="form-check-label" for="column-right">rechts</label>
                                         </div>
                                     </div>
                                 @endforeach
