@@ -17,7 +17,8 @@ class FileObserver
      */
     public function created(File $file)
     {
-       if( !$file->thumb_name ){
+
+       if( !$file->thumb_name && ( $file->type == 'image/jpeg' || $file->type == 'image/jpg' )){
 
            $image = Storage::get($file->path);
 
