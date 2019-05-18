@@ -42,100 +42,106 @@ class MetaPage
         $pdf->setPrintHeader(true);
         $pdf->setPrintFooter(true);
         $pdf->SetTextColor(80, 80, 80);
-
         $data = json_decode($realEstateMeta->metadata);
-
         $pdf->SetFont('helvetica', null, 12);
         $pdf->SetFillColor(230, 230, 230);
-
 
         $leftCol = [];
         $rightCol = [];
 
-
-        foreach ($data as $datum){
-            dump($datum);
-            if($datum == 'left'){
+        foreach ($data as $datum) {
+            if (!isset($datum->column) || $datum->column == 'left') {
                 $leftCol[] = $datum;
-            }else{
+            } else {
                 $rightCol[] = $datum;
             }
         }
+
+        $this->page($pdf, $leftCol, $rightCol, $realEstateMeta->image->path);
+
+    }
+
+
+    public function page($pdf, $leftCol, $rightCol, $image)
+    {
+
         $pdf->AddPage();
         $pdf->SetXY(12, 30);
 
-        while($this->linesToInsert($leftCol, $rightCol)){
+        if (count($leftCol) && count($rightCol)) {
+            $this->twoColumns($leftCol, $rightCol, $pdf, $image);
+        } else {
+            $this->oneColumn( $leftCol, $rightCol, $pdf, $image);
+        }
 
-            if(count($leftCol)){
+    }
+
+    public function oneColumn($leftCol, $rightCol, $pdf, $image)
+    {
+        $runner = 1;
+
+        $data = array_merge($leftCol, $rightCol);
+
+        foreach ($data as $datum) {
+
+            if ($runner > 10) {
+                $this->page($pdf, $leftCol, $rightCol, $image);
+                break;
+            }
+
+
+            if ($runner % 2) {
+                $pdf->SetFillColor(230, 230, 230);
+            } else {
+                $pdf->SetFillColor(250, 250, 250);
+            }
+            $pdf->Cell(95, 15, $datum->name, null, 0, null, 1, null, null, null, null, null);
+            $value = $datum->value;
+            $pdf->Cell(35, 15, $value . ' ' . $datum->postfix, null, 1, 'R', 1);
+            $runner++;
+        }
+        $pdf->Image(Storage::url($image), 149, 30, 297 / 2, null, null, null, null, false);
+    }
+
+
+    public function twoColumns($leftCol, $rightCol, $pdf, $image)
+    {
+        $runner = 1;
+        while ($this->linesToInsert($leftCol, $rightCol)) {
+
+            if ($runner > 10) {
+                $this->page($pdf, $leftCol, $rightCol, $image);
+                break;
+            }
+
+
+            if ($runner % 2 == 0) {
+                $pdf->SetFillColor(230, 230, 230);
+            } else {
+                $pdf->SetFillColor(250, 250, 250);
+            }
+
+
+            if (count($leftCol)) {
                 $data = array_shift($leftCol);
                 $pdf->SetX(12);
                 $pdf->Cell(95, 15, $data->name, null, 0, null, 1, null, null, null, null, null);
                 $pdf->Cell(35, 15, $data->value . ' ' . $data->postfix, null, 0, 'R', 1);
             }
-            if(count($rightCol)){
+            if (count($rightCol)) {
                 $data = array_shift($rightCol);
                 $pdf->SetX(154);
                 $pdf->Cell(95, 15, $data->name, null, 0, null, 1, null, null, null, null, null);
                 $pdf->Cell(35, 15, $data->value . ' ' . $data->postfix, null, 0, 'R', 1);
             }
             $pdf->Ln(15);
-
+            $runner++;
         }
-
-//
-//
-//
-//
-//
-//
-//
-//        foreach ($chunks as $chunk) {
-//
-//            $pdf->AddPage();
-//            $pdf->SetXY(12, 30);
-//
-//            if (count($chunk) > 10) {
-//
-//                $runner = 1;
-//
-//                foreach ($chunk as $datum) {
-//
-//
-//
-//
-//                    if ($runner % 2 == 0) {
-//                        $pdf->Ln(15);
-//                        if ($runner % 4 == 0) {
-//                            $pdf->SetFillColor(230, 230, 230);
-//                        } else {
-//                            $pdf->SetFillColor(250, 250, 250);
-//                        }
-//                    } else {
-//                        $pdf->Cell(12, 15, '', 0, 0, null, 0);
-//                    }
-//                    $runner++;
-//                }
-//            } else {
-//                $runner = 1;
-//                foreach ($chunk as $datum) {
-//
-//                    if ($runner % 2) {
-//                        $pdf->SetFillColor(230, 230, 230);
-//                    } else {
-//                        $pdf->SetFillColor(250, 250, 250);
-//                    }
-//                    $pdf->Cell(95, 15, $datum->name, null, 0, null, 1, null, null, null, null, null);
-//                    $value = $datum->value;
-//                    $pdf->Cell(35, 15, $value . ' ' . $datum->postfix, null, 1, 'R', 1);
-//                    $runner++;
-//                }
-//                $pdf->Image(Storage::url($realEstateMeta->image->path), 149, 30, 297 / 2, null, null, null, null, false);
-//            }
-//        }
     }
 
 
-    function linesToInsert($left, $right){
+    public function linesToInsert($left, $right)
+    {
         return max(count($left), count($right));
     }
 

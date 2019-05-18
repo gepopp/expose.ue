@@ -7,7 +7,9 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <span>{{ $realEstate->name }} - Metadaten</span>
+                            <span>{{ $realEstate->name }} - Metadaten
+                                <a href="{{ route('pdfcreator.single', [$realEstate, 'MetaPage']) }}" target="_blank">PDF</a>
+                            </span>
                             <span>
                             <a href="{{ route('realestate.meta.create', $realEstate) }}" class="btn btn-success btn-sm">neu</a>
                         </span>
@@ -24,7 +26,7 @@
                                             @if($realEstateMeta->image)
                                                 <img src="{{ Storage::url($realEstateMeta->image->thumb_name) }}" class="img-thumbnail mr-3">
                                             @else
-                                                <img src="{{ asset('img/thumb.jpg') }}"  class="img-fluid img-thumbnail float-left mr-3" width="80">
+                                                <img src="{{ asset('img/thumb.jpg') }}" class="img-fluid img-thumbnail float-left mr-3" width="80">
                                             @endif
                                         </div>
                                         <div class="w-100 ">
