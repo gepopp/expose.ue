@@ -53,11 +53,11 @@ class SnippetPage
 
         $sidebar =  Auth::user()->settings()->where('name', 'sidebar-text')->first();
 
-        $pdf->Image(public_path('img/logo.png'), ((297-24)/3)*2+20, 50, (287/3)-20 );
+        $pdf->Image(public_path('img/logo.png'), ((297-24)/3)*2+20, 30, (287/3)-20 );
 
-        $pdf->MultiCell(((297-24)/3)*2, 4, $textSnippet->text, 0, 'J', 0, 2, '', 50, true, 0, true, true, null, 'T');
+        $pdf->MultiCell(((297-24)/3)*2, 4, $textSnippet->text, 0, 'J', 0, 2, '', 30, true, 0, true, true, null, 'T');
         $pdf->SetFont('helvetica', null, 10);
-        $pdf->MultiCell(((297-24)/3)*2-38, 4, $sidebar->setting, 0, 'J', 0, 2, ((297-24)/3)*2+36, 68, true, 0, true, true, null, 'T');
+        $pdf->MultiCell(((297-24)/3)*2-38, 4, $sidebar->setting, 0, 'J', 0, 2, ((297-24)/3)*2+36, 48, true, 0, true, true, null, 'T');
 
     }
 }
