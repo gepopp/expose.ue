@@ -25,6 +25,7 @@ class FileController extends Controller
     {
 
         if ($request->file('file')) {
+
             $file = $request->file('file');
             $mime = $file->getClientMimeType();
             $name = $file->getClientOriginalName();
@@ -45,9 +46,6 @@ class FileController extends Controller
             }
 
             $file->save();
-
-
-
             return response()->json(['success' => 'Upload erfolgreich', 'id' => $file->id]);
         }
     }

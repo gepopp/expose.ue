@@ -23,7 +23,9 @@
                                     <p>{{ $realEstateGallery->name }}</p>
                                     <p>{{ $realEstateGallery->images->count() }} Bilder - <a href="{{ route('gallery.sort', [$realEstate, $realEstateGallery]) }}">sortieren und beschriften</a> </p>
                                     @foreach($realEstateGallery->images as $image)
+                                        @if($image->thumb_name)
                                         <img src="{{ Storage::url($image->thumb_name) }}" class="img-thumbnail d-inline" width="50">
+                                        @endif
                                     @endforeach
 
                                 </div>
