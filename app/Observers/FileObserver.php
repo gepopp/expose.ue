@@ -17,17 +17,17 @@ class FileObserver
      */
     public function created(File $file)
     {
-       if($file->type == 'image/jpg' && !$file->thumb_name){
+       if( !$file->thumb_name ){
 
            $image = Storage::get($file->path);
 
-           Image::make($image)->fit(100)->save(public_path('tmp/thnumb_' . $file->name));
+           Image::make($image)->fit(100)->save(public_path( $file->name ));
 
-            $thumb_name =  Storage::putFile('thumbs', new HFile(public_path('tmp/thnumb_' . $file->name)));
+            $thumb_name =  Storage::putFile('thumbs', new HFile(public_path( $file->name)));
 
             $file->update(['thumb_name' => $thumb_name]);
 
-            unlink(public_path('tmp/thnumb_' . $file->name));
+            unlink(public_path( $file->name));
 
        }
 

@@ -7,7 +7,9 @@
                 <div class="card">
                     <div class="card-header">
                         <div class=" d-flex justify-content-between">
-                            <span>Bildgallerien</span>
+                            <span>Bildgallerien
+                                <a href="{{ route('pdfcreator.single', [$realEstate, 'ImagePage']) }}" target="_blank">PDF</a>
+                            </span>
                             <span>
                             <a href="{{ route('creategallery', $realEstate) }}" class="btn btn-success btn-sm">neu</a>
                         </span>
