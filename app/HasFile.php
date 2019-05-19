@@ -18,7 +18,7 @@ trait HasFile
         $array = explode(',', $request->file_data);
         $request->file_data = null;
         $file_name = str_replace(' ', '_', $realatedObject->name) . '-' . time() . '.jpg';
-        $file_path = public_path('tmp/' . $file_name);
+        $file_path = public_path( $file_name );
         $image = Image::make($array[1])->save($file_path);
         $image->destroy();
         SaveImageWithThumbnail::dispatch($folder, $file_path, $file_name, $realatedObject, Auth::user()->id);
