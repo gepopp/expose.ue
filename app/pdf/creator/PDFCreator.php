@@ -61,7 +61,7 @@ class PDFCreator
     {
 
         foreach (glob(public_path('tmp/*')) as $file) {
-            if (file_exists($file)) {
+            if (file_exists($file) && !strpos($file, 'index')) {
                 unlink($file);
             }
         }
