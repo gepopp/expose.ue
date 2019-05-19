@@ -17,7 +17,11 @@ trait HasFile
 
         $array = explode(',', $request->file_data);
         $request->file_data = null;
-        $file_name = preg_replace('/[^A-Za-z0-9-.\/]/', '_', $realatedObject->name) . '-' . time() . '.jpg';
+
+        $clean = preg_replace('/[^A-Za-z0-9]/', '_', $realatedObject->name);
+
+
+        $file_name =  $clean .  '-' . time() . '.jpg';
         $file_path = public_path( $file_name );
         $image = Image::make($array[1])->save($file_path);
         $image->destroy();
