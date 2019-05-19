@@ -4,20 +4,34 @@
             <div class="col-6">
                 <SlickList v-model="leftCol" class="list-group-flush w-100" :useDragHandle="true" @input="updateList">
                     <SlickItem v-for="(item, index) in leftCol" :index="index" :key="index" class="list-group-item">
-                <span v-handle class="handle">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"/></svg>
-                        </span>
-                        {{ item.name }} {{ item.value }} {{ item.postfix }} <a class="float-right" @click="moveTo(index, item)">Spalte wechseln</a>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <span v-handle class="handle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"/></svg></span>
+                                {{ item.name }} {{ item.value }} {{ item.postfix }}
+                            </div>
+                            <div>
+                                <a @click="moveTo(index, item)">
+                                    <img src="/img/double_arrow.svg" width="25" height="25" >
+                                </a>
+                            </div>
+                        </div>
                     </SlickItem>
                 </SlickList>
             </div>
             <div class="col-6">
                 <SlickList v-model="rightCol" class="list-group-flush w-100" :useDragHandle="true" @input="updateList">
                     <SlickItem v-for="(item, index) in rightCol" :index="index" :key="index" class="list-group-item">
-                <span v-handle class="handle">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"/></svg>
-                        </span>
-                        {{ item.name }} {{ item.value }} {{ item.postfix }} <a class="float-right" @click="moveTo(index, item)">Spalte wechseln</a>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                               <span v-handle class="handle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"/></svg></span>
+                                {{ item.name }} {{ item.value }} {{ item.postfix }}
+                            </div>
+                            <div>
+                                <a @click="moveTo(index, item)">
+                                    <img src="/img/double_arrow.svg" width="25" height="25" >
+                                </a>
+                            </div>
+                        </div>
                     </SlickItem>
                 </SlickList>
             </div>

@@ -2293,6 +2293,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MetaSort",
@@ -55250,52 +55264,66 @@ var render = function() {
                   attrs: { index: index }
                 },
                 [
-                  _c(
-                    "span",
-                    {
-                      directives: [{ name: "handle", rawName: "v-handle" }],
-                      staticClass: "handle"
-                    },
-                    [
+                  _c("div", { staticClass: "d-flex justify-content-between" }, [
+                    _c("div", [
                       _c(
-                        "svg",
+                        "span",
                         {
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            width: "24",
-                            height: "24",
-                            viewBox: "0 0 24 24"
+                          directives: [{ name: "handle", rawName: "v-handle" }],
+                          staticClass: "handle"
+                        },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                width: "24",
+                                height: "24",
+                                viewBox: "0 0 24 24"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: { d: "M20 9H4v2h16V9zM4 15h16v-2H4v2z" }
+                              })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(item.name) +
+                          " " +
+                          _vm._s(item.value) +
+                          " " +
+                          _vm._s(item.postfix) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.moveTo(index, item)
+                            }
                           }
                         },
                         [
-                          _c("path", {
-                            attrs: { d: "M20 9H4v2h16V9zM4 15h16v-2H4v2z" }
+                          _c("img", {
+                            attrs: {
+                              src: "/img/double_arrow.svg",
+                              width: "25",
+                              height: "25"
+                            }
                           })
                         ]
                       )
-                    ]
-                  ),
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(item.name) +
-                      " " +
-                      _vm._s(item.value) +
-                      " " +
-                      _vm._s(item.postfix) +
-                      " "
-                  ),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "float-right",
-                      on: {
-                        click: function($event) {
-                          return _vm.moveTo(index, item)
-                        }
-                      }
-                    },
-                    [_vm._v("Spalte wechseln")]
-                  )
+                    ])
+                  ])
                 ]
               )
             }),
@@ -55332,52 +55360,66 @@ var render = function() {
                   attrs: { index: index }
                 },
                 [
-                  _c(
-                    "span",
-                    {
-                      directives: [{ name: "handle", rawName: "v-handle" }],
-                      staticClass: "handle"
-                    },
-                    [
+                  _c("div", { staticClass: "d-flex justify-content-between" }, [
+                    _c("div", [
                       _c(
-                        "svg",
+                        "span",
                         {
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            width: "24",
-                            height: "24",
-                            viewBox: "0 0 24 24"
+                          directives: [{ name: "handle", rawName: "v-handle" }],
+                          staticClass: "handle"
+                        },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                width: "24",
+                                height: "24",
+                                viewBox: "0 0 24 24"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: { d: "M20 9H4v2h16V9zM4 15h16v-2H4v2z" }
+                              })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(item.name) +
+                          " " +
+                          _vm._s(item.value) +
+                          " " +
+                          _vm._s(item.postfix) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.moveTo(index, item)
+                            }
                           }
                         },
                         [
-                          _c("path", {
-                            attrs: { d: "M20 9H4v2h16V9zM4 15h16v-2H4v2z" }
+                          _c("img", {
+                            attrs: {
+                              src: "/img/double_arrow.svg",
+                              width: "25",
+                              height: "25"
+                            }
                           })
                         ]
                       )
-                    ]
-                  ),
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(item.name) +
-                      " " +
-                      _vm._s(item.value) +
-                      " " +
-                      _vm._s(item.postfix) +
-                      " "
-                  ),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "float-right",
-                      on: {
-                        click: function($event) {
-                          return _vm.moveTo(index, item)
-                        }
-                      }
-                    },
-                    [_vm._v("Spalte wechseln")]
-                  )
+                    ])
+                  ])
                 ]
               )
             }),
