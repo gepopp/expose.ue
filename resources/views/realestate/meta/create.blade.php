@@ -45,7 +45,7 @@
                                         <div class="form-group">
                                             <label for="meta-{{$meta->slug}}">{{ $meta->name }}</label>
                                             <div class="input-group mb-2">
-                                                <input type="text" class="form-control catch-enter" id="meta-{{$meta->slug}}" name="meta[{{$meta->id}}][]">
+                                                <input type="text" class="form-control catch-enter" id="meta-{{$meta->slug}}" name="meta[{{$meta->id}}][value]">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">{{ $meta->postfix }}</div>
                                                 </div>

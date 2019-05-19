@@ -2293,8 +2293,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MetaSort",
@@ -2309,7 +2307,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       items: JSON.parse(this.metas),
-      dragHandle: true
+      dragHandle: true,
+      rightCol: [],
+      leftCol: []
     };
   },
   methods: {
@@ -2318,29 +2318,33 @@ __webpack_require__.r(__webpack_exports__);
       axios({
         url: '/realestate/' + ref.realestateid + '/realEstateMeta/' + ref.metaid + '/sort',
         method: "POST",
-        data: list
+        data: ref.leftCol.concat(ref.rightCol),
+        rightCol: []
       });
+    },
+    moveTo: function moveTo(index, item) {
+      if (item.column == "left") {
+        item.column = "right";
+        this.rightCol.push(item);
+        this.leftCol.splice(index, 1);
+      } else {
+        item.column = "left";
+        this.leftCol.push(item);
+        this.rightCol.splice(index, 1);
+      }
+
+      this.updateList(null);
     }
   },
-  computed: {
-    leftCol: function leftCol() {
-      var items = [];
-      this.items.forEach(function (item) {
-        if (item.column == "left" || !item.column) {
-          items.push(item);
-        }
-      });
-      return items;
-    },
-    rightCol: function rightCol() {
-      var items = [];
-      this.items.forEach(function (item) {
-        if (item.column == "right") {
-          items.push(item);
-        }
-      });
-      return items;
-    }
+  mounted: function mounted() {
+    var ref = this;
+    this.items.forEach(function (item) {
+      if (item.column == "left") {
+        ref.leftCol.push(item);
+      } else {
+        ref.rightCol.push(item);
+      }
+    });
   }
 });
 
@@ -55230,11 +55234,11 @@ var render = function() {
               attrs: { useDragHandle: true },
               on: { input: _vm.updateList },
               model: {
-                value: _vm.items,
+                value: _vm.leftCol,
                 callback: function($$v) {
-                  _vm.items = $$v
+                  _vm.leftCol = $$v
                 },
-                expression: "items"
+                expression: "leftCol"
               }
             },
             _vm._l(_vm.leftCol, function(item, index) {
@@ -55278,11 +55282,20 @@ var render = function() {
                       _vm._s(item.value) +
                       " " +
                       _vm._s(item.postfix) +
-                      " -\n                    "
+                      " "
                   ),
-                  _c("small", {
-                    domProps: { textContent: _vm._s(item.column) }
-                  })
+                  _c(
+                    "a",
+                    {
+                      staticClass: "float-right",
+                      on: {
+                        click: function($event) {
+                          return _vm.moveTo(index, item)
+                        }
+                      }
+                    },
+                    [_vm._v("Spalte wechseln")]
+                  )
                 ]
               )
             }),
@@ -55303,11 +55316,11 @@ var render = function() {
               attrs: { useDragHandle: true },
               on: { input: _vm.updateList },
               model: {
-                value: _vm.items,
+                value: _vm.rightCol,
                 callback: function($$v) {
-                  _vm.items = $$v
+                  _vm.rightCol = $$v
                 },
-                expression: "items"
+                expression: "rightCol"
               }
             },
             _vm._l(_vm.rightCol, function(item, index) {
@@ -55351,11 +55364,20 @@ var render = function() {
                       _vm._s(item.value) +
                       " " +
                       _vm._s(item.postfix) +
-                      " -\n                    "
+                      " "
                   ),
-                  _c("small", {
-                    domProps: { textContent: _vm._s(item.column) }
-                  })
+                  _c(
+                    "a",
+                    {
+                      staticClass: "float-right",
+                      on: {
+                        click: function($event) {
+                          return _vm.moveTo(index, item)
+                        }
+                      }
+                    },
+                    [_vm._v("Spalte wechseln")]
+                  )
                 ]
               )
             }),
