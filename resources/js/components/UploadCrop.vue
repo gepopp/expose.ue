@@ -55,8 +55,8 @@
 
             },
             imageLoaded: (img) => {
-                // console.log(img);
             },
+
         },
         mounted() {
 

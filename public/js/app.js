@@ -2655,8 +2655,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fileChanged = true;
       this.$eventHub.$emit('upload-done');
     },
-    imageLoaded: function imageLoaded(img) {// console.log(img);
-    }
+    imageLoaded: function imageLoaded(img) {}
   },
   mounted: function mounted() {
     this.$eventHub.$emit('upload-started', "Bitte ein Bild einfügen");
