@@ -17,7 +17,7 @@
                             @forelse($realEstates as $realEstate)
                                 <li class="list-group-item">
                                     <a href="{{ route('realestate.edit', $realEstate) }}">
-                                    @if($realEstate->titleimage)
+                                    @if($realEstate->titleimage && $realEstate->titleimage->thumb_name)
                                         <img src="{{ Storage::url($realEstate->titleimage->thumb_name) }}" class="img-fluid img-thumbnail float-left mr-3" width="80">
                                     @else
                                         <img src="{{ asset('img/thumb.jpg') }}"  class="img-fluid img-thumbnail float-left mr-3" width="80">
