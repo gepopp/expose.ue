@@ -1,14 +1,14 @@
 <template>
     <div class="row">
         <div class="col-6">
-            <clipper-basic
+            <clipper-fixed
                     :ratio="ratio"
-                    bg-color="black"
                     class="my-clipper"
                     ref="clipper"
                     :src="imgURL"
                     @load="imageLoaded"
-            ></clipper-basic>
+                    bg-color="#cc9933"
+            ></clipper-fixed>
 
         </div>
         <div class="col-6 d-flex" v-if="!resultURL">

@@ -55663,10 +55663,10 @@ var render = function() {
       "div",
       { staticClass: "col-6" },
       [
-        _c("clipper-basic", {
+        _c("clipper-fixed", {
           ref: "clipper",
           staticClass: "my-clipper",
-          attrs: { ratio: _vm.ratio, "bg-color": "black", src: _vm.imgURL },
+          attrs: { ratio: _vm.ratio, src: _vm.imgURL, "bg-color": "#cc9933" },
           on: { load: _vm.imageLoaded }
         })
       ],
