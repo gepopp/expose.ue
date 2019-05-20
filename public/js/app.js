@@ -55666,7 +55666,7 @@ var render = function() {
         _c("clipper-fixed", {
           ref: "clipper",
           staticClass: "my-clipper",
-          attrs: { ratio: _vm.ratio, src: _vm.imgURL, "bg-color": "#cc9933" },
+          attrs: { ratio: _vm.ratio, src: _vm.imgURL, "bg-color": "white" },
           on: { load: _vm.imageLoaded }
         })
       ],

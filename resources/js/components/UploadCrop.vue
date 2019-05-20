@@ -7,7 +7,7 @@
                     ref="clipper"
                     :src="imgURL"
                     @load="imageLoaded"
-                    bg-color="#cc9933"
+                    bg-color="white"
             ></clipper-fixed>
 
         </div>
