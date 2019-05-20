@@ -50,7 +50,7 @@ class PDFCreator
         $page = new $class;
         $pdf = $page->content($pdf, $realEstate);
 
-        $pdf->Output($realEstate->name . '.pdf', 'I');
+        $pdf->Output(time() . '.pdf', 'I');
         $this->cleanTmp();
 
 
