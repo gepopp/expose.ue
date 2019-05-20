@@ -5,6 +5,7 @@ namespace App\pdf;
 
 use App\RealEstate;
 use App\RealEstateGallery;
+use Faker\Provider\Base;
 use TCPDF;
 use Illuminate\Support\Facades\Storage;
 use Image;
@@ -33,45 +34,81 @@ class ImagePage
 
     public function addGalleryPage(BasePdf $pdf, RealEstateGallery $realEstateGallery)
     {
-        $pdf->SetTextColor(80,80,80);
-        $pdf->SetAutoPageBreak(false, 0);
-        $chunks = $realEstateGallery->images->chunk(4);
+        $chunks = $realEstateGallery->images->chunk(3);
 
-        foreach ($chunks as $chunk) {
+        foreach($chunks as $chunk){
+
+
             $pdf->setPageTitle($realEstateGallery->name);
-            $pdf->setPrintHeader(true);
 
+            $pdf->setPrintHeader(true);
             $pdf->AddPage();
             $pdf->setPrintFooter(true);
 
-            foreach ($chunk as $i => $imgData) {
-
-                $image = Storage::get($imgData->path);
-                Image::make($image)->fit((int)400 *3, 300 * 3)->save(public_path('tmp/') . $imgData->name);
-
-               // $w = count($chunk) > 1 ? 100 : (297 - (46*2));
-                $leftCorner = [[46, 25], [151, 25], [46, 105], [151, 105]];
-                $pdf->Image(public_path('tmp/' .$imgData->name), $leftCorner[$i][0], $leftCorner[$i][1], 100, null, null, null, null, false);
-
-                if($imgData->alt != ''){
-
-                    //$i = count($chunk) > 1 ? $i : 2;
-
-                    $pdf->SetFillColor(0,0,0 );
-                    $pdf->SetAlpha(0.5);
-                    $pdf->SetFontSize(12);
-                    $pdf->SetTextColor(255,255,255);
-                    $pdf->SetXY($leftCorner[$i][0] , $leftCorner[$i][1]+ 68);
-                    $pdf->Cell(100,7, $imgData->alt, null, null, 'C', true, null, 1);
-                    $pdf->SetAlpha(1);
-                    $pdf->SetXY($leftCorner[$i][0] , $leftCorner[$i][1]+ 68);
-                    $pdf->SetTextColor(255,255,255);
-                    $pdf->Cell(100,7, $imgData->alt, null, null, 'C', false, null, 1);
-
-                }
-
-
+            if(count($chunk) == 3){
+                $this->threeImages($chunk, $pdf, $realEstateGallery->description);
+            }
+            if(count($chunk) == 2){
+                $this->twoImages($chunk, $pdf, $realEstateGallery->description);
+            }
+            if(count($chunk) == 1){
+                $this->oneImage($chunk, $pdf, $realEstateGallery->description);
             }
         }
     }
+
+    public function threeImages($chunk, BasePdf $pdf, $description = ""){
+
+        $pdf->SetFillColor(203, 153, 50);
+        $pdf->SetTextColor(255,255,255);
+        $pdf->SetFont('helvetica', null, 12);
+        $pdf->Rect(115, 164, 170, 17.5, 'F',0,[203,153,50]);
+        $pdf->MultiCell(164,11.5, $description, 0, 'L', true, 0, 118, 167, true, 0, true, false, 0, 'M', true);
+
+
+        $corners = [ [12,30], [12,110], [115,30] ];
+        $w = [93,93, 170];
+
+        $i = 0;
+        foreach($chunk as $image){
+            $pdf->Image(Storage::url($image->path), $corners[$i][0], $corners[$i][1], $w[$i], (($w[$i]/4)*3), null, null, null, false);
+            $i++;
+        }
+    }
+
+    public function twoImages($chunk, BasePdf $pdf, $description = ""){
+
+
+        $pdf->SetFillColor(203, 153, 50);
+        $pdf->SetTextColor(255,255,255);
+        $pdf->SetFont('helvetica', null, 12);
+        $pdf->Rect(115, 164, 170, 17.5, 'F',0,[203,153,50]);
+        $pdf->MultiCell(164,11.5, $description, 0, 'L', true, 0, 118, 167, true, 0, true, false, 0, 'M', true);
+
+        $corners = [ [12,30], [153.5,30] ];
+        $w = 131.5;
+
+        $i = 0;
+        foreach($chunk as $image){
+            $pdf->Image(Storage::url($image->path), $corners[$i][0], $corners[$i][1], $w, (($w/4)*3), null, null, null, false);
+            $i++;
+        }
+    }
+
+    public function oneImage($chunk, BasePdf $pdf, $description = ""){
+
+
+
+        $image = $chunk->shift();
+        $pdf->Image(Storage::url($image->path), 48.5, 30 , 200, 150, null, null, null, false);
+
+//        $pdf->SetFillColor(203, 153, 50);
+//        $pdf->SetTextColor(255,255,255);
+//        $pdf->SetFont('helvetica', null, 12);
+//        $pdf->Rect(78.5, 164, 170, 17.5, 'F',0,[203,153,50]);
+//        $pdf->MultiCell(164,11.5, $description, 0, 'L', true, 0, 81.5, 167, true, 0, true, false, 0, 'M', true);
+
+
+    }
+
 }

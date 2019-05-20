@@ -49,9 +49,6 @@ class TitlePage
             $address = $realEstate->street . ' ' . $realEstate->number .  '<br>' . $realEstate->country . '-' . $realEstate->zip . ' ' . $realEstate->city;
         }
 
-
-
-
         $pdf->MultiCell(297/2-10, 10, $address, 1, 'L', 1, 1, 297/2+5, 210/2+55, true, 0, true, true, 60, 'M', true);
 
         return $pdf;
