@@ -82,15 +82,11 @@ class MetaPage
 
         $data = array_merge($leftCol, $rightCol);
 
+        dd($data);
+
+        $pdf->Image(Storage::url($image), 149, 30, 297 / 2, null, null, null, null, false);
+
         foreach ($data as $datum) {
-
-
-
-//            if ($runner % 10 == 1) {
-//                $pdf->AddPage();
-//                $pdf->Image(Storage::url($image), 149, 30, 297 / 2, null, null, null, null, false);
-//            }
-
 
             if ($runner % 2) {
                 $pdf->SetFillColor(230, 230, 230);
@@ -102,7 +98,6 @@ class MetaPage
             $pdf->Cell(35, 15, $value . ' ' . $datum->postfix, null, 1, 'R', 1);
             $runner++;
         }
-        $pdf->Image(Storage::url($image), 149, 30, 297 / 2, null, null, null, null, false);
     }
 
 
