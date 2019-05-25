@@ -86,10 +86,10 @@ class MetaPage
 
 
 
-            if ($runner % 10 == 1) {
-                $pdf->AddPage();
-                $pdf->Image(Storage::url($image), 149, 30, 297 / 2, null, null, null, null, false);
-            }
+//            if ($runner % 10 == 1) {
+//                $pdf->AddPage();
+//                $pdf->Image(Storage::url($image), 149, 30, 297 / 2, null, null, null, null, false);
+//            }
 
 
             if ($runner % 2) {
