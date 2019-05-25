@@ -82,8 +82,6 @@ class MetaPage
 
         $data = array_merge($leftCol, $rightCol);
 
-        dd($data);
-
         $pdf->Image(Storage::url($image), 149, 30, 297 / 2, null, null, null, null, false);
 
         foreach ($data as $datum) {
