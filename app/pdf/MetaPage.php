@@ -62,7 +62,7 @@ class MetaPage
     }
 
 
-    public function page($pdf, $leftCol, $rightCol, $image)
+    public function page( BasePdf $pdf, $leftCol, $rightCol, $image)
     {
 
         $pdf->AddPage();
@@ -71,6 +71,7 @@ class MetaPage
         if (count($leftCol) && count($rightCol)) {
             $this->twoColumns($leftCol, $rightCol, $pdf, $image);
         } else {
+            $pdf->SetAutoPageBreak(true, 30);
             $this->oneColumn( $leftCol, $rightCol, $pdf, $image);
         }
 
