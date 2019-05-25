@@ -84,9 +84,11 @@ class MetaPage
 
         foreach ($data as $datum) {
 
-            if ($runner > 10) {
-                $this->page($pdf, $leftCol, $rightCol, $image);
-                break;
+
+
+            if ($runner % 10 == 1) {
+                $pdf->AddPage();
+                $pdf->Image(Storage::url($image), 149, 30, 297 / 2, null, null, null, null, false);
             }
 
 
