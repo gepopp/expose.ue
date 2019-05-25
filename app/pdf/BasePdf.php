@@ -96,6 +96,7 @@ class BasePdf extends TCPDF
             $this->AddPage();
             $this->Image($this->pageBreakImage, 149, 30, 297 / 2);
             $this->SetMargins(12,30,12);
+            $this->SetX(12);
             return false;
         }
         return parent::AcceptPageBreak();
