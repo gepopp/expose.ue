@@ -92,6 +92,7 @@ class MetaPage
             } else {
                 $pdf->SetFillColor(250, 250, 250);
             }
+            $pdf->SetY(12);
             $pdf->Cell(95, 15, $datum->name, null, 0, null, 1, null, null, null, null, null);
             $value = $datum->value;
             $pdf->Cell(35, 15, $value . ' ' . $datum->postfix, null, 1, 'R', 1);
