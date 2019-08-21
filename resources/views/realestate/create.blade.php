@@ -53,8 +53,8 @@
                                         <div class="form-group col-2">
                                             <label for="country">Land</label>
                                             <select class="form-control" id="country" name="country">
-                                                <option value="DE">DE</option>
-                                                <option value="AT">AT</option>
+                                                <option value="DE">D</option>
+                                                <option value="AT">A</option>
                                             </select>
                                             @if ($errors->has('country'))
                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('country') }}</strong></span>
