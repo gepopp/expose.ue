@@ -41,7 +41,7 @@ class TextPage
         $pdf->setPageTitle($realEstateText->name);
 
         $pdf->SetMargins(12, 30);
-        $pdf->SetAutoPageBreak(true, 30);
+        $pdf->SetAutoPageBreak(true, 10);
         $pdf->AddPage();
         $pdf->setPrintFooter(true);
 
