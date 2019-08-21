@@ -59,8 +59,8 @@
                                         <div class="form-group col-2">
                                             <label for="country">Land</label>
                                             <select class="form-control" id="country" name="country">
-                                                <option value="D" {{ $realEstate->country == 'DE' ? 'selected' : '' }}>DE</option>
-                                                <option value="A" {{ $realEstate->country == 'AT' ? 'selected' : '' }}>AT</option>
+                                                <option value="D" {{ $realEstate->country == 'D' ? 'selected' : '' }}>D</option>
+                                                <option value="A" {{ $realEstate->country == 'A' ? 'selected' : '' }}>A</option>
                                             </select>
                                             @if ($errors->has('country'))
                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('country') }}</strong></span>
